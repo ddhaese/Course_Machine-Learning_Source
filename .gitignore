@@ -43,3 +43,8 @@ vignettes/*.pdf
 
 # R Environment Variables
 .Renviron
+
+**/.media/**
+
+_bookdowndown_files
+.media/Media.pptx
