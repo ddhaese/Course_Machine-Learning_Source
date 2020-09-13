@@ -139,9 +139,9 @@ include_graphics("img/cv_strategy.svg")
 
 (ref:cv-strategie) Een model voorbeeld van hoe een cross-validatie strategie past binnen een begeleid ML proces.
 
-## De verliesfunctie
+## De beoordelingsfunctie
 
-Met een verliesfunctie ($\varepsilon$) bereken je de prestatie van een model door de uitvoer van het model $\hat{y}$ te vergelijken met de werkelijke uikomst $y$. Er zijn veel mogelijke verschillende verliesfuncties afhankelijk van het beoogde doel en type van de uitkomst-variabele. Een populaire keuze wanneer het gaat om reële getallen is de som van de kwadraten van de verschillen (eng: _sum of squared errors_ of kort SME). In feite gaat het over de helft van de som van de kwadraten en waarom dit is, heeft te maken met de differentieerbaarheid ervan (zie &sect; [backpropagation](#nackpropagation) voor meer uitleg hierrond).
+Met een beoordelingsfunctie ($\varepsilon$; eng: _objective function_) bereken je de prestatie van een model door de uitvoer van het model $\hat{y}$ te vergelijken met de werkelijke uitkomst $y$. Er zijn veel mogelijke verschillende verliesfuncties afhankelijk van het beoogde doel en type van de uitkomst-variabele. Een populaire keuze wanneer het gaat om reële getallen is de som van de kwadraten van de verschillen (eng: _sum of squared errors_ of kort SME). In feite gaat het over de helft van de som van de kwadraten en waarom dit is, heeft te maken met de differentieerbaarheid ervan (zie &sect; [backpropagation](#nackpropagation) voor meer uitleg hierrond).
 
 \begin{equation}
   \varepsilon=E(y,\hat{y})=\frac{1}{2}\sum_{n=1}^{N}{(y_n-\hat{y}_n)^2}

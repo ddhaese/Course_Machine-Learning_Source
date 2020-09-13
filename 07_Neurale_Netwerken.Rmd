@@ -164,5 +164,57 @@ include_graphics("img/deep-learning-workflow.svg")
 
 (ref:deep-learning-workflow) De typische werkstroom voor het afhandelen van deep-learning ANN. Meer uitleg in de tekst. GEbaseerd op de werkstroom in figuur 2-14 van @buduma.
 
+## Regularisatie
+
+[Regularisatie](https://en.wikipedia.org/wiki/Regularization_(mathematics)) (eng: _regularization_) is een manier om het overfitten tegen te gaan. Het wordt algemeen gebruikt in ML en is niet bepaald specifiek voor neurale netwerken. Het is een heel eenvoudig principe. Het komt erop neer dat er aan de [beoordelingsfunctie](#beoordelingsfunctie) een term wordt toegevoegd dat te complexe modellen afstraft. Specifiek voor ANNs gaat het om een term die te grote gewichten $\mathbf{\theta}$ afstraft.
+
+\begin{equation}
+  \varepsilon'=\varepsilon+\lambda \cdot f(\theta)
+  (\#eq:regularisatie)
+\end{equation}
+
+In de formule \@ref(eq:regularisatie) dient $f(\theta)$ om de vorm aan te geven van de functie die toeneemt naarmate $||\theta||$ toeneemt en is $\lambda$ een hyperparameter die de sterkte aangeeft waarmee te grote parameters moeten worden afgestraft. Met $\lambda=0$ nemen we geen maatregelen tegen overfitting met alle gevolgen van dien. Een te grote $\lambda$-waarde is ook nefast omdat het leerproces dan te fel gehinderd wordt.
+
+Er zijn meerdere regularisatie termen mogelijk. Een gangbare regularisatie is de zogenaamde L2 regularisatie. Dit is dus een regularisatie op basis van L2, de euclidische norm (Formule \@ref(eq:euclidische-norm)).
+
+\begin{equation}
+  f(\theta)=||\mathbf{\theta}||^2=\sqrt{\theta_1 ^ 2+\theta_2 ^ 2+..+\theta_n ^ 2}
+  (\#eq:euclidische-norm)
+\end{equation}
+
+Omdat echter the vierkantswortel een vorm van schaling veroorzaakt en omdat $\lambda$ deze functie al overneemt gebruikt men meestal de volgende regularisatie-functie:
+
+\begin{equation}
+  f(\theta)=\frac12\lambda\sum{\theta^2}
+  (\#eq:l2-regularisatie)
+\end{equation}
+
+Bij elke epoch verkleinen de waarden van de parameters lineair naar nul. Daarom wordt er naar deze regularisatie verwezen met de term _weight decay_. Het gevolg is dat alle parameters a.h.w. de kans krijgen om een bijdrage te leveren in het maken van de voorspellingen.
+
+TODO: Toevoegen voorbeeld.
+
+Een andere regularisatie term is de L~1~ norm:
+
+\begin{equation}
+  f(\theta)=\lambda\sum{|\theta|}
+  (\#eq:l1-regularisatie)
+\end{equation}
+
+Deze regularisatie werkt dus in op de absolute waarde van de parameters. Als gevolg zullen er vele parameters tijdens de optimalisatie quasi nul worden (vergeet niet dat computer natuurlijk een beperkte accuraatheid hebben naar het weergeven van erg kleine getallen). Bijgevolg worden de parameters eruit gefilterd die onvoldoende bijdragen aan de voorspelling.
+
+Omdat men in de praktijk de voordelen van zowel de L~1~ als de L~2~ wil benutten bestaat er een tussenvorm: _elastisch net regularisatie_ (eng: _elastic net regularization_). Beide termen worden in dit geval aan de beoordelingsfunctie toegevoegd, de ene met een factor $\alpha \subset [0, 1]$, de andere met een factor $1-\alpha$, alweer een hyperparameter.
+
+Nog een regularisatie is de _max norm beperking_ (eng: _max norm constraint_). Hier wordt er een plafond ingesteld op de magnitude van de inkomende parameter vector van een neuron. Wordt $||\theta||_2 > c$ dan wordt de co-vector verkleind met de hoeveelheid dat het groter dan $c$ was.
+
+De laatste vorm van regularisatie noemt men _dropout_ (nl: uitval of uitvaller). Dit is een erg populaire regularisatie. Tijdens het trainen mogen neuronen actief blijven met een bepaalde waarschijnlijkheid $p_{act}$. Bij elke epoch is er dus als het ware een loterij. Elk neuron trekt een lotje $p_k$. Als de waarde van $p_k<P_{act}$, dan mag het neuron niet meespelen in de volgende ronde, anders wel. Op deze manier voorkomt men dat een neuraal netwerk té afhankelijk wordt gemaakt van bepaalde input 
+
+```{r dropout, fig.cap="(ref:dropout)"}
+include_graphics("img/dropout.svg")
+```
+
+(ref:dropout) Het proces van dropout regularisatie. De getallen zijn de probabiliteiten die het gevolg zijn van de loterij waarvan sprake is in de tekst. Aangepast van figuur 2-16 van @buduma.
+
+Om het testen mogelijk te maken tijdens zulke regularisatie, wordt de uitvoer van neuronen die niet of non-actief werden geplaatst gedeeld met de waarde $p_{act}$. Deze aanpassing noemt men _omgekeerde uitval_ (eng: _inverted dropout_).
+
 TODO: http://neuralnetworksanddeeplearning.com/chap1.html
 
