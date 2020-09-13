@@ -251,3 +251,7 @@ De afdaling zoals beschreven in vorige paragraaf baseert zich op verlies-landsch
 
 Je kan waarschijnlijk hele bibliotheken vullen met informatie over de verschillende optimalisatie-algoritmen, maar hier volstaat het om te weten dat er erg veel verschillende zijn en dat er nog actief onderzoek naar wordt gedaan.
 
+## Uitwendige invloed
+
+TODO: externe invloed op de beslissingen van een datawetenschapper met schema
+
