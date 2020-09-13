@@ -1,0 +1,194 @@
+```{r include=FALSE}
+library(knitr)
+library(data.table)
+library(reticulate)
+library(magrittr)
+library(e1071)
+
+opts_chunk$set(echo = TRUE, cache = TRUE, message = FALSE, warning = FALSE)
+
+dyad <- readRDS("r/Palette_5YR_5B_Dyad.RDS")
+palette(dyad[c(9, 20, 66)])
+```
+
+
+# ML en ethiek
+
+TBD.
+https://ec.europa.eu/digital-single-market/en/news/white-paper-artificial-intelligence-public-consultation-towards-european-approach-excellence
+
+
+## Cursor
+### Episode 2: Network
+
+- Vanilla neural networks
+- Feed-forward versus backpropagation
+- Examples of neural networks
+
+
+
+
+### Episode 3: Optimize
+
+- Introduction to Optimization
+- Delta rules and learning rate
+- Introduction to Gradient descent
+- Gradient descent with Sigmoidal neurons
+- Local minima and error surfaces
+- Momentum-based optimization
+- Learning rate adaptation
+
+### Episode 4: Learn
+
+- Underfitting and overfitting
+- Test-, train- and validation sets
+- Cross-validation and regularization
+## Episode #: Diagnosis
+### Episode 5: Convolutional
+
+- Pitfalls of Vanilla neural networks
+- Filter and feature maps
+- The convolutional layer
+
+### Episode 6: Representation learning
+
+- Principal Component Analysis
+- Autoencoders
+
+### Episode #: Reinforcement
+
+- The deep Q-network
+- Principles of reinforcement learning
+- Markov decision processes
+- Policies, agents and value learning
+
+### Episode #: Practise
+
+- Analyzing the problem
+- Choosing the algorithm
+- Choosing the right optimizer
+
+### Episode #: Hardware
+
+
+
+
+
+
+
+- Explainable AI principles
+- Model identifiability
+- Ethical danger zone
+- Activatie functions
+
+Extra vragen
+Demo's
+
+
+Note that tf.Tensor.numpy() will continue to return `np.ndarray`.
+
+https://stackoverflow.com/questions/34097281/how-can-i-convert-a-tensor-into-a-numpy-array-in-tensorflow
+https://www.kaggle.com/arunkumarramanan/ds-and-ml-cheatsheets-with-iris-classification
+https://www.wandb.com/articles/fundamentals-of-neural-networks
+
+```{r eval = FALSE}
+# https://simonepeirone.it/posts/ml-01-perceptron/
+  
+perceptron <- function(x, y, eta, niter) {
+        
+        # initialize weight vector
+        weight <- rep(0, dim(x)[2] + 1)
+        errors <- rep(0, niter)
+        
+        
+        # loop over number of epochs niter
+        for (jj in 1:niter) {
+                
+                # loop through training data set
+                for (ii in 1:length(y)) {
+                        
+                        # Predict binary label using Heaviside activation 
+                        # function
+                        z <- sum(weight[2:length(weight)] * 
+                                         as.numeric(x[ii, ])) + weight[1]
+                        if(z < 0) {
+                                ypred <- -1
+                        } else {
+                                ypred <- 1
+                        }
+                        
+                        # Change weight - the formula doesn't do anything 
+                        # if the predicted value is correct
+                        weightdiff <- eta * (y[ii] - ypred) * 
+                                c(1, as.numeric(x[ii, ]))
+                        weight <- weight + weightdiff
+                        
+                        # Update error function
+                        if ((y[ii] - ypred) != 0.0) {
+                                errors[jj] <- errors[jj] + 1
+                        }
+                        
+                }
+        }
+        
+        # weight to decide between the two species 
+        print(weight)
+        return(errors)
+}
+
+errs <- perceptron(dat[, .(Sepal.Length, Petal.Length)], dat$Species == "setosa", 1, 50)
+
+svm_model <- svm(Species ~ ., dat)
+svm_model %>% plot(dat)
+```
+
+
+```{python eval = FALSE}
+import tensorflow as tf
+
+config = tf.compat.v1.ConfigProto()
+config.gpu_options.allow_growth = True
+session = tf.compat.v1.Session(config=config)
+
+mnist = tf.keras.datasets.mnist
+
+(x_train, y_train), (x_test, y_test) = mnist.load_data()
+x_train, x_test = x_train / 255.0, x_test / 255.0
+
+model = tf.keras.models.Sequential([
+  tf.keras.layers.Flatten(input_shape=(28, 28)),
+  tf.keras.layers.Dense(128, activation='relu'),
+  tf.keras.layers.Dropout(0.2),
+  tf.keras.layers.Dense(10)
+])
+
+predictions = model(x_train[299:300]).numpy()
+preds2 = tf.nn.softmax(predictions).numpy()
+loss_fn = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)
+err1 = loss_fn(y_train[299:300], predictions).numpy()
+model.compile(optimizer='adam',
+              loss=loss_fn,
+              metrics=['accuracy'])
+model.fit(x_train, y_train, epochs=5)
+model.evaluate(x_test,  y_test, verbose=2)
+probability_model = tf.keras.Sequential([
+  model,
+  tf.keras.layers.Softmax()
+])
+predictions = probability_model(x_train[299:300])
+```
+
+
+```{r eval = FALSE}
+# Show a digit from the mnist data set
+ (1 - py$x_train[300,,]) %>% apply(2, rev) %>%  t %>% image(col=gray.colors(255), axes = FALSE)
+grid(nx=28, ny=28, col="white", lwd = 2, lty = 1)
+```
+
+  
+  Try this:
+  
+  https://towardsdatascience.com/machine-learning-part-20-dropout-keras-layers-explained-8c9f6dc4c9ab#:~:text=Dropout%20is%20a%20technique%20used,update%20of%20the%20training%20phase.
+  
+
+Voorbeelden van algoritme-soorten zijn 'lineaire regressie met elastic net regularisatie', 'support vector machine', 'deep reinforcement learning' algoritme, enz&hellip;

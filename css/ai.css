@@ -1,0 +1,42 @@
+.tag{
+  background-color: #D2EAEF;
+  border-radius: 5px;
+  padding: 0 5px;
+  font-size: .8em;
+}
+
+table, .dataTables_wrapper{
+  overflow-x: scroll !important;
+}
+
+div[style*="overflow-x"]{
+  margin-top: 30px !important;
+  margin-bottom: 40px !important;
+}
+
+th, td { min-width: 50px; }
+
+span.term {
+    border-bottom: 1px dotted;
+}
+
+h2.author{
+  font-size: .6em;
+}
+
+.figure{
+  text-align: center;
+}
+
+img {
+  border: 0;
+  transition: transform .2s;
+}
+
+img:hover {
+  transform: scale(1.5);
+}
+
+div.sourceCode + pre {
+  background: #D2EAEF !important;
+}

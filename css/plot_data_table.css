@@ -1,0 +1,30 @@
+.data-column-plot{
+  display:flex;
+  flex-direction: column;
+}
+
+.data-table-plot{
+  display:flex;
+  flex-direction: row;
+  overflow-x: scroll;
+}
+
+.data-table-plot img{
+  max-width: 5000px !important;
+}
+
+.data-block p.title{
+  font-weight: bold;
+}
+
+.data-block p.description{
+  font-style: italic;
+}
+
+.data-block p.details{
+  font-style: italic;
+}
+
+img{
+  max-width: auto !important;
+}

@@ -1,0 +1,34 @@
+```{r include=FALSE}
+library(knitr)
+
+opts_chunk$set(echo = FALSE)
+```
+
+# Inleiding tot de cursus
+
+## In een notedop
+
+In deze cursus zullen we het erg breed domein van machinaal leren (ML; eng: _machine learning_) aansnijden. Omdat de discipline zo breed is, kunnen onmogelijk alle topics aan bod komen. In plaats daarvan is er gekozen om eerst een brede basis te verschaffen rond de begrippen en principes die belangrijk zijn voor ML om ons daarna specifiek te richten op deep learning. We gaan leren hoe computers beelden kunnen herkennen en gaan zelf aan de slag om zulke algoritmes te configureren en te gebruiken. Deze aangeleerde vaardigheid maakt van een doorsnee IT-er een beginnende datawetenschapper. Gaandeweg zullen we ons echter van bewust moeten maken dat deze vaardigheid ook een aantal verantwoordelijkheden met zich meebrengt. Het gaat dan voornamelijk rond ethisch ML en ethische artificiële intelligentie (AI).
+
+## Leerdoelen
+
+Hieronder, in Tabel \@ref(tab:leerdoelen),  staan de leerdoelen opgesomd zoals ze vermeld staan in de ECTS fiches voor dit opleidingsonderdeel. In de cursus zal er naar deze leerdoelen verwezen worden met vermelding van de bijhorende code.
+
+Table: (\#tab:leerdoelen) Leerdoelen voor deze cursus
+
+|Code|Omschrijving|
+|-|-|
+|EA_LD751|Begrijpt de basis principes van machine learning|
+|EA_LD752|Herkent de verschillen tussen supervised, unsupervised en reinforcement learning|
+|EA_LD753|Begrijpt de fundamenten achter deep learning|
+|EA_LD754|Onderkent de basisprincipes van data training & Cross-validatie|
+|EA_LD755|Ontwikkelt het vermogen om zelfstandig technisch-uitdagende online workshops uit te voeren|
+|EA_LD756|Analyseert zelfstandig een probleemstelling met het oog op het bieden van een AI-gerelateerde oplossing|
+|EA_LD757|Ontwikkelt de correcte AI strategie op basis van een probleemstelling|
+|EA_LD758|Past de juiste principes toe tijdens het exploreren, hanteren en opkuisen van data|
+|EA_LD759|Herkent de risico's van onvolledige en inaccurate data|
+|EA_LD760|Gebruikt een diagnostische toolset om de performantie van ML modellen te meten|
+|EA_LD761|Beeld complexe data uit door middel van hedendaagse visualisatie tools|
+|EA_LD762|Evalueert op gepaste wijze de performantie van een algoritme.|
+|EA_LD763|Rapporteert op correcte wijze de resultaten van een ML analyse|
+

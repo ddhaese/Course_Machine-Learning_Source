@@ -1,0 +1,134 @@
+---
+title: "Appendix"
+author: "David D'Haese"
+output: html_document
+---
+
+```{r include=FALSE}
+library(knitr)
+library(data.table)
+library(magrittr)
+library(rgl)
+
+# knit_hooks$set(webgl = hook_webgl)
+opts_chunk$set(echo = TRUE, cache = TRUE, message = FALSE, warning = FALSE)
+# options(rgl.printRglwidget = TRUE)
+
+source("r/md_tools.r")
+dyad <- readRDS("r/Palette_5YR_5B_Dyad.RDS")
+palette(dyad[c(9, 20, 66)])
+```
+
+# (APPENDIX) Appendix {-}
+
+# Inwendig product, matrix-vermenigvuldiging, vectoren en tensoren
+
+De perceptron is een leeralgoritme dat de 'gewichten' $\theta$ probeert te vinden die na vermenigvuldiging met de invoer $x$ de uitkomst $y$ tracht te benaderen met $\hat{y}$.
+
+\begin{equation}
+  f(x, \theta)=\sum_{i=0}^{n}{\theta_ix_i}
+  (\#eq:perceptron-appendix)
+\end{equation} 
+
+Deze bewerking komt overeen met het [inwendig product](https://nl.wikipedia.org/wiki/Inwendig_product) van de matrix $\mathbf{x}$ met de vector $\mathbf{\theta}$:
+
+\begin{equation}
+  \mathbf{x}\cdot\mathbf{\theta}
+  (\#eq:inwendig-product)
+\end{equation} 
+
+Nemen we `iris` dataset uit een vorige [casestudy](#casestudy-onderscheiden-van-setosa), dan ziet de invoer van een neuraal netwerk $\mathbf{x}$ er als volgt uit:
+
+```{r iris-x-matrix}
+x <- iris[, 1:2] %>% cbind("Bias" = c(1, 1), .) %>% as.matrix
+```
+
+```{r iris-x-matrix-plot, results="asis", echo=FALSE}
+x %>% head %>% rbind(9999) %>% write_matex(prefix = "\\mathbf{x}=", dec = 1)
+```
+
+De eerste kolom is de nep-variabele waarvan sprake is in Stelling \@ref(def:ff-ann-noden). Nemen we hier nu de eerste rij uit, dan krijgen we een geannoteerde [_vector_](https://nl.wikipedia.org/wiki/Vector_(wiskunde). In R doen we dit:
+
+```{r iris-x-matrix-rij}
+x[1,]
+```
+
+Wiskundigen gaan een vector echter meestal voorstellen als een kolomvector. Datawetenschappers houden er dan weer van om een vector als _rijvector_ voor te stellen. Dat heeft te maken met het feit dat het aantal variabelen vaak veel kleiner is dan het aantal instanties en, zoals hierboven voor $\mathbf{x}$ gedaan werd, de matrix gemakkelijker weer te geven is. Hier gaan we de wiskundige weergave volgen, maar het resultaat moet hetzelfde zijn. We bekomen een kolomvector door deze eerste rij te [_transponeren_](https://nl.wikipedia.org/wiki/Getransponeerde_matrix), i.e. we maken van de rijen kolommen:
+
+```{r iris-x-matrix-rij-math, echo=FALSE, results="asis"}
+x[1,, drop = FALSE] %>% as.matrix %>% t %>%
+  write_matex(prefix = "\\mathbf{x^T_1}=", dec = 1)
+```
+
+We kunnen deze vector interpreteren als een pijl in een 3-dimensionaal assenstelsel vertrekkende van de oorsprong en met de punt ter hoogte van 1 op de as `Bias`, 5.1 richting as `Sepal.Length` en 3.5 richting `Sepal.Width`:
+
+
+```{r iris-vector-creation, eval=FALSE, echo=FALSE}
+open3d()
+plot3d(x)
+arrow3d(c(0, 0, 0), x[1,], s = .1, width = .3, add = TRUE)
+writeWebGL( filename="img/vector.html" ,  width=600, height=600)
+```
+
+<iframe width="100%" height="650px" src="img/vector.html" sandbox="allow-same-origin allow-scripts allow-popups allow-forms" style="border:0px;"></iframe>
+
+Maar opgelet:
+
+```{definition vector}
+Het typeert een vector dat het uit waarden bestaat die elke op hun eigen dimensie in een $p$-dimensionale ruimte geprojecteerd kunnen worden en dat het niet afhangt van de set van eenheidsvectoren of van coördinatenstelsel.
+```
+
+Nu gaan we over naar de parameters. Uit het resultaat van het eenvoudigste artificieel neuraal netwerk uit de &sect; [Inleiding tot ANN's](#inleiding-tot-anns) halen we de parameters die nodig zijn voor het berekenen van de uitvoer-node voor de uitkomst _setosa_:
+
+$$\mathbf{\theta_{setosa}^T}=\begin{bmatrix}
+0.773&-0.374&0.571 \\
+\end{bmatrix}$$
+
+Dit noemen we een covector of [lineaire functionaal](https://nl.wikipedia.org/wiki/Lineaire_functionaal).
+
+```{definition covector}
+Het typeert een covector om niet uitgedrukt te kunnen worden in bepaalde eenheden.  Covectoren zijn dus eenheidsloos en dienen als lineaire afbeelding (eng: _linear map_) om een vector te transformeren naar een andere vector. Het is de veralgemening van deze in elkaar transformeerbare vectoren die met _tensoren_ noemt en de term "tensorflow" komt voort uit het het herhaaldelijk moeten uitvoeren van deze transformaties.
+```
+
+Er rest ons nu alleen maar de matrix-vermenigvuldiging uit te voeren. Dit doen volgens het schema in Figuur \@ref(fig:matrix-vermenigvuldiging). Deze figuur laat meteen de veralgemeende situatie zien waarbij meerdere parameter vectoren en meerdere instanties betrokken zijn. Inderdaad, alle waarden voor $z$ binnen eenzelfde laag kunnen doormiddel van één bewerking tegelijk berekend worden. 
+
+```{r matrix-vermenigvuldiging, echo=FALSE, fig.cap="(ref:matrix-vermenigvuldiging)"}
+include_graphics("img/matrix-vermenigvuldiging.svg")
+```
+
+(ref:matrix-vermenigvuldiging) Matrix-vermenigvuldiging van. De vermenigvuldiging van twee matrices kan kan dus enkel indien het aantal kolommen van de eerste matrix overeenkomt met het aantal rijen van de tweede. (gebaseerd op [deze afbeeldingr](https://nl.wikipedia.org/wiki/Matrixvermenigvuldiging#/media/Bestand:Matrix_multiplication_diagram.PNG))
+
+Nu kunnen we terug de wiskundige wereld verlaten en de datawetenschapper wereld betreden, en kunnen de dat kantelen (transponeren) van de matrices vergeten. In R voer je een matrix-vermenigvuldiging uit door middel van de `%*%` operator:
+
+```{r matrix-vermenigvuldiging-r, eval=FALSE}
+set.seed(42)
+x <- rnorm(15, 10, 3) %>% matrix(5, 3)
+theta <- runif(6) %>% matrix(3, 2)
+z <- x %*% theta
+```
+
+```{r matrix-vermenigvuldiging-r-plot, echo=FALSE, eval=FALSE}
+x%>% write_matex( dec = 1)
+```
+
+$$z=\mathbf{x}\cdot\mathbf{\theta}=\begin{bmatrix}
+14.1&9.7&13.9 \\
+8.3&14.5&16.9 \\
+11.1&9.7&5.8 \\
+11.9&16.1&9.2 \\
+11.2&9.8&9.6 \\
+\end{bmatrix}\cdot\begin{bmatrix}
+0.7&0.7 \\
+0.8&0.0 \\
+0.4&0.8 \\
+\end{bmatrix}=\begin{bmatrix}
+1.4&2.0 \\
+1.7&1.5 \\
+-0.3&-0.9 \\
+2.0&0.2 \\
+0.2&0.2 \\
+\end{bmatrix}$$
+
+```{exercise}
+Probeer nu zelf voor het eerste neuraal netwerk uit &sect; [Inleiding tot ANN's](#inleiding-tot-anns) de resultaten in `nn$net.result` te bekomen door de invoergegevens te vermenigvuldigen met de parameters in `nn$weights`.
+```

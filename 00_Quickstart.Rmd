@@ -1,0 +1,240 @@
+---
+title: "Quickstart"
+author: "David D'Haese"
+output: html_document
+---
+
+```{r include=FALSE}
+library(knitr)
+
+opts_chunk$set(echo = FALSE)
+```
+
+# Getting Started
+
+## Git
+
+[Git](https://nl.wikipedia.org/wiki/Git_(software)) is een versiebeheersysteem en samenwerkingstool.
+
+## Computations using GPU
+
+Computations using machines are typically being carried out using some kind of physical processing units. On many systems there are at least two types of processing units that can perform computations: CPUs (central processing units) and GPUs (graphics processing unit), the latter being originally employed for manipulation of images and for game development. While their constituent parts are similar, their architectures differ greatly:
+
+```{r cpu-gpu, fig.cap="(ref:cpu-gpu)"}
+knitr::include_graphics("img/cpu_gpu.svg")
+```
+
+(ref:cpu-gpu) The high-level differences between CPUs and GPUs.
+
+In a CPU, the control and the cache are governed centrally in the number of arithmetic logic units (ALUs) is limited. In a GPU, control and cache are more distributed and there are many more ALUs. As a consequence, CPUs are more versatile, 'smarter' and faster and work best for singular but complex computations. GPUs, on the other hand, are better equipped to handle massive parallel tasks consisting of repetitive but simple computations.
+
+## Installing CUDA (optional)
+
+In 2007 NVIDIA released CUDA® ([Compute Unified Device Architecture](https://nl.wikipedia.org/wiki/CUDA)). CUDA is a parallel computing platform and programming model that enables dramatic increases in computing performance by harnessing the power of the GPU. You can download the platform from [here](https://developer.nvidia.com/cuda-downloads), but before you install it, check that your system is compatible and read the disclaimers provided. For Windows operating systems you can find additional information [here](https://docs.nvidia.com/cuda/cuda-installation-guide-microsoft-windows/index.html). Mind that the above is optional. You can run all the material provided in this course without the GPU computation option. If you plan to install CUDA anyway, make sure to check out the detailed [installation steps that worked for the author](#installation-steps-that-worked-for-the-author) first.
+
+## The R language
+
+[R](https://www.r-project.org/) is a [turing-complete](https://en.wikipedia.org/wiki/Turing_completeness) programming language focusing on specifically on data analysis. It is the most popular among statisticians and data scientists and in comparison to Python it is often said to be the brains whereas Python is said to be the muscles (see @RvsPython):
+
+```{r r-versus-python, fig.cap="(ref:r-versus-python)", out.width="250px"}
+include_graphics(paste0("https://i0.wp.com/ucanalytics.com/blogs/wp-content/",
+  "uploads/2015/10/Superman-Vs-Batman.jpg?w=582"))
+```
+
+(ref:r-versus-python) In an article on his channel called _YOU CANalytics_, Roopam Upadhyay has compared R with Batman and Python with Superman. Such a comparison is deemed to be opinionated, and I believe that some of the differences explained in the article are not unconditionally valid, but at least it debunks some of the long held beliefs about the R language.
+
+For Windows systems, you can download the latest stable R version from [here](https://cran.r-project.org/bin/windows/base/). It comes with a number of very useful functions already in the`base` namespace Again, make sure to continue reading first to check the [installation steps that worked for the author](#installation-steps-that-worked-for-the-author) below.
+
+## Python
+
+Python is a general-purpose programming language developed by Guido Van Rossum. The previous paragraph already discusses the differences between R and Python. In addition, some resources or platforms will rely only on one of these two languages. For these reasons, it pays of for a prospective data-scientist to manage both.
+
+```{theorem, rossum, name="Guido Van Rossum", echo = TRUE}
+<br/>![](img/Guido_Van_Rossum.png)
+
+_Guido Van Rossum_ is the father of Python. He developed the language in 1989 as a Dutch IT-specialist associated with the Mathematisch Centrum in Amsterdam, Netherlands. Originally meant as a low-threshold language for beginning programmers, it now trumps all other. See for yourself on [Google trends](https://trends.google.nl/trends/explore?cat=32&date=today%205-y&q=java,javascript,.NET,Python).
+```
+
+## RStudio
+
+Rstudio was found by far to be the most valuable and student-friendly IDE (integrated development environment) for working professionally with data, not just in R, but also in Python, Julia and other (scripting) languages such as SQL and Stan. In addition, it is the easiest IDE for people who have limited computer experience. Installing RStudio is free for academic use. See https://rstudio.com for more information, installation generally takes only a few minutes.
+
+## Installing Tensorflow
+
+Around 2005, Google released [Tensorflow®](https://www.tensorflow.org/). Tensorflow is an open-source Python library to aid with the development, training, building and releasing of machine learning models, particularly deep learning models. To install Tensorflow for Rstudio, visit https://tensorflow.rstudio.com/ and read the instructions there. Check the installation steps used by the author below before you start.
+
+## Installation steps that worked for the author
+
+Every system is different, so the steps below might not work for you. With these and with the links provided above, you should be able to get up and running in no time. Here is the set of instructions that worked for me, starting from scratch on a Dell XPS 15 7590 with a Windows 10 Pro operating system. For Windows users, remember check the 'set Path' option during installation, if available, or set the path manually using the [command line]](https://www.windows-commandline.com/set-path-command-line/). Also, test each step before you go to the next.
+
+1. Install [CUDA](https://docs.nvidia.com/cuda/cuda-installation-guide-microsoft-windows/index.htm) version 10.2.89_441.22 for Windows and test with `nvcc -V` anywhere at the command line prompt
+1. Install [R](https://www.r-project.org/)
+1. Install [Python](https://www.python.org/downloads/)
+1. Install [Rstudio](https://rstudio.com)
+1. Install [Miniconda](https://docs.conda.io/en/latest/miniconda.html) in a directory that contains _no spaces_ (not automatically adding to Windows PATH variable as advised, but manually)
+1. Add a python environment, here called `tf` (in the `Scripts` sub-folder of Miniconda installation folder):
+	
+```bash
+> conda create -n tf
+Collecting package metadata (current_repodata.json): done
+Solving environment: done
+
+==> WARNING: A newer version of conda exists. <==
+  current version: 4.8.3
+  latest version: 4.8.4
+
+Please update conda by running
+
+    $ conda update -n base -c defaults conda
+
+## Package Plan ##
+  environment location: […]\envs\tf
+
+Proceed ([y]/n)? y
+
+Preparing transaction: done
+Verifying transaction: done
+Executing transaction: done
+#
+# To activate this environment, use
+#
+#     $ conda activate tf
+#
+# To deactivate an active environment, use
+#
+#     $ conda deactivate
+```
+
+1. Open RStudio and, using the console, install the helper package `tensorflow` that guides the installation:
+	
+```{r eval=FALSE}
+> install.packages("tensorflow")
+
+Installing package into […]
+(as ‘lib’ is unspecified)
+also installing the dependencies ‘rappdirs’, ‘config’, ‘reticulate’, ‘tfruns’
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.6/rappdirs_0.3.1.zip'
+Content type 'application/zip' length 87285 bytes (85 KB)
+downloaded 85 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.6/config_0.3.zip'
+Content type 'application/zip' length 27334 bytes (26 KB)
+downloaded 26 KB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.6/reticulate_1.16.zip'
+Content type 'application/zip' length 1742735 bytes (1.7 MB)
+downloaded 1.7 MB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.6/tfruns_1.4.zip'
+Content type 'application/zip' length 1479931 bytes (1.4 MB)
+downloaded 1.4 MB
+
+trying URL 'https://cran.rstudio.com/bin/windows/contrib/3.6/tensorflow_2.2.0.zip'
+Content type 'application/zip' length 145036 bytes (141 KB)
+downloaded 141 KB
+
+package ‘rappdirs’ successfully unpacked and MD5 sums checked
+package ‘config’ successfully unpacked and MD5 sums checked
+package ‘reticulate’ successfully unpacked and MD5 sums checked
+package ‘tfruns’ successfully unpacked and MD5 sums checked
+package ‘tensorflow’ successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in […]
+```
+
+1. Still in RStudios console window, load the `tensorflow` package in memory (change `tf` if use you another environment name):
+
+```{r eval=FALSE}
+> install_tensorflow(version = "nightly-gpu", envname = "tf")
+```
+
+Collecting package metadata (current_repodata.json): ...working... done
+Solving environment: ...working... done
+
+## Package Plan ##
+
+  environment location: […]\envs\tf
+
+  added / updated specs:
+    - python=3.6
+
+
+The following packages will be downloaded:
+
+    package                    |            build
+    ---------------------------|-----------------
+    certifi-2020.6.20          |   py36h9f0ad1d_0         152 KB  conda-forge
+    pip-20.2.2                 |             py_0         1.1 MB  conda-forge
+    python-3.6.11              |h6f26aa1_2_cpython        18.9 MB  conda-forge
+    python_abi-3.6             |          1_cp36m           4 KB  conda-forge
+    setuptools-49.6.0          |   py36h9f0ad1d_0         919 KB  conda-forge
+    vc-14.1                    |       h869be7e_1           6 KB  conda-forge
+    vs2015_runtime-14.16.27012 |       h30e32a0_2         2.2 MB  conda-forge
+    wheel-0.35.1               |     pyh9f0ad1d_0          29 KB  conda-forge
+    wincertstore-0.2           |        py36_1003          13 KB  conda-forge
+    ------------------------------------------------------------
+                                           Total:        23.3 MB
+
+The following NEW packages will be INSTALLED:
+
+  certifi            conda-forge/win-64::certifi-2020.6.20-py36h9f0ad1d_0
+  pip                conda-forge/noarch::pip-20.2.2-py_0
+  python             conda-forge/win-64::python-3.6.11-h6f26aa1_2_cpython
+  python_abi         conda-forge/win-64::python_abi-3.6-1_cp36m
+  setuptools         conda-forge/win-64::setuptools-49.6.0-py36h9f0ad1d_0
+  vc                 conda-forge/win-64::vc-14.1-h869be7e_1
+  vs2015_runtime     conda-forge/win-64::vs2015_runtime-14.16.27012-h30e32a0_2
+  wheel              conda-forge/noarch::wheel-0.35.1-pyh9f0ad1d_0
+  wincertstore       conda-forge/win-64::wincertstore-0.2-py36_1003
+
+[…]
+
+Collecting tf-nightly-gpu
+  Downloading tf_nightly_gpu-2.4.0.dev20200822-cp36-cp36m-win_amd64.whl (282.9 MB)
+
+[…]
+
+Installation complete.
+
+Warning messages:
+1: In normalizePath(path.expand(path), winslash, mustWork) :
+  path[1]="[…]\Miniconda\envs\tf/python.exe": Het systeem kan het opgegeven bestand niet vinden
+2: In normalizePath(path.expand(path), winslash, mustWork) :
+  path[1]="[…]\Miniconda\envs\tf/python.exe": Het systeem kan het opgegeven bestand niet vinden
+
+Restarting R session...
+
+
+NVIDIA’s platforms and application frameworks enable developers to build a wide array of AI applications. Consider potential algorithmic bias when choosing or creating the models being deployed. Work with the model’s developer to ensure that it meets the requirements for the relevant industry and use case; that the necessary instruction and documentation are provided to understand error rates, confidence intervals, and results; and that the model is being used under the conditions and in the manner intended.
+
+## Test tensorflow
+
+
+```{python tensorflow-test, eval=FALSE}
+import warnings
+import numpy as np
+import tensorflow as tf
+
+warnings.simplefilter(action='ignore', category=FutureWarning)
+
+# from tensorflow.python.util import deprecation
+# deprecation._PRINT_DEPRECATION_WARNINGS = False
+
+model = tf.keras.Sequential([keras.layers.Dense(units=1, input_shape=[1])])
+
+print(tf.reduce_sum(tf.random.normal([1000, 1000])))
+```
+
+
+## Waar vind ik leeralgoritmen
+
+Laten we even de theorie kort verlaten en ons met deze pragmatische vraag bezig houden. Waar kan je de verscheidene leeralgoritmen terugvinden? Je kan zo in sommige gevallen zoals voor een enkelvoudig _perceptron_ zelf gewoon coderen, maar meestal worden de algoritmen gelukkig ter beschikking gesteld. Omdat wiskundigen eerder R gebruiken zullen de nieuwere leeralgoritmen gewoonlijk eerst in R verschijnen en pas later in Python. Bij het publiceren van nieuwe methoden wordt er immers vaak van de auteurs verwacht dat ze het algoritme als R pakket (eng: _package_) registreren en publiek ter beschikking stellen. Het Comprehensive R Archive Network (CRAN), dat de R pakketten beheert en erop toeziet dat de pakketten zowel wiskundig als programmatorisch aan bepaalde standaarden voldoet, stelt zogenaamde _task views_ op met telken een overzicht van de pakketten die kunnen helpen bij een welbepaalde taak. Zoeken we naar "machine learning", komen we op honderden pakketten uit van `ahaz` tot `xgboost` [^2] en vele van deze pakketten geven toegang tot tientallen verschillende typen leeralgoritmen. Maar dat is niet alles. Op de webpagina met het [overzicht van alle task views](https://cran.r-project.org/web/views/), vinden we bijvoorbeeld het onderwerp neurolinguïstisch programmeren (eng: _natural language processing_; NLP) met nog eens tientallen pakketten specifiek rond dit thema.
+
+[^1]: Onder _instellingen_ wordt hier onder andere een combinatie van hyperparameter-waarden verstaan. Omdat deze hyperparameters meestal continue variabelen zijn, maakt dit dat er letterlijk oneindig veel instellingen mogelijk zijn. Bovendien bestaan er voor elke leeralgoritme vaak talrijke varianten, elke met hun eigen voor- en nadelen.
+
+[^2]: zie https://cran.r-project.org/web/views/MachineLearning.html.
+
+Voor Python ontwikkeling verwijzen we voor leeralgoritmen naar [scikit-learn](https://scikit-learn.org/stable/) en [Tensorflow](https://www.tensorflow.org/). Beide locaties bieden veel hulp voor beginnende datawetenschappers. Python biedt een aantal voordelen voor ML en het belangrijkste voordeel is misschien wel dat Python een algemene programmeertaal is waarmee je gemakkelijker volwaardige applicaties kunt maken of met hardware interfacen. De bewering dat Python 'krachtiger' of 'performanter' zou zijn dan R neem ik eerder met een korreltje zout. Op de weinige momenten waarop beide platformen op eerlijke wijze vergeleken worden is het verschil onbeduidend en bovendien moet je voornamelijk rekening houden met ontwikkeltijd en daar biedt Python zeker geen voordeel. Tenslotte vermeld ik hier nog even [Julia](https://julialang.org/), een opkomende taal waarin ML eenvoudiger moet worden.
+
+Merk op dat deze `train_test_split` helper-functie afkomstig is van de [`sklearn` module-bibliotheek](https://scikit-learn.org/stable/). Deze bibliotheek biedt een ruime gereedschapskist aan voor beginnende datawetenschappers. De naam komt trouwens van Science-kit $\rightarrow$ scikit $\rightarrow$ sk. 
