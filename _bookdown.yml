@@ -1,4 +1,5 @@
-output_dir: "C:/Users/David D'Haese/Documents/_TEACHING/MACHINE_LEARNING/01_COURSE/Machine_Learning/machine-learning/docs"
+output_dir: "C:/Users/David D'Haese/Documents/_TEACHING/MACHINE_LEARNING/01_COURSE/machine-learning/docs"
+
 delete_merged_file: true
 language:
   label:
@@ -18,3 +19,4 @@ language:
     solution: "Solution "
   ui:
     chapter_name: "Hoofdstuk "
+    references-name: "Bronvermelding"

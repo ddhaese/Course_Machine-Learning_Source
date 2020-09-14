@@ -1,7 +1,9 @@
 ```{r include=FALSE}
 library(knitr)
+library(reticulate)
+library(JuliaCall)
 
-opts_chunk$set(echo = FALSE)
+opts_chunk$set(echo = TRUE)
 ```
 
 # Inleiding tot de cursus
@@ -32,3 +34,30 @@ Table: (\#tab:leerdoelen) Leerdoelen voor deze cursus
 |EA_LD762|Evalueert op gepaste wijze de performantie van een algoritme.|
 |EA_LD763|Rapporteert op correcte wijze de resultaten van een ML analyse|
 
+## Cursus vorm
+
+Deze cursus is geschreven in een versie van Markdown. Markdown is een familie van zogenaamde opmaaktalen (eng: _mark-up languages_) die ervoor zorgen dat inhoud van het document in verscheidene formaten weergegeven kan worden: PDF, HTML, &hellip;. Het loskoppelen van inhoud betekent enerzijds dat de auteur zich kan focusseren op de inhoud in plaats van de vorm. Anderzijds betekent het dat de lezer in staat is zijn de vorm van de uitvoer te bepalen, bijvoorbeeld, beter leesbaarheid, donkere achtergrond, &hellip;. Voor meer technische documenten biedt Markdown nog veel belangrijkere voordelen. Het maakt het mogelijk om code in de ene of andere taal tussen de lyrische tekst te plaatsen en uit te voeren. Met de juiste IDE (Integrated Development Environment), betekent dit dat de auteur én de lezer in staat zijn om in meerdere programmeertalen tegelijkertijd te werken! 
+
+```{r markdown, echo=FALSE, fig.cap="(ref:markdown)"}
+include_graphics("img/markdown.png")
+```
+
+(ref:markdown) Werking van Markdown. De platte tekst (links) wordt omgezet naar een ander formaat (rechts; hier HTML) door een externe tool als [Pandoc](https://pandoc.org/). Stijl-regels worden hier automatisch uitgevoerd maar de auteur heeft de mogelijkheid ook deze in detail te configureren. Naast het scheiden van vormgeving en inhoud (hetgeen een merkelijke efficiëntie verbetering met zich meebrengt) ondersteund [R Markdown](https://rmarkdown.rstudio.com/) ook meertaligheid, i.e. meerdere programmeertalen in één document. Tussen een aantal talen is er zelfs wederzijdse uitwisseling mogelijk van de actieve variabelen (zie oranje markeringen met pijl). Het voorbeeld met de Mandelbrot fractaal is afkomstig van @mandelbrotjulia, waarvan de GitHub repository een bondige beschrijving geeft van de Mandelbrot verzameling (eng: _Mandelbrot set_) met een test die de performantie-winst van Julia t.o.v. R onderzoekt.
+
+## Verwijzen naar deze cursus
+
+In Bibtex-formaat:
+
+<code>
+&#64;online{dhaese2020machine-learning,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;author = {D'Haese, David},<br>
+&nbsp;&nbsp;&nbsp;&nbsp;title = "Machine Learning",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;year = "2020",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;url = "https://ddhaese.github.io/machine-learning/",<br>
+&nbsp;&nbsp;&nbsp;&nbsp;note = "[Online; accessed <span>
+<script> document.write(new Date().toISOString().substring(0, 10) + ']"');</script></span>&nbsp;&nbsp;}
+</code>
+
+APA-formaat:
+
+D’Haese, D., 2020. Machine learning [WWW Document] [Online; accessed 2020-09-14]. URL https://ddhaese.github.io/machine-learning/

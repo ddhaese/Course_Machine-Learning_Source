@@ -1,0 +1,165 @@
+---
+title: "Tensorflow"
+author: "David D'Haese"
+date: "14-9-2020"
+output: html_document
+---
+
+```{r include=FALSE}
+library(knitr)
+library(magrittr)
+library(reticulate)
+
+opts_chunk$set(echo = TRUE)
+dyad <- readRDS("r/Palette_5YR_5B_Dyad.RDS")
+
+palette(dyad[c(9, 20, 66)])
+```
+
+# TensorFlow
+
+## Inleiding
+
+TensorFlow is een ML-gebaseerde bibliotheek voor dataflow.(nl: _datastroom-georiënteerd programmeren_) in 2015 vrijgegeven door het Google [Brain team](https://en.wikipedia.org/wiki/Google_Brain). Het laat toe om het principe van [differentieerbaar programmeren](https://en.wikipedia.org/wiki/Differentiable_programming) (eng: _differentiable programming_) en symbolische wiskunde (eng: _symbolic math_) toe te passen. TensorFlow is met andere woorden een bibliotheek om _tensoren_ door middel van een dataflow te verwerken. Een tensor kan je voorstellen als een schaalbare vector. In de [Appendix](#inwendig-product-matrix-vermenigvuldiging-vectoren-en-tensoren) vind je meer uitleg over wat een tensor is en wat het verschil precies is met een reguliere vector.
+
+## Basistaken in TensorFlow
+
+Hieronder volgt de implementatie van een aantal veel voorkomende taken in TensorFlow:
+
+Definiëren van een constante:
+
+```{python tf-taken-01, eval=TRUE}
+import tensorflow as tf
+
+answer = tf.constant(42)
+```
+
+Definiëren van een variabele:
+
+```{python tf-taken-02, eval=TRUE}
+answer = tf.Variable(42, name = "The answer to life, the universe and everything")
+```
+
+Merk hier op dat de namespace van Python en TensorFlow volledig gescheiden zijn en dat biedt technische voordelen, maar het maakt het ontwikkelen een beetje stroef, want je moet voor elke variabele de TensorFlow naam toevoegen.
+
+Definiëren van een eenheidsmatrix (eng: _identity matrix_) of nulmatrix (eng: _zero matrix_):
+
+```{python tf-taken-03, eval=TRUE}
+W = tf.Variable(tf.ones(shape = (2,2)), name = "W")
+b = tf.Variable(tf.zeros(shape = (2)), name = "b")
+```
+
+Definiëren van een functie, hier om een matrix te vermenigvuldigen met een co-vector (zie [Appendix](#inwendig-product-matrix-vermenigvuldiging-vectoren-en-tensoren)):
+
+```{python tf-taken-04, eval=TRUE}
+@tf.function
+def forward(x):
+  return W * x + b
+```
+
+De lijn met `@tf.function` is een _decorator_ die aan TensorFlow de mogelijkheid geeft om de functie te optimaliseren. We kunnen nu de gedefinieerde functie eenvoudig uitvoeren:
+
+```{python tf-taken-05, eval=TRUE}
+forward([1,0])
+```
+
+In plaats van nullen en enen kunnen we matrices ook vullen met normaal-verdeelde gegevens, bijvoorbeeld voor het initialiseren van het netwerk:
+
+```{python tf-taken-06, eval=TRUE}
+W = tf.Variable(tf.random.normal([5, 5], stddev = 2, name = "W"))
+```
+
+Hier is het resultaat:
+
+```{r tf-taken-06, eval=TRUE}
+py$W$numpy()
+```
+
+
+```{python tf-taken-01, eval=TRUE}
+import tensorflow as tf
+
+answer = tf.constant = 42
+```
+
+
+
+```{python tf-taken-01, eval=TRUE}
+import tensorflow as tf
+
+answer = tf.constant = 42
+```
+
+
+
+```{python tf-taken-01, eval=TRUE}
+import tensorflow as tf
+
+answer = tf.constant = 42
+```
+
+
+
+```{python tf-taken-01, eval=TRUE}
+import tensorflow as tf
+
+answer = tf.constant = 42
+```
+
+
+
+```{python tf-taken-01, eval=TRUE}
+import tensorflow as tf
+
+answer = tf.constant = 42
+```
+
+
+
+```{python tf-taken-01, eval=TRUE}
+import tensorflow as tf
+
+answer = tf.constant = 42
+```
+
+
+
+```{python tf-taken-01, eval=TRUE}
+import tensorflow as tf
+
+answer = tf.constant = 42
+```
+
+
+
+```{python tf-taken-01, eval=TRUE}
+import tensorflow as tf
+
+answer = tf.constant = 42
+```
+
+
+
+```{python tf-taken-01, eval=TRUE}
+import tensorflow as tf
+
+answer = tf.constant = 42
+```
+
+
+
+```{python tf-taken-01, eval=TRUE}
+import tensorflow as tf
+
+answer = tf.constant = 42
+```
+
+
+
+```{python tf-taken-01, eval=TRUE}
+import tensorflow as tf
+
+answer = tf.constant = 42
+```
+
+

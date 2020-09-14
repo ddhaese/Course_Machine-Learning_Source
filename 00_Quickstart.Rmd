@@ -14,7 +14,7 @@ opts_chunk$set(echo = FALSE)
 
 ## Git
 
-[Git](https://nl.wikipedia.org/wiki/Git_(software)) is een versiebeheersysteem en samenwerkingstool.
+[Git](https://nl.wikipedia.org/wiki/Git_(software)) is een versiebeheersysteem en tool om samen te werken.
 
 ## Computations using GPU
 
