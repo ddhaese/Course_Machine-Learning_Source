@@ -30,7 +30,7 @@ Al snel werd er hardware gemaakt om het algoritme efficiënt uit te voeren, de z
 
 ## De anatomie van de perceptron
 
-```{r neuron, fig.cap="(ref:neuron)"}
+```{r neuron, fig.cap="(ref:neuron)", echo=FALSE}
 include_graphics("img/neuron.png")
 ```
 
@@ -63,7 +63,7 @@ De beste manier vaak om iets te begrijpen is om de code te zien, toch? Op basis 
 
 In de beroemde iris dataset worden een aantal eigenschappen van drie sterk gelijkende iris soorten verzameld. We kwamen deze dataset eerder al tegen in het hoofdstuk rond [model complexiteit](#model-coplexiteit).
 
-```{r iris, echo = FALSE, fig.cap = "(ref:iris)"}
+```{r iris, echo = FALSE, fig.cap = "(ref:iris)", echo=FALSE}
 include_graphics("img/iris.png")
 ```
 

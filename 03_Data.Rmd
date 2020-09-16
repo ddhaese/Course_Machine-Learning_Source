@@ -13,7 +13,7 @@ palette(dyad[c(9, 20, 66)])
 
 # Data
 
-```{r proces-focus-data}
+```{r proces-focus-data, echo=FALSE}
 include_graphics("img/proces_2.svg")
 ```
 
@@ -27,7 +27,7 @@ When it comes to ML, garbage in, garbage out (GIGO).
 
 De datawetenschapper streeft ernaar om de data die hij of zij te zien krijgt zo goed mogelijk te begrijpen. Wiskundig gezien is dat misschien niet zo belangrijk, maar het gaat hier over de ethiek. Als je van plan bent om uitspraken te doen op basis van data, ben je ook verantwoordelijk voor het opbouwen van een grondig begrip vam wat de data voor staat. 
 
-```{r gossip, fig.cap="(ref:gossip)"}
+```{r gossip, fig.cap="(ref:gossip)", echo=FALSE}
 include_graphics("img/gossip.png")
 ```
 
@@ -113,7 +113,7 @@ De data kan allerlei vormen aannemen maar de leeralgoritme kunnen niet zomaar ov
 Een leeralgoritme vereist meestal een analyse-dataset met een 'platte' structuur. Dit betekent één tabel met één instantie per rij en één variabele per kolom.
 ```
 
-```{r dataset-onderdelen, fig.cap="(ref:dataset-onderdelen)"}
+```{r dataset-onderdelen, fig.cap="(ref:dataset-onderdelen)", echo=FALSE}
 include_graphics("img/dataset-onderdelen.png")
 ```
 
@@ -123,7 +123,7 @@ include_graphics("img/dataset-onderdelen.png")
 
 Het gaat hier over de data type van de variabele, bijvoorbeeld of het gaat over een getal of over tekst. Dit lijkt sterk op de verschillende data types die men in een programmeertalen tegenkomt (integer, string, &hellip;). Maar die overeenkomst is maar oppervlakkig. Binnen de statistiek is men verplicht om meer data types te onderscheiden die niet hun gelijke kennen binnen de IT. Laten we beginnen met de meest voorkomende data types in een grafiek te zetten:
 
-```{r data-types, fig.cap="(ref:data-types)"}
+```{r data-types, fig.cap="(ref:data-types)", echo=FALSE}
 include_graphics("img/data-types.svg")
 ```
 

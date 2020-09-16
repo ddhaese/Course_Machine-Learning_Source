@@ -42,7 +42,7 @@ De datawetenschapper wil tijdens het controleren van een variabele de volgende e
 	
 <details><summary>__R__ elevantie</summary>Indien gegeven de doelstelling van het onderzoek er geen goede verantwoording (technisch noch functioneel) gevonden kan worden waarom deze variabele zou worden opgenomen (naar alle belanghebben zoals opdrachtgever en eindgebruiker algoritme), dan kan je deze ook beter niet gebruiken</details>
 
-```{r dipkever}
+```{r dipkever, echo=FALSE}
 include_graphics("img/dipkever.png")
 ```
 
@@ -77,7 +77,7 @@ library(magrittr)
 
 Zorg er eerst voor dat je deze pakketten installeert (eenmalig) via `install.packages` of via de Packages-tab in RStudio. Als alles goed verlopen is, krijg je de documentatie te zien:
 
-```{r terrorism-help}
+```{r terrorism-help, echo=FALSE}
 include_graphics("img/terrorism-help.png")
 ```
 

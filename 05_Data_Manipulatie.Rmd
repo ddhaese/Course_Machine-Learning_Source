@@ -39,7 +39,7 @@ These actions can simply be summarized as filtering out instances and/or feature
 
 Een booleaans masker is gewoon een vector of lijst van booleaanse waarden die gebruikt kunnen worden om uit data frames en data tables die rijen te selecteren die overeenkomen met `TRUE` in het masker. 
 
-```{r masker}
+```{r masker, echo=FALSE}
 include_graphics("img/masker.svg")
 ```
 

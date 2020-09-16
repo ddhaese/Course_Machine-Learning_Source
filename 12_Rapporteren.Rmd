@@ -19,7 +19,7 @@ Als wetenschapper moet je ervoor zorgen dat je analyses reproduceerbaar zijn. Di
 
 ## Beduidende cijfers
 
-```{r eiffeltoren}
+```{r eiffeltoren, echo=FALSE}
 include_graphics("img/Eiffeltoren.png")
 ```
 

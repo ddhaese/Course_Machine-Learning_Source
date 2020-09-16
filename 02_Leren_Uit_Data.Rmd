@@ -79,7 +79,7 @@ De huidige vormen van artifiële intelligentie baseren bijna uitsluitend op mach
 
 Maar wat betekent _intelligentie_ in feite? Volgens [Wikipedia](https://en.wikipedia.org/wiki/Intelligence) bestaat intelligentie uit meerdere capaciteiten zoals (logisch) _redeneren_, _begrijpen_, _zelfbewustzijn_, _aanleren_, _emotionele intelligentie_, _plannen_, _creatief zijn_, _kritisch denken_ en _probleemoplossing_. Voorlopig ligt de focus bij ML voornamelijk op het _aanleren_ al wordt ook op alle andere aspecten heel wat onderzoek verricht. We moeten voorlopig dus best nog bescheiden blijven met het gebruik van de term _artificiële intelligentie_. Het is ook heel belangrijk om te realiseren dat er vormen van intelligentie bestaan die erg verschillen van de menselijke intelligentie. Uiteraard wist je dat vele andere dieren aspecten van intelligentie kunnen bezitten. maar wist je ook dat er bij planten vormen van intelligentie werden vastgesteld en dit maakt het des te merkwaardiger gezien zij niet over een centraal zenuwstelsel beschikken.
 
-![plant-intelligence](https://youtu.be/MPql1VHbYl4?t=58)
+<iframe  width="566" height="318" src="https://www.youtube.com/embed/MPql1VHbYl4?t=57" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Het model
 
@@ -491,5 +491,6 @@ include_graphics("img/regressie4.png")
 
 We zien nu het gevolg van overfitting. Wanneer we het model blootstellen aan nieuwe data zien we dat het eenvoudige model (polynoom van graad 5) veel beter presteert dan het complexere model (polynoom van graad 7). En dat is het hem nu net allemaal om te doen! Leren om voorspellingen te maken, niet leren om de training dataset nauwkeurig te beschrijven, want dat is gewoon onthouden of hoogstens comprimeren zoals we [eerder zagen](#comprimeren-door-middel-van-een-ml). Daarom is ML veel interessanter dan regressieanalyse. Je kan stellen dat regressie (zoals de naam het eigenlijk al aangeeft) gaat over 'achterom kijken', terwijl ML gaat over 'naar de toekomst' kijken.
 
+[^1]: Onder _instellingen_ wordt hier onder andere een combinatie van hyperparameter-waarden verstaan. Omdat deze hyperparameters meestal continue variabelen zijn, maakt dit dat er letterlijk oneindig veel instellingen mogelijk zijn. Bovendien bestaan er voor elke leeralgoritme vaak talrijke varianten, elke met hun eigen voor- en nadelen.
 
 [^3]: Zie @nelder1965

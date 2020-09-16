@@ -19,13 +19,6 @@ https://ec.europa.eu/digital-single-market/en/news/white-paper-artificial-intell
 
 
 ## Cursor
-### Episode 2: Network
-
-- Vanilla neural networks
-- Feed-forward versus backpropagation
-- Examples of neural networks
-
-
 
 
 ### Episode 3: Optimize

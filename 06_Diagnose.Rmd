@@ -186,7 +186,7 @@ Het is mooi om zulke verliesfunctie in beeld te brengen, maar in werkelijkheid s
 
 De bedoeling is om het laagste punt van de hierboven gedemonstreerde verliesfunctie te vinden. Indien het werkelijk om kwadratische verlies-oppervlakten zou gaan, dan was er geen probleem omdat met het laagste punt dan analytisch zou kunnen vinden, i.e. met een relatief eenvoudige matrix bewerking. Maar in werkelijkheid zijn de verliesfuncties grillig en meerdimensionaal (\@ref(fig:complexe-verlies-landschappen)). Dan is er een soort trial-and-error manier nodig om het laagste punt te vinden.
 
-```{r curve-vorm, fig.cap="(ref:curve-vorm)"}
+```{r curve-vorm, fig.cap="(ref:curve-vorm)", echo=FALSE}
 include_graphics("img/curve-vorm.svg")
 ```
 

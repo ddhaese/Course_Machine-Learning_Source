@@ -45,8 +45,8 @@ Merk hier op dat de namespace van Python en TensorFlow volledig gescheiden zijn 
 Definiëren van een eenheidsmatrix (eng: _identity matrix_) of nulmatrix (eng: _zero matrix_):
 
 ```{python tf-taken-03, eval=TRUE}
-W = tf.Variable(tf.ones(shape = (2,2)), name = "W")
-b = tf.Variable(tf.zeros(shape = (2)), name = "b")
+theta = tf.Variable(tf.ones(shape = (2,2)), name = "theta")
+theta_0 = tf.Variable(tf.zeros(shape = (2)), name = "theta_0")
 ```
 
 Definiëren van een functie, hier om een matrix te vermenigvuldigen met een co-vector (zie [Appendix](#inwendig-product-matrix-vermenigvuldiging-vectoren-en-tensoren)):
@@ -54,7 +54,7 @@ Definiëren van een functie, hier om een matrix te vermenigvuldigen met een co-v
 ```{python tf-taken-04, eval=TRUE}
 @tf.function
 def forward(x):
-  return W * x + b
+  return theta * x + theta_0
 ```
 
 De lijn met `@tf.function` is een _decorator_ die aan TensorFlow de mogelijkheid geeft om de functie te optimaliseren. We kunnen nu de gedefinieerde functie eenvoudig uitvoeren:
@@ -63,103 +63,20 @@ De lijn met `@tf.function` is een _decorator_ die aan TensorFlow de mogelijkheid
 forward([1,0])
 ```
 
+We zien dat het resultaat een instantie van het object (of de klasse) `Tensor` is, een klasse die gedefinieerd is binnen de `tensorflow` bibliotheek module[^1]. Willen we hieruit een array zelf extraheren, ku
 In plaats van nullen en enen kunnen we matrices ook vullen met normaal-verdeelde gegevens, bijvoorbeeld voor het initialiseren van het netwerk:
 
 ```{python tf-taken-06, eval=TRUE}
-W = tf.Variable(tf.random.normal([5, 5], stddev = 2, name = "W"))
+theta = tf.Variable(tf.random.normal([5, 5], stddev = 2, name = "theta"))
 ```
 
 Hier is het resultaat:
 
-```{r tf-taken-06, eval=TRUE}
-py$W$numpy()
+```{r tf-taken-07, eval=TRUE}
+py$theta$numpy()
 ```
 
-
-```{python tf-taken-01, eval=TRUE}
-import tensorflow as tf
-
-answer = tf.constant = 42
-```
+TensorFlow zal zal de parameters
 
 
-
-```{python tf-taken-01, eval=TRUE}
-import tensorflow as tf
-
-answer = tf.constant = 42
-```
-
-
-
-```{python tf-taken-01, eval=TRUE}
-import tensorflow as tf
-
-answer = tf.constant = 42
-```
-
-
-
-```{python tf-taken-01, eval=TRUE}
-import tensorflow as tf
-
-answer = tf.constant = 42
-```
-
-
-
-```{python tf-taken-01, eval=TRUE}
-import tensorflow as tf
-
-answer = tf.constant = 42
-```
-
-
-
-```{python tf-taken-01, eval=TRUE}
-import tensorflow as tf
-
-answer = tf.constant = 42
-```
-
-
-
-```{python tf-taken-01, eval=TRUE}
-import tensorflow as tf
-
-answer = tf.constant = 42
-```
-
-
-
-```{python tf-taken-01, eval=TRUE}
-import tensorflow as tf
-
-answer = tf.constant = 42
-```
-
-
-
-```{python tf-taken-01, eval=TRUE}
-import tensorflow as tf
-
-answer = tf.constant = 42
-```
-
-
-
-```{python tf-taken-01, eval=TRUE}
-import tensorflow as tf
-
-answer = tf.constant = 42
-```
-
-
-
-```{python tf-taken-01, eval=TRUE}
-import tensorflow as tf
-
-answer = tf.constant = 42
-```
-
-
+[^1] Als je hier niet goed begrijpt wat de termen _instantie_, _object_ en _klasse_ betekenen, kan je best [dit artikel](https://nl.wikipedia.org/wiki/Objectgeori%C3%ABnteerd) erop nalezen. 
