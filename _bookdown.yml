@@ -19,4 +19,4 @@ language:
     solution: "Solution "
   ui:
     chapter_name: "Hoofdstuk "
-    references-name: "Bronvermelding"
+    references_name: "Bronvermelding"
