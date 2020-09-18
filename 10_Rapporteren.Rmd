@@ -13,6 +13,10 @@ palette(dyad[c(9, 20, 66)])
 
 # Rapporteren
 
+```{lemma rapporteren}
+Rapporteert op correcte wijze de resultaten van een ML analyse ([_EA_LD763_](#leerdoelen)).
+```
+
 ## Reproduceerbaarheid
 
 Als wetenschapper moet je ervoor zorgen dat je analyses reproduceerbaar zijn. Dit houdt in dat elke andere datawetenschapper in staat moet zijn om vertrekkende van de zelfde data, juist hetzelfde resultaat te bekomen. Ten eerste betekent dit dat de brongegevens beschikbaar moet kunnen worden gemaakt. Op zijn minst moet de datawetenschapper meegeven _hoe_ je aan de gegevens kunt geraken. Ten tweede moet het duidelijk zijn op welke subset van de data er gewerkt is. Bij uitbreiding moet de volledige _data-flow_ uit de doeken worden gedaan. Zijn er processen die een willekeurig element hebben, zoals het randomiseren in een training- en test-set of het gebruik van leeralgoritmen die een random element hebben zoals [random forests](https://en.wikipedia.org/wiki/Random_forest#:~:text=Random%20forests%20or%20random%20decision,prediction%20(regression)%20of%20the%20individual).

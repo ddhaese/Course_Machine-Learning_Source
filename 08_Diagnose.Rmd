@@ -23,6 +23,22 @@ knit_hooks$set(webgl = hook_webgl)
 
 # Diagnose
 
+```{lemma cross-validatie-lemma}
+Onderkent de basisprincipes van data training & Cross-validatie ([_EA_LD754_](#leerdoelen)).
+```
+
+```{lemma risicos}
+Herkent de risico’s van onvolledige en inaccurate data ([_EA_LD759_](#leerdoelen)).
+```
+
+```{lemma diagnose}
+Gebruikt een diagnostische toolset om de performantie van ML modellen te meten ([_EA_LD760_](#leerdoelen)).
+```
+
+```{lemma performantie}
+Evalueert op gepaste wijze de performantie van een algoritme. ([_EA_LD762_](#leerdoelen)).
+```
+
 ## Leren leven met de onzekerheid
 
 Misschien wel het belangrijkste aspect van ML is dat er nooit een garantie dat het gaat lukken. Vele mensen schijnen het hier erg moeilijk mee te hebben. Men zegt zegt al te vaak:

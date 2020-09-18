@@ -7,9 +7,8 @@ output: html_document
 ```{r include=FALSE}
 library(knitr)
 library(data.table)
-library(reticulate)
 library(magrittr)
-library(e1071)
+library(reticulate)
 
 opts_chunk$set(echo = TRUE, cache = TRUE, message = FALSE, warning = FALSE)
 
@@ -23,6 +22,14 @@ palette(dyad[c(9, 20, 66)])
 
 ```{lemma leerdoel-basisprincipes}
 Begrijpt de basisprincipes van machine learning ([_EA_LD751_](#leerdoelen)).
+```
+
+```{lemma begel-vs-onbegeid}
+Herkent de verschillen tussen supervised, unsupervised en reinforcement learning ([_EA_LD752_](#leerdoelen)).
+```
+
+```{lemma strategie}
+Ontwikkelt de correcte AI strategie op basis van een probleemstelling ([_EA_LD757_](#leerdoelen)).
 ```
 
 Machine learning (ML) is het vermogen van een algoritme om te _leren uit data_. In deze inleiding zullen we leren dat, hoewel dit een eenvoudige definitie lijkt, hier toch héél wat achter schuilt. Dus om deze definitie wat kracht bij te zetten, maken we hier meteen ons eerst kadertje voor:
@@ -455,7 +462,7 @@ De datawetenschapper zal trachten deze vraag te beantwoorden. Hij voert een niet
 
 ![cars-regressie](img/regressie.gif)
 
-Naarmate dat de optimalisatie[^3] vordert, verkleint de afwijking tussen voorspelde curve met de datapunten, zoals te zien is aan de zogenaamde _Root mean squared Error_ (RMSE). Op het einde van de optimlisatie, bij een RMSE van 52.527, komt het algoritme tot stilstand met de volgende parameter-waarden:
+Naarmate dat de optimalisatie vordert (zie @nelder1965), verkleint de afwijking tussen voorspelde curve met de datapunten, zoals te zien is aan de zogenaamde _Root mean squared Error_ (RMSE). Op het einde van de optimlisatie, bij een RMSE van 52.527, komt het algoritme tot stilstand met de volgende parameter-waarden:
 
 $$\theta_1=78, \theta_2=517.47, \theta_3=1.87, \theta_4=2.10$$
 ```
@@ -491,6 +498,236 @@ include_graphics("img/regressie4.png")
 
 We zien nu het gevolg van overfitting. Wanneer we het model blootstellen aan nieuwe data zien we dat het eenvoudige model (polynoom van graad 5) veel beter presteert dan het complexere model (polynoom van graad 7). En dat is het hem nu net allemaal om te doen! Leren om voorspellingen te maken, niet leren om de training dataset nauwkeurig te beschrijven, want dat is gewoon onthouden of hoogstens comprimeren zoals we [eerder zagen](#comprimeren-door-middel-van-een-ml). Daarom is ML veel interessanter dan regressieanalyse. Je kan stellen dat regressie (zoals de naam het eigenlijk al aangeeft) gaat over 'achterom kijken', terwijl ML gaat over 'naar de toekomst' kijken.
 
-[^1]: Onder _instellingen_ wordt hier onder andere een combinatie van hyperparameter-waarden verstaan. Omdat deze hyperparameters meestal continue variabelen zijn, maakt dit dat er letterlijk oneindig veel instellingen mogelijk zijn. Bovendien bestaan er voor elke leeralgoritme vaak talrijke varianten, elke met hun eigen voor- en nadelen.
+## Onbegeleid ML
 
-[^3]: Zie @nelder1965
+Tot hier toe werd er voornamelijk gesproken rond begeleid ML (eng: _supervised machine learning_). Er zijn nog twee andere vormen die binnen sommige disciplines erg populair zijn, maar minder in deze cursus aan bod zullen komen. In Voorbeeld \@ref(exm:verkoopautomaat-ml) werd wel gesproken van clusters, en dat is een voorbeeld van onbegeleid ML (eng: _unsupervised machine learning_ of _self-organization_). Het verschil tussen begeleid en onbegeleid is het gebruik van de uitkomsten ($y$) als invoer voor het leeralgoritme.
+
+```{definition def-vergelijk-begeleid}
+Bij __begeleid ML__ wordt het leeralgoritme getraind op invoer data ($\mathbf{x}$; de onafhankelijke variabelen) die paarsgewijs gekoppeld zijn met uitvoer data ($\mathbf{y}$; de afhankelijke variabele of uitkomst). Het algoritmeUit leert de verbanden tussen  $\mathbf{x}$ en $\mathbf{y}$.
+
+Bij __onbegeleid__ ML is er geen sprake van een uitkomst en leert het algoritme gewoon patronen te herkennen in de invoer data.
+```
+
+```{r begeleid-vs-onbegeleid, fig.cap="(ref:begeleid-vs-onbegeleid)", echo=FALSE}
+include_graphics("img/begeleid-vs-onbegeleid.svg")
+```
+
+(ref:begeleid-vs-onbegeleid) Vergelijking tussen het proces van begeleid L en het proces van onbegeleid 'leren'.
+
+Welke van beide moet je nu gebruiken? Heel simpel: als je een betrouwbare uitkomst in je bezit hebt, dan kies je best begeleid ML, omdat deze altijd beter zal presteren. Heb je geen uitkomsten of twijfel je aan de authenticiteit of accuraatheid, dan kan je overstappen onbegeleid leren.
+
+Binnen onbegeleid leren, zijn er twee families aan onbegeleid ML die veel gebruikt worden. Eentje is de principale componenten analyse (PCA; eng: _principal component analysis_), de ander is cluster analyse (eng: _cluster analysis_). In beide gevallen is het resultaat een categorisatie van de instanties (zoals bijvoorbeeld een clustering) of een associatie (zoals bijvoorbeeld aanbevelingen, eng: _customer recommendations_). Met andere woorden, een onbegeleid ML algoritme vertelt je of twee instanties bij elkaar horen (grote kans op associatie, zelfde cluster, &hellip;) of niet.
+
+Laten we de discussie van onbegeleid ML afsluiten met een voorbeeld:
+
+```{example}
+Stel, een klant wil een geautomatiseerd systeem ontwikkelen om de scherpte meten van microtoommessen. De klant hoopt dit te kunnen doen a.d.h.v. microscopische opnamen van de snede van het mes, waarvan hieronder een voorbeeld:
+
+![](img/Microtome_knife_5.0_5.0_0097.JPG)
+
+Het doel is om de oppervlakte te bepalen van de fellere horizontale lijn (de messnede), maar om dit te kunnen doen moet er een duidelijk onderscheid worden gemaakt tussen fellere pixels en donkere pixels. M.a.w., elke pixel moet gecategoriseerd worden als 'messnede' of 'achtergrond'. Een begeleid ML aanpak zou inhouden dat een mens heel wat afbeeldingen manueel beoordeeld en dat er een classificatie algoritme gevoed zou worden met deze uitkomst data. Alleen is dat hier niet erg praktisch en bovendien erg onbetrouwbaar. Vandaar de keuze voor onbegeleid leren.
+```
+
+Elke pixel in bovenstaande afbeelding bevat een R, een G en een B waarde. Het doel is om de afbeelding om te zetten naar een grijswaarde afbeelding, maar dan wel met de optimale gewichten voor de afzonderlijke R, G en B kleur-kanalen zodat er een maximaal contrast ontstaat. We zien immers dat de snede van het mes groen-achtig en niet wit is en we kunnen dus vermoeden dat de drie kleuren een verschillend gewicht gaan krijgen bij het zoeken naar het hoogste mogelijk contrast. Hieronder wordt de code getoond (imports en een aantal helperfuncties weggelaten):
+
+```{r demo-pca-helper, echo = FALSE}
+library(imager)
+library(abind)
+
+img_to_dt <- function(x) {
+  x %>%
+    as.data.frame %>%
+    as.data.table %>%
+    data.table::dcast(... ~ cc, value = "value") %>%
+    extract(, .(x, y, R = `1`, G = `2`, B = `3`)) %>%
+    extract(order(y, x))
+}
+
+dt_to_img <- function(x, dims) {
+  abind(array(x$R, dims[1:3]),
+    array(x$G, dims[1:3]),
+    array(x$B, dims[1:3]),
+    along = 4) %>% normalize %>% as.cimg
+}
+
+normalize <- function(x) {
+  x_min <- min(x, na.rm = TRUE)
+  x_max <- max(x, na.rm = TRUE)
+  
+  (x - x_min) / (x_max - x_min)
+}
+```
+
+```{r demo-pca, fig.asp=652/4575}
+predict_pca <- function(x, n) {
+  x$x[, 1:n] %*% t(x$rotation[, 1:n]) %>%
+    scale(scale = FALSE, center = -1 * x$center) %>%
+    as.data.table
+}
+
+contrast <- function(img) {
+  img %>%
+    img_to_dt %>%
+    prcomp( ~ R + G + B, data = .) %>%
+    predict_pca(1) %>%
+    dt_to_img(dim(img)) %>%
+    grayscale %>%
+    normalize
+}
+
+par(mar = rep(0, 4))
+
+img <- "img/Microtome_knife_5.0_5.0_0097.JPG" %>%
+  load.image %>%
+  contrast %>%
+  plot(axes = FALSE)
+```
+
+De code leest als volgt: Laad de afbeelding `Microtome_knife_5.0_5.0_0097.JPG` en in de `contrast` functie: zet je het beeld eerst om naar een `data.table` met de helper-functie `img_to_dt` (niet getoond). Start daarna de principale componenten analyse op met de ingebakken `stats::prcomp` functie. Geef hierbij mee dat de drie kleur-kanalen moeten gebruikt wordt om het grootste contrast te vinden. Neem het resultaat van de analyse en neem de eerste component (de combinatie van R, G, en B-waarden die het meeste variantie verklaart) en voer daarmee de omgekeerde bewerking uit met de `predict-pca` functie. Het resultaat is dat er een iets beter drempel-waarde (eng: _threshold_) gevonden kan woorden waarme de messnede geïdentificeerd kan worden:
+
+![Demo PCA results](img/demo-pca.png)
+
+Het probleem met onbegeleid ML is dat je nooit zeker weet dat je echt iets geleerd hebt. Bijvoorbeeld, indien een onbegeleid model een nieuwe instantie onderbrengt in een welbepaalde cluster, hoe weet je dan of het juist is of fout? Daarom is die term "onbegeleid leren" mogelijk nogal verwarrend en is het vaak veiliger om gewoon te spreken van clustering (bijv. k-means) of eigen-decompositie (bijv PCA.).
+
+## Conditionering
+
+Er is nog een derde soort ML, namelijk de conditionering (eng: _reinforcement learning_). In plaats van een afhankelijke variabele, wordt de uitkomst aangeleverd als een functie die, gegeven een bepaalde input, de uitkomst zal teruggeven. Het grootste verschil met de twee eerder besproken vormen van ML is dat er voor conditionering geen nood is aan historische data.
+
+```{definition reinforcement-learning}
+Voor conditionering (reinforcement learning) heb je geen historische data nodig. Enkel een _tolk_ die in staat is een actie van een _agent_ te beoordelen.
+```
+
+Conditionering kent toepassingen in erg veel verschillende disciplines waaronder de statistiek, maar ook de speltheorie, [meet- en regeltechniek](https://nl.wikipedia.org/wiki/Meet-_en_regeltechniek), [operationeel onderzoek](https://nl.wikipedia.org/wiki/Operationeel_onderzoek), de [informatietheorie](https://nl.wikipedia.org/wiki/Informatietheorie), enzovoort&hellip;. Het werkt zo. Een _software-agent_ (eng: _agent_) krijgt de keuze uit een aantal _acties_ (eng: _actions_) die het kan uitvoeren op een _omgeving_ (eng: _environment_). Het (voorlopig immatuur) model (een _tolk_; eng: _interpreter_) vertaalt de gekozen actie naar enerzijds een toestand-wijziging (eng: _state change_) en anderzijds een beloning (eng: _reward_).
+
+```{r conditionering, fig.cap="(ref:conditionering)"}
+include_graphics("img/conditionering.svg")
+```
+
+(ref:conditionering) Overzicht proces voor conditionering. Een toestand ruimte wordt gedefinieerd of er wordt een functie voorzien die kan meegeven of een toestand mogelijk is of niet. Daarnaast moet er een beloning systeem worden meegegeven zodat de tolk voor elke mogelijke handeling een beloning kan bepalen (of bestraffing door middel van een negatieve beloning).
+
+We komen later meer uitgebreid terug op conditionering, maar nu houden we het bij een minimalistische implementatie van een soort conditionering, genaamd _Q-learning_, dit maal in Python. Het voorbeeld is afkomstig van de blog ["The Beginner Programmer" van Mic](http://firsttimeprogrammer.blogspot.com/2016/09/getting-ai-smarter-with-q-learning.html) en hetgeen op zijn beurt gebaseerd is op een Q-learning handleiding op de [Mnemosyne_Studio blog](http://mnemstudio.org/path-finding-q-learning-tutorial.htm) van John McCullock.
+
+```{example escape-room-ex}
+Gegeven onderstaande plattegrond van een huis met vijf kamers, vind het korst mogelijke pad naar buiten als je je in kamer 2 bevindt.
+```
+
+```{r escape-room, fig.cap="(ref:escape-room)", echo=FALSE}
+include_graphics("http://mnemstudio.org/ai/path/images/modeling_environment_clip_image002a.gif")
+```
+
+(ref:escape-room) De plattegrond. ([bron](http://mnemstudio.org/path-finding-q-learning-tutorial.htm))
+
+De belonging kan voorgesteld worden als een matrix:
+
+```{r escape-room-matrix, fig.cap="(ref:escape-room-matrix)", echo=FALSE}
+include_graphics("http://mnemstudio.org/ai/path/images/r_matrix1.gif")
+```
+
+(ref:escape-room-matrix) De beloning-matrix ( [bron](http://mnemstudio.org/path-finding-q-learning-tutorial.htm))
+
+```{python escape-room-code-01}
+import numpy as np
+
+reward = np.matrix(
+  [[-1,-1,-1,-1, 0, -1],
+  [ -1,-1,-1, 0,-1,100],
+  [ -1,-1,-1, 0,-1, -1],
+  [ -1, 0, 0,-1, 0, -1],
+  [ -1, 0, 0,-1,-1,100],
+  [ -1, 0,-1,-1, 0,100]])
+```
+
+We maken nu een matrix die het geheugen voorstelt van de tolk. Hierin zal de tolk zijn eerdere ervaringen in opslaan. Dit geheugen stelt de toestand (eng: _state_) voor waarin de agent zich bevindt. Zoals je ziet weet de agent initieel helemaal niets.
+
+```{python escape-room-code-02}
+memory = np.matrix(np.zeros([6, 6]))
+```
+
+In andere situaties kan het aantal toestanden waarin een agent zich kan bevinden helemaal niet gedefinieerd zijn en dan moet de matrix dynamisch worden opgesteld. Het opvullen van de toestand-matrix gebeurt volgens de onderstaande _transitie regel_ (eng: _transition rule_):
+
+$$
+Q(toestand, actie)=R(toestand, actie)+\gamma\cdot max(Q(volgende\,toestand,\,alle\,acties))
+$$
+
+We hebben nu een functie die, gegeven een bepaalde toestand, de set van mogelijke volgende toestanden teruggeeft (`available_actions`) en een tweede die gegeven de mogelijke toestanden er een willekeurige toestand uitkiest (`sample_next_action`).
+
+```{python escape-room-code-03}
+def available_actions(state):
+  current_state_row = reward[state,]
+  av_act = np.where(current_state_row >= 0)[1]
+  return av_act
+
+def sample_next_action(available_actions_range):
+  next_action = int(np.random.choice(available_act,1))
+  return next_action
+```
+
+Ten slotte hebben we een `update`-functie, de instap-functie a.h.w. van het leeralgoritme, die het geheugen (de toestand-matrix) vernieuwd:
+
+```{python escape-room-code-04}
+def update(current_state, action, gamma):
+  max_index = np.where(memory[action,] == np.max(memory[action,]))[1]
+
+  if max_index.shape[0] > 1:
+      max_index = int(np.random.choice(max_index, size = 1))
+  else:
+      max_index = int(max_index)
+  max_value = memory[action, max_index]
+  
+  memory[current_state, action] = reward[current_state, action] +\
+    gamma * max_value
+```
+
+We initialiseren nu het spel met de leersnelheid $\gamma$ en de initiële kamer (2) en de doel-ruimte (buiten, ruimte 5) en voeren de eerste update uit:
+
+```{python escape-room-code-05}
+gamma = 0.8
+initial_state = 2
+end_state = 5
+```
+
+Nu begint het trainen (10 000 iteraties):
+
+```{python escape-room-code-06}
+for i in range(10000):
+  current_state = np.random.randint(0, int(memory.shape[0]))
+  available_act = available_actions(current_state)
+  action = sample_next_action(available_act)
+  update(current_state, action, gamma)
+```
+
+De toestand-matrix er nu zo uit:
+
+```{r escape-room-resultaat-1}
+model <- as.matrix(100 * py$memory / max(py$memory))
+dimnames(model) <- list(start = 0:5, stop = 0:5)
+model
+```
+
+Nu testen we het model met een begintoestand van 2 en een eindtoestand van 5:
+
+```{python escape-room-code-07}
+current_state = initial_state
+
+steps = [current_state]
+
+while current_state != end_state:
+  next_step_index = np.where( \
+    memory[current_state,] == np.max(memory[current_state,]))[1]
+
+  if next_step_index.shape[0] > 1:
+    next_step_index = int(np.random.choice(next_step_index, size = 1))
+  else:
+    next_step_index = int(next_step_index)
+  
+  steps.append(next_step_index)
+  current_state = next_step_index
+```
+
+Het aangeleerd pad is als volgt:
+
+```{r escape-room-resultaat-2}
+py$steps %>% paste("Ruimte ", ., collapse = " > ")
+```
+
+[^1]: Onder _instellingen_ wordt hier onder andere een combinatie van hyperparameter-waarden verstaan. Omdat deze hyperparameters meestal continue variabelen zijn, maakt dit dat er letterlijk oneindig veel instellingen mogelijk zijn. Bovendien bestaan er voor elke leeralgoritme vaak talrijke varianten, elke met hun eigen voor- en nadelen.

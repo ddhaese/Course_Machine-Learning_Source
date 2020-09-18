@@ -18,6 +18,10 @@ palette(dyad[c(9, 20, 66)])
 
 # TensorFlow
 
+```{lemma online-workshops}
+Ontwikkelt het vermogen om zelfstandig technisch-uitdagende online workshops uit te voeren ([_EA_LD755_](#leerdoelen)).
+```
+
 ## Inleiding
 
 TensorFlow is een ML-gebaseerde bibliotheek voor dataflow.(nl: _datastroom-georiënteerd programmeren_) in 2015 vrijgegeven door het Google [Brain team](https://en.wikipedia.org/wiki/Google_Brain). Het laat toe om het principe van [differentieerbaar programmeren](https://en.wikipedia.org/wiki/Differentiable_programming) (eng: _differentiable programming_) en symbolische wiskunde (eng: _symbolic math_) toe te passen. TensorFlow is met andere woorden een bibliotheek om _tensoren_ door middel van een dataflow te verwerken. Een tensor kan je voorstellen als een schaalbare vector. In de [Appendix](#inwendig-product-matrix-vermenigvuldiging-vectoren-en-tensoren) vind je meer uitleg over wat een tensor is en wat het verschil precies is met een reguliere vector.

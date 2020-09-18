@@ -13,6 +13,14 @@ palette(dyad[c(9, 20, 66)])
 
 # Data exploratie
 
+```{lemma data-exploratie}
+Past de juiste principes toe tijdens het exploreren, hanteren en opkuisen van data ([_EA_LD758_](#leerdoelen)).
+```
+
+```{lemma visualisatie}
+Beeld complexe data uit door middel van hedendaagse visualisatie tools ([_EA_LD761_](#leerdoelen)).
+```
+
 ## Principes van data exploratie
 
 Exploratieve Data Analyse (eng: _Exploratory Data Analysis_; EDA) zal de datawetenschapper helpen om twee hoofddoelen te bereiken

@@ -17,6 +17,19 @@ opts_chunk$set(echo = TRUE, cache = TRUE, message = FALSE, warning = FALSE)
 source("r/md_tools.r")
 dyad <- readRDS("r/Palette_5YR_5B_Dyad.RDS")
 palette(dyad[c(9, 20, 66)])
+
+knit_engines$set(cmd = function(options){
+  code <- options$code %>%
+    paste(collapse = "\n")
+  
+  if(options$eval){
+    out <- code %>% shell(intern = TRUE)
+  } else{
+    out <- NULL
+  }
+  
+  engine_output(options, paste0("> ", gsub("\n", "\n> ", code)), out)
+})
 ```
 
 # (APPENDIX) Appendix {-}
@@ -133,13 +146,7 @@ $$z=\mathbf{x}\cdot\mathbf{\theta}=\begin{bmatrix}
 Probeer nu zelf voor het eerste neuraal netwerk uit &sect; [Inleiding tot ANN's](#inleiding-tot-anns) de resultaten in `nn$net.result` te bekomen door de invoergegevens te vermenigvuldigen met de parameters in `nn$weights`.
 ```
 
-# Installatie
-
-## Git
-
-[Git](https://nl.wikipedia.org/wiki/Git_(software)) is een versiebeheersysteem en tool om samen te werken.
-
-## Computations using GPU
+# Computations using GPU
 
 Computations using machines are typically being carried out using some kind of physical processing units. On many systems there are at least two types of processing units that can perform computations: CPUs (central processing units) and GPUs (graphics processing unit), the latter being originally employed for manipulation of images and for game development. While their constituent parts are similar, their architectures differ greatly:
 
@@ -150,6 +157,8 @@ include_graphics("img/cpu_gpu.svg")
 (ref:cpu-gpu) The high-level differences between CPUs and GPUs.
 
 In a CPU, the control and the cache are governed centrally in the number of arithmetic logic units (ALUs) is limited. In a GPU, control and cache are more distributed and there are many more ALUs. As a consequence, CPUs are more versatile, 'smarter' and faster and work best for singular but complex computations. GPUs, on the other hand, are better equipped to handle massive parallel tasks consisting of repetitive but simple computations.
+
+# Installation
 
 ## Installing CUDA (optional)
 
@@ -184,21 +193,24 @@ Rstudio was found by far to be the most valuable and student-friendly IDE (integ
 
 ## Installing Tensorflow
 
-Around 2005, Google released [Tensorflow®](https://www.tensorflow.org/). Tensorflow is an open-source Python library to aid with the development, training, building and releasing of machine learning models, particularly deep learning models. To install Tensorflow for Rstudio, visit https://tensorflow.rstudio.com/ and read the instructions there. Check the installation steps used by the author below before you start.
+Around 2005, Google released [Tensorflow®](https://www.tensorflow.org/). TensorFlow is an open-source Python library to aid with the development, training, building and releasing of machine learning models, particularly deep learning models. To install TensorFlow for Rstudio, visit https://tensorflow.rstudio.com/ and read the instructions there. Check the installation steps used by the author below before you start.
 
 ## Installation steps that worked for the author
 
 Every system is different, so the steps below might not work for you. With these and with the links provided above, you should be able to get up and running in no time. Here is the set of instructions that worked for me, starting from scratch on a Dell XPS 15 7590 with a Windows 10 Pro operating system. For Windows users, remember check the 'set Path' option during installation, if available, or set the path manually using the [command line]](https://www.windows-commandline.com/set-path-command-line/). Also, test each step before you go to the next.
 
-1. Install [CUDA](https://docs.nvidia.com/cuda/cuda-installation-guide-microsoft-windows/index.htm) version 10.2.89_441.22 for Windows and test with `nvcc -V` anywhere at the command line prompt
-1. Install [R](https://www.r-project.org/)
-1. Install [Python](https://www.python.org/downloads/)
-1. Install [Rstudio](https://rstudio.com)
-1. Install [Miniconda](https://docs.conda.io/en/latest/miniconda.html) in a directory that contains _no spaces_ (not automatically adding to Windows PATH variable as advised, but manually)
-1. Add a python environment, here called `tf` (in the `Scripts` sub-folder of Miniconda installation folder):
+1. (optional) Install [CUDA](https://docs.nvidia.com/cuda/cuda-installation-guide-microsoft-windows/index.htm) version 10.2.89_441.22 for Windows and test with `nvcc -V` anywhere at the command line prompt
+1. Install [R](https://www.r-project.org/) and test by running the command `R --version` anywhere at the command line prompt
+1. Install [Python 3](https://www.python.org/downloads/) and test by running the command `python --version` anywhere at the command line prompt
+1. Install [Rstudio](https://rstudio.com) and check that the correct version of R is being linked to
+1. Install [Miniconda](https://docs.conda.io/en/latest/miniconda.html) in a directory that contains _no spaces_ (not automatically adding to Windows PATH variable as advised, but manually)  and test by running the command `conda --version` anywhere at the command line prompt
+1. Add a python environment, here called `tf` (in the `Scripts` sub-folder of Miniconda installation folder), follow the advise giving if any and test afterwards with the command `conda list`:
 	
-```bash
-> conda create -n tf
+```{bash create-python-env, eval=FALSE}
+conda create -n tf
+```
+
+<pre>
 Collecting package metadata (current_repodata.json): done
 Solving environment: done
 
@@ -210,7 +222,7 @@ Please update conda by running
 
     $ conda update -n base -c defaults conda
 
-## Package Plan ##
+  Package Plan ##
   environment location: […]\envs\tf
 
 Proceed ([y]/n)? y
@@ -218,21 +230,23 @@ Proceed ([y]/n)? y
 Preparing transaction: done
 Verifying transaction: done
 Executing transaction: done
-#
-# To activate this environment, use
-#
-#     $ conda activate tf
-#
-# To deactivate an active environment, use
-#
-#     $ conda deactivate
+ 
+  To activate this environment, use
+ 
+      $ conda activate tf
+ 
+  To deactivate an active environment, use
+ 
+      $ conda deactivate
+</pre>
+
+7. Open RStudio and, using the console, install the helper package `tensorflow` that guides the installation:
+	
+```{r install-tensorflow-rstudio, eval=FALSE}
+install.packages("tensorflow")
 ```
 
-1. Open RStudio and, using the console, install the helper package `tensorflow` that guides the installation:
-	
-```{r eval=FALSE}
-> install.packages("tensorflow")
-
+<pre>
 Installing package into […]
 (as ‘lib’ is unspecified)
 also installing the dependencies ‘rappdirs’, ‘config’, ‘reticulate’, ‘tfruns’
@@ -264,18 +278,18 @@ package ‘tfruns’ successfully unpacked and MD5 sums checked
 package ‘tensorflow’ successfully unpacked and MD5 sums checked
 
 The downloaded binary packages are in […]
+</pre>
+
+8. Still in RStudios console window, load the `tensorflow` package in memory (change `tf` if use you another environment name):
+
+```{r install-tensorflow-rstudio-2, eval=FALSE}
+install_tensorflow(version = "nightly-gpu", envname = "tf")
 ```
 
-1. Still in RStudios console window, load the `tensorflow` package in memory (change `tf` if use you another environment name):
-
-```{r eval=FALSE}
-> install_tensorflow(version = "nightly-gpu", envname = "tf")
-```
-
-Collecting package metadata (current_repodata.json): ...working... done
+<pre>Collecting package metadata (current_repodata.json): ...working... done<br>
 Solving environment: ...working... done
 
-## Package Plan ##
+  Package Plan ##
 
   environment location: […]\envs\tf
 
@@ -328,36 +342,202 @@ Warning messages:
 
 Restarting R session...
 
-
 NVIDIA’s platforms and application frameworks enable developers to build a wide array of AI applications. Consider potential algorithmic bias when choosing or creating the models being deployed. Work with the model’s developer to ensure that it meets the requirements for the relevant industry and use case; that the necessary instruction and documentation are provided to understand error rates, confidence intervals, and results; and that the model is being used under the conditions and in the manner intended.
+</pre>
 
-## Test tensorflow
-
+9. Test tensorflow using the command below
 
 ```{python tensorflow-test, eval=FALSE}
-import warnings
 import numpy as np
 import tensorflow as tf
 
-warnings.simplefilter(action='ignore', category=FutureWarning)
+tf.random.set_seed(1)
 
-# from tensorflow.python.util import deprecation
-# deprecation._PRINT_DEPRECATION_WARNINGS = False
-
-model = tf.keras.Sequential([keras.layers.Dense(units=1, input_shape=[1])])
+model = tf.keras.Sequential([tf.keras.layers.Dense( \
+  units = 1, input_shape = [1])], )
 
 print(tf.reduce_sum(tf.random.normal([1000, 1000])))
 ```
 
+<pre>
+2020-09-17 15:06:29.340924: I tensorflow/stream_executor/platform/default/dso_loader.cc:48] Successfully opened dynamic library nvcuda.dll
+2020-09-17 15:06:29.365342: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1716] Found device 0 with properties: 
+pciBusID: 0000:01:00.0 name: GeForce GTX 1650 computeCapability: 7.5
+coreClock: 1.56GHz coreCount: 16 deviceMemorySize: 4.00GiB deviceMemoryBandwidth: 119.24GiB/s
+2020-09-17 15:06:29.365627: I tensorflow/stream_executor/platform/default/dso_loader.cc:48] Successfully opened dynamic library cudart64_101.dll
+2020-09-17 15:06:29.368816: I tensorflow/stream_executor/platform/default/dso_loader.cc:48] Successfully opened dynamic library cublas64_10.dll
+2020-09-17 15:06:29.371298: I tensorflow/stream_executor/platform/default/dso_loader.cc:48] Successfully opened dynamic library cufft64_10.dll
+2020-09-17 15:06:29.372145: I tensorflow/stream_executor/platform/default/dso_loader.cc:48] Successfully opened dynamic library curand64_10.dll
+2020-09-17 15:06:29.375605: I tensorflow/stream_executor/platform/default/dso_loader.cc:48] Successfully opened dynamic library cusolver64_10.dll
+2020-09-17 15:06:29.377715: I tensorflow/stream_executor/platform/default/dso_loader.cc:48] Successfully opened dynamic library cusparse64_10.dll
+2020-09-17 15:06:29.385621: I tensorflow/stream_executor/platform/default/dso_loader.cc:48] Successfully opened dynamic library cudnn64_7.dll
+2020-09-17 15:06:29.385907: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1858] Adding visible gpu devices: 0
+2020-09-17 15:06:29.386607: I tensorflow/core/platform/cpu_feature_guard.cc:142] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN)to use the following CPU instructions in performance-critical operations:  AVX2
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2020-09-17 15:06:29.489348: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x20dd8509930 initialized for platform Host (this does not guarantee that XLA will be used). Devices:
+2020-09-17 15:06:29.489640: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): Host, Default Version
+2020-09-17 15:06:29.490043: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1716] Found device 0 with properties: 
+pciBusID: 0000:01:00.0 name: GeForce GTX 1650 computeCapability: 7.5
+coreClock: 1.56GHz coreCount: 16 deviceMemorySize: 4.00GiB deviceMemoryBandwidth: 119.24GiB/s
+2020-09-17 15:06:29.490402: I tensorflow/stream_executor/platform/default/dso_loader.cc:48] Successfully opened dynamic library cudart64_101.dll
+2020-09-17 15:06:29.490567: I tensorflow/stream_executor/platform/default/dso_loader.cc:48] Successfully opened dynamic library cublas64_10.dll
+2020-09-17 15:06:29.490775: I tensorflow/stream_executor/platform/default/dso_loader.cc:48] Successfully opened dynamic library cufft64_10.dll
+2020-09-17 15:06:29.491080: I tensorflow/stream_executor/platform/default/dso_loader.cc:48] Successfully opened dynamic library curand64_10.dll
+2020-09-17 15:06:29.491298: I tensorflow/stream_executor/platform/default/dso_loader.cc:48] Successfully opened dynamic library cusolver64_10.dll
+2020-09-17 15:06:29.491542: I tensorflow/stream_executor/platform/default/dso_loader.cc:48] Successfully opened dynamic library cusparse64_10.dll
+2020-09-17 15:06:29.491784: I tensorflow/stream_executor/platform/default/dso_loader.cc:48] Successfully opened dynamic library cudnn64_7.dll
+2020-09-17 15:06:29.492628: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1858] Adding visible gpu devices: 0
+2020-09-17 15:06:30.261351: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1257] Device interconnect StreamExecutor with strength 1 edge matrix:
+2020-09-17 15:06:30.261492: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1263]      0 
+2020-09-17 15:06:30.261571: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1276] 0:   N 
+2020-09-17 15:06:30.261943: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1402] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 2907 MB memory) -> physical GPU (device: 0, name: GeForce GTX 1650, pci bus id: 0000:01:00.0, compute capability: 7.5)
+2020-09-17 15:06:30.289124: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x20e0e74be40 initialized for platform CUDA (this does not guarantee that XLA will be used). Devices:
+2020-09-17 15:06:30.289298: I tensorflow/compiler/xla/service/service.cc:176]   StreamExecutor device (0): GeForce GTX 1650, Compute Capability 7.5
 
-## Waar vind ik leeralgoritmen
+tf.Tensor(22.580101, shape=(), dtype=float32)
+</pre>
 
-Laten we even de theorie kort verlaten en ons met deze pragmatische vraag bezig houden. Waar kan je de verscheidene leeralgoritmen terugvinden? Je kan zo in sommige gevallen zoals voor een enkelvoudig _perceptron_ zelf gewoon coderen, maar meestal worden de algoritmen gelukkig ter beschikking gesteld. Omdat wiskundigen eerder R gebruiken zullen de nieuwere leeralgoritmen gewoonlijk eerst in R verschijnen en pas later in Python. Bij het publiceren van nieuwe methoden wordt er immers vaak van de auteurs verwacht dat ze het algoritme als R pakket (eng: _package_) registreren en publiek ter beschikking stellen. Het Comprehensive R Archive Network (CRAN), dat de R pakketten beheert en erop toeziet dat de pakketten zowel wiskundig als programmatorisch aan bepaalde standaarden voldoet, stelt zogenaamde _task views_ op met telken een overzicht van de pakketten die kunnen helpen bij een welbepaalde taak. Zoeken we naar "machine learning", komen we op honderden pakketten uit van `ahaz` tot `xgboost` [^1] en vele van deze pakketten geven toegang tot tientallen verschillende typen leeralgoritmen. Maar dat is niet alles. Op de webpagina met het [overzicht van alle task views](https://cran.r-project.org/web/views/), vinden we bijvoorbeeld het onderwerp neurolinguïstisch programmeren (eng: _natural language processing_; NLP) met nog eens tientallen pakketten specifiek rond dit thema.
+## Waar vind ik hulp
 
+Laten we beginnen met waar je de verscheidene leeralgoritmen kunt terugvinden? In sommige gevallen, zoals voor een enkelvoudig _perceptron_, kan je het zelf gewoon coderen maar meestal worden de algoritmen gelukkig ter beschikking gesteld. Omdat wiskundigen eerder R gebruiken zullen de nieuwere leeralgoritmen gewoonlijk eerst in R verschijnen en pas later in Python. Bij het publiceren van nieuwe methoden wordt er immers vaak van de auteurs verwacht dat ze het algoritme als een peer-reviewed R pakket (eng: _package_) registreren en publiek ter beschikking stellen. Het Comprehensive R Archive Network ([CRAN](https://cran.r-project.org/)), dat de R pakketten beheert en erop toeziet dat de pakketten zowel wiskundig als programmatorisch aan bepaalde standaarden voldoet, stelt zogenaamde _task views_ op met telkens een overzicht van de pakketten die kunnen helpen bij een welbepaalde taak. Zoeken we naar "machine learning", komen we op honderden pakketten uit van `ahaz` tot `xgboost` [^1] en vele van deze pakketten geven toegang tot tientallen verschillende typen leeralgoritmen. Maar dat is niet alles. Op de webpagina met het [overzicht van alle task views](https://cran.r-project.org/web/views/), vinden we bijvoorbeeld het onderwerp neurolinguïstisch programmeren (eng: _natural language processing_; NLP) met nog eens tientallen pakketten specifiek rond dit thema.
 
+Voor Python ontwikkeling verwijzen we voor leeralgoritmen eerst en vooral naar [scikit-learn](https://scikit-learn.org/stable/). Deze bibliotheek biedt een ruime gereedschapskist aan voor beginnende datawetenschappers. De naam komt trouwens van Science-kit $\rightarrow$ scikit $\rightarrow$ sk. Dan is er [Tensorflow](https://www.tensorflow.org/) waar in de cursus dieper op wordt ingegaan. Ook hier vind je een rijke schat aan informatie. Python biedt een aantal voordelen voor ML en het belangrijkste voordeel is misschien wel dat Python een algemene programmeertaal is waarmee je gemakkelijker volwaardige applicaties kunt maken of met hardware interfacen. De bewering dat Python 'krachtiger' of 'performanter' zou zijn dan R neem ik eerder met een korreltje zout. Op de weinige momenten waarop beide platformen op eerlijke wijze vergeleken worden is het verschil onbeduidend en bovendien moet je voornamelijk rekening houden met ontwikkeltijd en daar biedt Python zeker geen voordeel. Tenslotte vermeld ik hier nog even [Julia](https://julialang.org/), een opkomende taal waarin ML eenvoudiger moet worden.
+
+# Git
+
+[Git](https://nl.wikipedia.org/wiki/Git_(software)) is een populair maar spijtig genoeg niet al te gebruiksvriendelijk versiebeheersysteem en tool om het werken in team-verband te stimuleren. In combinatie met github komt het hierop neer:
+
+```{r git, fig.cap="(ref:git)"}
+include_graphics("img/git.svg")
+```
+
+(ref:git) De voornaamste (tijdelijke) opslag plaatsen zoals gedefinieerd door het git versiebeheersysteem met de belangrijkste acties die uitgevoerd kunnen en die te maken hebben met het verplaatsen van data van de ene naar de andere (tijdelijke) opslag. Typisch zal de remote master [GitHub](https://github.com/) zijn.
+
+Je kan git vanuit de opdracht-prompt aansturen of vanuit een gebruikersinterface (UI), zie bijv. [deze link](https://acodez.in/git-gui-clients/) hiervoor. Git is ook ingebakken in RStudio, dus een extra UI is in feite niet nodig. De voorbeelden hieronder zijn voor de opdracht-prompt. Van daaruit is het gewoonlijk maar een kleine stap om in een UI de gelijkaardige commando's terug te vinden. Denk eraan dat de folder waarin je de opdrachten uitvoert moet overeenkomen met de werk-folder.
+
+- Controle installatie
+
+```{cmd git-controle, eval=FALSE}
+git --version  
+```
+
+<pre>
+git version 2.28.0.windows.1
+</pre>
+
+- Authenticatie
+
+```{cmd git-authenticatie, eval=FALSE}
+git config --global user.name "usernamehere"
+git config --global user.email "email@provider.com" 
+```
+
+<pre>
+user.name=usernamehere
+user.email=email@provider.com
+credential.helper=store
+</pre>
+
+- Van bestaande lokale folder, al dan niet met bestanden in, een lokale repository maken die je _misschien_ later nog naar een remote repo kunt opladen.
+
+```{cmd git-init, eval=FALSE}
+cd de_bestaande_lokale_folder
+git init
+git add .
+git status # Controle
+git commit -m "Eerste commit" 
+```
+
+<pre>
+Initialized empty Git repository in de_bestaande_lokale_folder/.git/
+
+On branch master
+
+No commits yet
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+        new file:   tmp.txt
+
+[master (root-commit) 845dafd] Eerste commit
+ 1 file changed, 1 insertion(+)
+ create mode 100644 tmp.txt
+</pre>
+
+- Van een GitHub remote repository een lokale repository maken met lokale werk-folder. Eerst ga je naar GitHub, zoek je de repository en kopieer je de bijhorende link:
+
+```{r git-clone-github}
+include_graphics("img/github-clone.png") 
+```
+
+en daarna geef je de volgende opdrachten in (vervang de repo naam). Let erop dat de remote repo als subfolder wordt aangemaakt van de folder waarin je de opdracht geeft!:
+
+```{cmd git-clone, eval=FALSE}
+git clone https://github.com/ddhaese/Tetris.git
+cd tetris
+git remote -v 
+```
+
+<pre>
+Cloning into 'Tetris'...
+remote: Enumerating objects: 18, done.
+remote: Counting objects: 100% (18/18), done.
+remote: Compressing objects: 100% (16/16), done.
+remote: Total 30 (delta 4), reused 16 (delta 2), pack-reused 12
+Unpacking objects: 100% (30/30), 1.13 MiB | 1.78 MiB/s, done.
+
+origin  https://github.com/ddhaese/Tetris.git (fetch)
+origin  https://github.com/ddhaese/Tetris.git (push)
+</pre>
+
+- Een bestaande lokale repo koppelen aan een remote GitHub repo
+
+```{cmd git-remote-koppelen, eval=FALSE}
+git remote add origin remote_repository_URL 
+```
+
+- Wijzigingen doorvoeren, eerst naar lokale repo, dan naar remote repo. Nadat de wijzigingen zijn aangebracht lokaal:.
+
+```{cmd git-wijzigingen, eval=FALSE}
+git status
+git add tmp.txt
+git status
+git commit -m "wijziging"
+git push -u origin master 
+```
+
+<pre>
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   tmp.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   tmp.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+[master c17bbe1] wijziging
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Delta compression using up to 16 threads
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 303 bytes | 303.00 KiB/s, done.
+Total 3 (delta 2), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (2/2), completed with 2 local objects.
+To remote_repository_URL
+   cc654bf..ee026e2  master -> master
+Branch 'master' set up to track remote branch 'master' from 'origin'.
+</pre>
+
+Voor andere opdrachten verwijs ik naar Udacity's [Version Control with Git](https://www.udacity.com/course/version-control-with-git--ud123).
 
 [^1]: zie https://cran.r-project.org/web/views/MachineLearning.html.
 
-Voor Python ontwikkeling verwijzen we voor leeralgoritmen naar [scikit-learn](https://scikit-learn.org/stable/) en [Tensorflow](https://www.tensorflow.org/). Beide locaties bieden veel hulp voor beginnende datawetenschappers. Python biedt een aantal voordelen voor ML en het belangrijkste voordeel is misschien wel dat Python een algemene programmeertaal is waarmee je gemakkelijker volwaardige applicaties kunt maken of met hardware interfacen. De bewering dat Python 'krachtiger' of 'performanter' zou zijn dan R neem ik eerder met een korreltje zout. Op de weinige momenten waarop beide platformen op eerlijke wijze vergeleken worden is het verschil onbeduidend en bovendien moet je voornamelijk rekening houden met ontwikkeltijd en daar biedt Python zeker geen voordeel. Tenslotte vermeld ik hier nog even [Julia](https://julialang.org/), een opkomende taal waarin ML eenvoudiger moet worden.
-
-Merk op dat deze `train_test_split` helper-functie afkomstig is van de [`sklearn` module-bibliotheek](https://scikit-learn.org/stable/). Deze bibliotheek biedt een ruime gereedschapskist aan voor beginnende datawetenschappers. De naam komt trouwens van Science-kit $\rightarrow$ scikit $\rightarrow$ sk. 

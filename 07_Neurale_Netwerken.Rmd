@@ -20,6 +20,10 @@ palette(dyad[c(9, 20, 66)])
 
 # Inleiding tot artificiële Neurale Netwerken
 
+```{lemma fundamenten-deep-learning}
+Begrijpt de fundamenten achter deep learning ([_EA_LD753_](#leerdoelen)).
+```
+
 ## Geschakelde perceptronen
 
 Een artificieel neuraal netwerk (ANN) kan gezien worden als een samenstelling van individuele perceptronen zodat de uitvoer van de ene perceptron de invoer van een andere wordt. Maar de neuronen worden niet kris-kras door elkaar geplaatst, maar worden georganiseerd in zogenaamde lagen (eng: _layers_). In een feed-forward netwerk resulteert dit in een [gerichte acyclische graaf](https://en.wikipedia.org/wiki/Directed_acyclic_graph) (eng: _directed acyclic graph_) van noden of neuronen. Laten we een eenvoudig voorbeeld bekijken. In het hoofdstuk rond de perceptron hebben we _Iris setosa_ bloemen weten te onderscheiden van andere soorten op basis van twee eigenschappen, namelijk de lengte en breedte van de kelkbladeren. Als we nu eens proberen de drie soorten te onderscheiden. Met één perceptron lukt het niet, want herinner je dat een perceptron enkel lineair gescheiden punten-wolken kan onderscheiden en een lijn zal telkens maar leiden tot een uitkomst met twee mogelijke categorieën.

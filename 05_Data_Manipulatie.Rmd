@@ -13,6 +13,11 @@ palette(dyad[c(9, 20, 66)])
 
 # Manipuleren van data
 
+```{lemma data-exploratie-2}
+Past de juiste principes toe tijdens het exploreren, hanteren en opkuisen van data ([_EA_LD758_](#leerdoelen)).
+```
+
+
 ## Transformations
 
 Data generally needs to be transformed somehow. There are several possible reasons to transform the data:
