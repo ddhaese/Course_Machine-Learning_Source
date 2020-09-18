@@ -1,4 +1,5 @@
 output_dir: "C:/Users/David D'Haese/Documents/_TEACHING/MACHINE_LEARNING/01_COURSE/machine-learning/docs"
+view: https://github.com/ddhaese/machine-learning-source/%s
 
 delete_merged_file: true
 language:
@@ -18,5 +19,6 @@ language:
     remark: "Remark "
     solution: "Solution "
   ui:
+    edit: Bewerken
+    view: Bron
     chapter_name: "Hoofdstuk "
-    references_name: "Bronvermelding"
