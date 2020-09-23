@@ -45,4 +45,4 @@ vignettes/*.pdf
 .Renviron
 
 **/.media/**
-_bookdowndown_files/**
+_bookdown_files/**

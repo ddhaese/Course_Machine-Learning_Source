@@ -264,9 +264,3 @@ Tenslotte vinden we natuurlijk in het codeboek ook een beschrijving van de varia
 - de eventuele eenheden waarmee de grootheden geassocieerd dienen te worden
 - of de variabele het gevolg is van een rechtstreekst meting (bijv. output van een sensor) of achteraf berekend werd uit andere variabelen zoals hier het geval is voor `Humidity_Ratio`
 - een overzicht van de _waarde ruimte_, de set van mogelijke waarden die de variabele _kan_ aannemen ($\mathbb{R}$, $\mathbb{Z}^+$, {0, 1}, datum-veld met resolutie van 1 minuut, &hellip;)
-
-## Data leackage
-
-TBD
-
-

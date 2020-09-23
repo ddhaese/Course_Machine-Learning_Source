@@ -76,10 +76,12 @@ _Vraag_: Sommige mensen zeggen dat er steeds méér terrorisme is in de wereld. 
 
 _Antwoord_: Via de [bovenstaande link](https://vincentarelbundock.github.io/Rdatasets/datasets.html) naar de standaard datasets vinden we twee datasets met het woordje "terrorism" in de titel. Ééntje heeft 206 rijen (`nkill.byCountryYr`), laten we die eens van naderbij bekijken:
 
-```{r}
+```{r example-terrorism-includes}
 library(Ecdat)
 library(magrittr)
+```
 
+```{r help-file-demo, eval=FALSE}
 ?terrorism
 ```
 
@@ -290,27 +292,14 @@ lines(x, y , col = 1, lwd = 3)
 
 We kunnen verdelingen ook met andere grafiek-types in beeld brengen. De meest populaire zijn de [boxplot](https://nl.wikipedia.org/wiki/Boxplot), de {dot plot}(https://en.wikipedia.org/wiki/Dot_plot_(statistics)), de [beeswarm plot](https://www.r-statistics.com/2011/03/beeswarm-boxplot-and-plotting-it-with-r/#:~:text=A%20bee%20swarm%20plot%20is,controlling%20the%20characters%20and%20colors.) en de [violin plot](https://en.wikipedia.org/wiki/Violin_plot).
 
-```{exercise}
+```{exercise grafieftypes}
 Tracht de verdeling van de logaritmisch geschaalde behandelingsduur te visualiseren door middel van de functies `base::dotchart`, `base::boxplot`, `beeswarm::beeswarm` en `vioplot::vioplot `. De oplossing moet er zo uit zien:
 
-![Eindresultaat grafieftypes]()
+![Eindresultaat grafieftypes](img/eindresultaat-grafieftypes.png)
 
-> Tip: Als je meer dan 300 characters nodig hebt, weet je dat je te ver aan het zoeken bent.
+> Tip: Als je meer dan 300 characters nodig hebt voor heel deze oefening, weet je dat je te ver aan het zoeken bent.
 
 > Opgelet: de variabele `bduur_log` wordt voor deze oefening verwacht in scope te zijn.
-```
-
-
-```{r}
-library(beeswarm)
-library(vioplot)
-
-par(mfrow = c(2, 2), pch = 19, mar = rep(1, 4), xaxt = "n")
-
-bduur_log %>% dotchart(pch = 19, lcolor = NA)
-bduur_log %>% boxplot(horizontal = TRUE)
-bduur_log %>% beeswarm(horizontal = TRUE)
-bduur_log %>% vioplot(horizontal = TRUE)
 ```
 
 ## Correlatie tussen twee variabelen

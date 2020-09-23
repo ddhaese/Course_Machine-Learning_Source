@@ -69,7 +69,7 @@ _In Bibtex-formaat:_
 
 _[APA-formaat](https://apastyle.apa.org/):_
 
-D’Haese, D., 2020. Machine learning [WWW Document] [Online; accessed 2020-09-14]. URL https://ddhaese.github.io/machine-learning/
+D’Haese, D., 2020. Machine learning [WWW Document] [Online; accessed yyyy-mm-dd]. URL https://ddhaese.github.io/machine-learning/
 
 ___
 
