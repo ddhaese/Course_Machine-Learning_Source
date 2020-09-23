@@ -1,10 +1,3 @@
----
-title: "Diagnose"
-author: "David D'Haese"
-date: "10-9-2020"
-output: html_document
----
-
 ```{r include=FALSE}
 library(knitr)
 library(data.table)
@@ -21,7 +14,7 @@ palette(dyad[c(9, 20, 66)])
 knit_hooks$set(webgl = hook_webgl)
 ```
 
-# Diagnose
+# Trainen en testen
 
 ```{lemma cross-validatie-lemma}
 Onderkent de basisprincipes van data training & Cross-validatie ([_EA_LD754_](#leerdoelen)).
@@ -270,4 +263,27 @@ Je kan waarschijnlijk hele bibliotheken vullen met informatie over de verschille
 ## Uitwendige invloed
 
 TODO: externe invloed op de beslissingen van een datawetenschapper met schema
+
+## Data lekkage
+
+In de paragraaf [leren-versus-onthouden] zagen we dat leren per definitie betekent dat er _iets nieuw_ wordt aangeleerd. Een van de vele gevaren van ML is dan ook dat er iets wordt aangeleerd wat je al wist. Data lekkage (eng: _data leackage_) is een ernstig probleem dat soms ongezien zijn weg baant in een ML algoritme en dat voor onrealistisch hoge performantie leidt.
+
+```{definition}
+Data lekkage wordt veroorzaakt wanneer informatie afkomstig van de test data gebruikt wordt om het leeralgoritme mee te trainen.
+```
+
+We gaan het probleem onderzoeken aan de ga=hand van twee voorbeelden:
+
+```{example}
+__Voorspellen van slaagcijfers__: stel dat je gevraagd wordt om, op basis van onderstaande data, de slaagcijfers van de studenten te voorspellen. Welke variabelen mag je dan, gegeven bovenstaande definitie, wel gebruiken voor de voorspelling te doen en welke niet.
+```
+
+
+|Student|Year|Semester|Course|Study_Time_Std|Exam_Feedback_Length|Exam_Score|
+|-|-|-|-|-|-|-|
+|A|2018|1|Statistics|.342|213|10|
+|A|2018|2|Informatics|.612|76|14|
+|B|2018|1|Statistics|.771|0|5|
+|&hellip;|&hellip;|&hellip;|&hellip;|&hellip;|&hellip;|
+
 
