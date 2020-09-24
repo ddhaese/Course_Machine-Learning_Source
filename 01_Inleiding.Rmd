@@ -7,7 +7,7 @@ library(knitr)
 
 ## In een notedop
 
-In deze cursus zullen we het erg breed domein van machinaal leren (ML; eng: _machine learning_) aansnijden. Omdat de discipline zo breed is, kunnen onmogelijk alle topics aan bod komen. In plaats daarvan is er gekozen om eerst een brede basis te verschaffen rond de begrippen en principes die belangrijk zijn voor ML om ons daarna specifiek te richten op deep learning. We gaan leren hoe computers beelden kunnen herkennen en gaan zelf aan de slag om zulke algoritmes te configureren en te gebruiken. Deze aangeleerde vaardigheid maakt van een doorsnee IT-er een beginnende datawetenschapper. Gaandeweg zullen we ons echter van bewust moeten maken dat deze vaardigheid ook een aantal verantwoordelijkheden met zich meebrengt. Het gaat dan voornamelijk rond ethisch ML en ethische artificiële intelligentie (AI).
+In deze cursus zullen we het erg breed domein van machinaal leren (ML; eng: _machine learning_) aansnijden. Omdat de discipline zo breed is, kunnen onmogelijk alle topics aan bod komen. In plaats daarvan is er gekozen om eerst een brede basis te verschaffen rond de begrippen en principes die belangrijk zijn voor ML om ons daarna specifiek te richten op deep learning. We gaan leren hoe computers beelden kunnen herkennen en gaan zelf aan de slag om zulke algoritmes te configureren en te gebruiken. Deze aangeleerde vaardigheid maakt van een doorsnee IT-er een beginnende datawetenschapper. Gaandeweg zullen we ons echter van bewust moeten maken dat deze vaardigheid ook een aantal verantwoordelijkheden met zich meebrengt. Het gaat dan voornamelijk om ethisch ML en ethische artificiële intelligentie (AI).
 
 ## Leerdoelen
 
@@ -41,6 +41,26 @@ include_graphics("img/markdown.png")
 
 (ref:markdown) Werking van Markdown. De platte tekst (links) wordt omgezet naar een ander formaat (rechts; hier HTML) door een externe tool als [Pandoc](https://pandoc.org/). Stijl-regels worden hier automatisch uitgevoerd maar de auteur heeft de mogelijkheid ook deze in detail te configureren. Naast het scheiden van vormgeving en inhoud (hetgeen een merkelijke efficiëntie verbetering met zich meebrengt) ondersteund [R Markdown](https://rmarkdown.rstudio.com/) ook meertaligheid, i.e. meerdere programmeertalen in één document. Tussen een aantal talen is er zelfs wederzijdse uitwisseling mogelijk van de actieve variabelen (zie oranje markeringen met pijl). Het voorbeeld met de Mandelbrot fractaal is afkomstig van @mandelbrotjulia, waarvan de GitHub repository een bondige beschrijving geeft van de Mandelbrot verzameling (eng: _Mandelbrot set_) met een test die de performantie-winst van Julia t.o.v. R onderzoekt.
 
+## Bekijken van deze Cursus
+
+Deze cursus kan je het best bekijken door gebruik te maken van je browser. Voor een betere ervaring zijn je de browser het best op volledig scherm. Er is een sneltoets om wisselen tussen gewoon en volledig-scherm modus (Chrome, Firefox: `F11`, Safari: `Control + ⌘ + F`). Heb je meerdere tabs open en vind je het vervelend navigeren in volledig-scherm-modus, is er voor Chrome een leuke extension: [QuicKey.](https://chrome.google.com/webstore/detail/quickey-%E2%80%93-the-quick-tab-s/ldlghkoiihaelfnggonhjnfiabmaficg).
+
+## Code uit de cursus uitvoeren
+
+Via [deze github repository](https://github.com/ddhaese/machine-learning-source) krijg je toegang tot de broncode van deze cursus. 
+
+> Opgelet: De inhoud van de cursus kan mogelijk nog wijzigen. Om steeds de laatste versie te hebben maak je gebruik van `git clone`.
+
+![](img/clone-course.png)
+
+Je kan met deze broncode alle code blokken uit de RMarkdown-bestanden (`*.Rmd`) rechtstreeks lokaal uitvoeren. Maar opgelet, sommige code-blokken zijn specifiek voor Bookdown bedoeld en zijn er alleen voor de vormgeving van de cursus. Let er ook op dat je alle variabelen en bibliotheken in scope hebt door de nodige bovenliggende code-blokken eerst uit te voeren.
+
+![](img/uitvoeren-code-blokken.png)
+
+## Oefeningen maken
+
+Her-en-der verspreid in de cursus zullen er oefeningen voorzien worden. Deze zou je ook rechtstreeks in de broncode van de cursus moeten kunnen uitvoeren. Wanneer je tevreden bent van je oefening, kan je deze via [Digitap](https://learning.ap.be/course/view.php?id=35676) indienen.
+
 ## Licentie voor deze cursus
 
 De inhoud van deze cursus valt onder een GNU Affero General Public v3.0 licentie. Wat er toegelaten is en onder welke voorwaarden staat hieronder opgesomd:
@@ -55,7 +75,7 @@ De inhoud van deze cursus valt onder een GNU Affero General Public v3.0 licentie
 
 ## Verwijzen naar deze cursus
 
-_In Bibtex-formaat:_
+_[Bibtex-formaat](http://www.bibtex.org/):_
 
 <code>
 &#64;online{dhaese2020machine-learning,<br>
@@ -70,7 +90,3 @@ _In Bibtex-formaat:_
 _[APA-formaat](https://apastyle.apa.org/):_
 
 D’Haese, D., 2020. Machine learning [WWW Document] [Online; accessed yyyy-mm-dd]. URL https://ddhaese.github.io/machine-learning/
-
-___
-
-<small>© 2020 David D'Haese</small>

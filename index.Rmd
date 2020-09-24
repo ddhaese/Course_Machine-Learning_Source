@@ -1,11 +1,11 @@
 ---
 title: "Machine Learning"
 author: "34142/1916/2021/1/38<br>David D'Haese"
-date: "Gepubliceerd op `r Sys.Date()`<br><img class='cover' src='img/cover.png' alt='Juncus effusus'/><br>Juncus effusus L., Motic SMZ171"
+date: "Gepubliceerd op `r Sys.Date()`<br><img class='cover' src='img/cover.png' alt='Juncus effusus'/><br>Juncus effusus L., Motic SMZ171<br><small>© 2020 David D'Haese</small>"
 site: bookdown::bookdown_site
 output:
   bookdown::gitbook:
-    css: css/ai.css
+    css: css/course.css
     config:
       sharing: no
 documentclass: book
@@ -45,9 +45,3 @@ The content of this project including its source code is licensed under the GNU 
 | <span title="The licensed material may be modified.">Modification</span>                                       | <span title="Users who interact with the licensed material via network are given the right to receive a copy of the source code.">Network use is distribution</span>                     |                                                                                                     |
 | <span title="This license provides an express grant of patent rights from contributors.">Patent use</span>     | <span title="Modifications must be released under the same license when distributing the licensed material. In some cases a similar or related license may be used.">Same license</span> |                                                                                                     |
 | <span title="The licensed material may be used and modified in private.">Private use</span>                    | <span title="Changes made to the licensed material must be documented.">State changes</span>                                                                                             |                                                                                                     |
-
-___
-
-<small>© 2020 David D'Haese</small>
-
-

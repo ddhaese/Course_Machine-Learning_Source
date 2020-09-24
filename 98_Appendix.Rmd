@@ -60,7 +60,7 @@ x <- iris[, 1:2] %>% cbind("Bias" = c(1, 1), .) %>% as.matrix
 x %>% head %>% rbind(9999) %>% write_matex(prefix = "\\mathbf{x}=", dec = 1)
 ```
 
-De eerste kolom is de nep-variabele waarvan sprake is in Stelling \@ref(def:ff-ann-noden). Nemen we hier nu de eerste rij uit, dan krijgen we een geannoteerde [_vector_](https://nl.wikipedia.org/wiki/Vector_(wiskunde). In R doen we dit:
+De eerste kolom is de nep-variabele waarvan sprake zal zijn tijdens het bespreken van Feed-forward ANNs. Nemen we hier nu de eerste rij uit, dan krijgen we een geannoteerde [_vector_](https://nl.wikipedia.org/wiki/Vector_(wiskunde). In R doen we dit:
 
 ```{r iris-x-matrix-rij}
 x[1,]
@@ -541,7 +541,7 @@ Voor andere opdrachten verwijs ik naar Udacity's [Version Control with Git](http
 
 [^1]: zie https://cran.r-project.org/web/views/MachineLearning.html.
 
-# Antwoorden
+# Antwoorden {display="none"}
 
 ## Hoofdstuk 4
 

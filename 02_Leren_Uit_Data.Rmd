@@ -50,16 +50,18 @@ include_graphics("img/leren_uit_data.png")
 
 (ref:leren-uit-data) Het centraal zenuwstelsel van een mens kan leren uit data. Het concept 'boom' wordt hier met een 'gedachten-wolk' voorgesteld en komt overeen met een model van de realiteit.
 
-Het eindpunt van het leerproces is het model. In het voorbeeld van de boom is dit model het concept of mentaal 'beeld' van een boom dat in onze hersenen achterblijft ook wanneer we niet naar een boom kijken. Dit model is een _vereenvoudigde versie_ van de werkelijkheid. Het bevat zeker naar alle wiskundige verhoudingen noch alle biologische details van één boom, laat staan van alle bomen op aarde. Toch slagen de meesten onder ons een onderscheid te maken tussen een boom en een niet-boom.
+Het eindpunt van het leerproces is het model. In het voorbeeld van de boom is dit model het concept of mentaal 'beeld' van een boom dat in onze hersenen achterblijft ook wanneer we niet naar een boom kijken. Dit model is een _vereenvoudigde versie_ van de werkelijkheid. Het bevat zeker niet alle wiskundige verhoudingen noch alle biologische details van één boom, laat staan van alle bomen op aarde. Toch slagen de meesten onder ons een onderscheid te maken tussen een boom en een niet-boom.
 
 ```{definition def-model}
 Het eindpunt van het leerproces is een model dat een vereenvoudigde versie van de werkelijkheid kan weergeven
 ```
 
-```{theorem, abumostafa, name="Yaser Abu-Mostafa"}
-<br/>![](img/Yaser_Abu_Mostafa.png)
+```{theorem abumostafa, name="Yaser Abu-Mostafa"}
 
-_Yaser Abu-Mostafa_ is a professor Computer Science at the California Institute of Technology mentioned here for his memorable online courses on ML. See [here](https://en.wikipedia.org/wiki/Yaser_Abu-Mostafa) for more details.
+
+![](img/Yaser_Abu_Mostafa.png)
+
+_Yaser Abu-Mostafa_ is een professor Computer Science aan de California Institute of Technology. Hij is beroemd geworden voor zijn memorabele online cursussen rond ML. Zier [hier](https://en.wikipedia.org/wiki/Yaser_Abu-Mostafa) for meer details.
 ```
 
 ## De evolutie van het machinaal leren
@@ -90,11 +92,11 @@ Maar wat betekent _intelligentie_ in feite? Volgens [Wikipedia](https://en.wikip
 
 ## Het model
 
-Laten we beginnen met het eindproduct van ML. We zagen dat het eindpunt van ML het _model_ is. In tegenstelling tot wat deze term in bijvoorbeeld database management betekent, kan je het model het best beschouwen als een _functie_ $g$, ook wel de finale hypothese genoemd (final hypothesis; @learningfromdata):
+Laten we beginnen met het eindproduct van ML. We zagen dat het eindpunt van ML het _model_ is. In tegenstelling tot wat deze term in bijvoorbeeld database management betekent, kan je het model het best beschouwen als een _functie_ $\hat{f}$, ook wel de finale hypothese genoemd (final hypothesis; @learningfromdata):
 
-$$g: \mathcal{X} \to \mathcal{Y}$$
+$$\hat{f}: \mathcal{X} \to \mathcal{Y}$$
 
-Proberen we nu ons boom-herkenning oefening te vertalen van de menselijke wereld naar de ML wereld, kan bestaat het model uit een _functie_ die een antwoord biedt op de vraag:
+Proberen we nu ons boom-herkenning oefening te vertalen van de menselijke wereld naar de ML wereld, dan bestaat het model uit een _functie_ die een antwoord biedt op de vraag:
 
 <q>Wordt op deze digitale foto een boom afgebeeld?</q>
 
@@ -104,7 +106,7 @@ Nadat de digitale afbeelding een zekere voorbereiding (eng: _pre-processing_) do
 include_graphics("img/leren_uit_data_ML.svg")
 ```
 
-(ref:leren-uit-data-ml) Als we de oefening om een boom te herkennen uit figuur \@ref(fig:leren-uit-data) vertalen naar de machinale wereld krijgen we data van waaruit het algoritme een model heeft aangeleerd. Het model kunnen we hier voorstellen door middel van een functie $\hat{g}$.
+(ref:leren-uit-data-ml) Als we de oefening om een boom te herkennen uit figuur \@ref(fig:leren-uit-data) vertalen naar de machinale wereld krijgen we data van waaruit het algoritme een model heeft aangeleerd. Het model kunnen we hier voorstellen door middel van een functie $\hat{f}$. Het hoedje op de $f$ dient om aan te geven dat het om een geschatte waarde gaat.
 
 $\mathcal{X}$ is hier de input en bestaat in dit voorbeeld uit allerhande variabelen die betrekking hebben op gedigitaliseerde afbeeldingen. Bijvoorbeeld, de variabele `Dominante kleur` stelt de meest frequente kleur-groep die op de afbeelding voorkomt.
 
@@ -129,10 +131,10 @@ model <- function(x_test){
 
 ## Doelfunctie
 
-Het is je misschien opgevallen dat het symbool voor het model een hoedje draagt: $\hat{g}$. Dat is geen toeval. Dat wil in feite zeggen dat het om een _geschatte_ functie gaat. Daartegenover staat de werkelijke functie $f$, de zogenaamde _doelfunctie_ (@learningfromdata). Het is belangrijk om te beseffen dat de doelfunctie $f$ in de meeste gevallen onbekend blijft! Tijdens simulaties of binnen de wetenschappelijke disciplines gebeurt het wel eens dat de $f$ gekend is, maar in de meeste gevallen waar een datawetenschapper mee te maken krijgt is dat niet het geval. Het doel is uiteraard om te proberen om met het model $\hat{g}$ de doelfunctie $f$ zo goed mogelijk te benaderen, het dat valt niet mee als $f$ onbekend is. Er zijn verscheidene optie op deze benadering tot een succes te maken. Één van deze benaderingen, diegene die we in dit hoofdstuk toepassen, noemt men het begeleid leren (eng: _supervised learning_).
+Het is je misschien opgevallen dat het symbool voor het model een hoedje draagt: $\hat{f}$. Dat is geen toeval. Dat wil in feite zeggen dat het om een _geschatte_ functie gaat. Daartegenover staat de werkelijke functie $f$, de zogenaamde _doelfunctie_ (@learningfromdata). Het is belangrijk om te beseffen dat de doelfunctie $f$ in de meeste gevallen onbekend blijft! Tijdens simulaties of binnen de wetenschappelijke disciplines gebeurt het wel eens dat de $f$ gekend is, maar in de meeste gevallen waar een datawetenschapper mee te maken krijgt is dat niet het geval. Het doel is uiteraard om te proberen om met het model $\hat{f}$ de doelfunctie $f$ zo goed mogelijk te benaderen, en dat valt niet mee als $f$ onbekend is. Er zijn verscheidene opties om deze benadering tot een succes te maken. Één van deze benaderingen, diegene die we in dit hoofdstuk toepassen, noemt men het begeleid leren (eng: _supervised learning_).
 
 ```{definition def-doelfunctie}
-Het doel van begeleid ML is om een model $\hat{g}$ te vinden dat de werkelijke doelfunctie $f$, die meestal onbekend blijft, zo goed mogelijk tracht te benaderen.
+Het doel van begeleid ML is om een model $\hat{f}$ te vinden dat de werkelijke doelfunctie $f$, die meestal onbekend blijft, zo goed mogelijk tracht te benaderen.
 ```
 
 
@@ -146,7 +148,7 @@ Behalve het begrip 'boom' zullen de meeste peuters ook één of ander schrift aa
 include_graphics("img/alfabet.png")
 ```
 
-(ref:alfabet) Het handgeschreven alfabet zoals voorgesteld met de schrijfmethode D'Haese (geen familie).
+(ref:alfabet) Het handgeschreven alfabet zoals voorgesteld met de schrijfmethode D'Haese (geen familie; [bron](https://www.sincfala.be/106-museumcollectie/collectie-items/33217-didplal00035?tmpl=component)).
 
 Om dit mogelijk te maken kan men een model creëren dat in staat is om de handgeschreven karakters te herkennen. Het Amerikaanse _Modified National Institute of Standards and Technology_ biedt een [dataset](http://yann.lecun.com/exdb/mnist/) aan met foto's van handgeschreven letters en cijfers in allerlei varianten. Om de zaak te vereenvoudigen gaan we ons in dit voorbeeld beperken tot de handgeschreven cijfers (figuur \@ref(fig:mnist)). De cijfers (in de training set) zijn afkomstige van 250 schrijvers, zowel werknemers van de [Census Bureau](https://www.census.gov/) als studenten van het hoger middelbaar onderwijs.
 
@@ -154,7 +156,11 @@ Om dit mogelijk te maken kan men een model creëren dat in staat is om de handge
 include_graphics("https://upload.wikimedia.org/wikipedia/commons/2/27/MnistExamples.png")
 ```
 
-(ref:mnist) Subset van de MNIST dataset met afbeeldingen van handgeschreven cijfers. Elke geschreven karakter is een afzonderlijke afbeelding van $28\times28$ pixels. Elke afbeeldingen werd uitgeknipt uit een groter gescand document met geschreven tekst, gecentreerd en teruggebracht naar een grootte van $28\times28$. Kijk eens goed naar de variaties voor de verscheidene cijfers. Valt je iets op?
+(ref:mnist) Subset van de MNIST dataset met afbeeldingen van handgeschreven cijfers. Elke geschreven karakter is een afzonderlijke afbeelding van $28\times28$ pixels. Elke afbeeldingen werd uitgeknipt uit een groter gescand document met geschreven tekst, gecentreerd en teruggebracht naar een grootte van $28\times28$. 
+
+```{exercise mnist-probleem, name="MNIST probleem"}
+Kijk eens goed naar de variaties voor de cijfers in Figuur 2.4. Valt je iets op? Zou er een probleem kunnen ontstaan indien je deze dataset bijvoorbeeld zou willen inzetten voor het leren herkennen van de handgeschreven notities van AP-studenten? Geef je antwoord op [Digitap](https://learning.ap.be/course/view.php?id=35676).
+```
 
 Elke afbeelding in de MNIST dataset wordt voorgesteld als een $28\times28$-matrix. Elke element van deze matrix stelt een grijswaarde voor van een pixel uit de afbeelding. Stel dat de afbeeldingen in de RGB kleurruimte zouden zijn opgeslagen, dan zou er voor elke pixel niet één maar drie waarden beschikbaar worden gemaakt.
 
@@ -168,7 +174,7 @@ Elke instantie van de input dataset (eng: _instance_) wordt dus voorgesteld door
 
 ## Het resultaat van MNIST analyse
 
-We gaan later in detail onderzoeken hoe we precies de beeldherkenning kunnen uitvoeren. Nu nemen we eerst een kortere weg naar het resultaat. Kijk even terug naar figuur \@ref(fig:leren-uit-data-ml) en herinner je dat het resultaat van een ML process een model was dat wiskundig als functie $\hat{g}$ kan worden voorgesteld. Schematisch zal onze analyse er nu uitzien zoals voorgesteld in figuur \@ref(fig:leren-uit-data-mnist). Merk hier wel op dat de cijfer-varianten in werkelijkheid bevat zitten in een 'platte' matrix is met dimensies $60\,000\times784$, een matrix dus met méér dan 47 miljoen zwevende kommagetallen (eng: _floating point_).
+We gaan later in detail onderzoeken hoe we precies de beeldherkenning kunnen uitvoeren. Nu nemen we eerst een kortere weg naar het resultaat. Kijk even terug naar figuur \@ref(fig:leren-uit-data-ml) en herinner je dat het resultaat van een ML process een model was dat wiskundig als functie $\hat{f}$ kan worden voorgesteld. Schematisch zal onze analyse er nu uitzien zoals voorgesteld in figuur \@ref(fig:leren-uit-data-mnist). Merk hier wel op dat de cijfer-varianten in werkelijkheid vervat zitten in een 'platte' matrix is met dimensies $60\,000\times784$, een matrix dus met méér dan 47 miljoen zwevende kommagetallen (eng: _floating point_).
 
 ```{r leren-uit-data-mnist, fig.cap="(ref:leren-uit-data-mnist)", echo=FALSE}
 include_graphics("img/leren_uit_data_mnist.png")
@@ -204,17 +210,17 @@ Dit is iets heel anders dan `6`, wat is hier gaande? In feite bestaat het model 
 |8|1.6693608e-07|
 |9|3.1370115e-09|
 
-We zien nu ogenblikkelijk dat $p(\hat{y}_{300}=6|x_{300}) = 99.99\%$. Dus in plaats dat het model ons het cijfer `6` teruggeeft, geeft het een schatting van de _kansverdeling_ over alle mogelijke uitkomsten $P(cijfer|beeld)$. Het is dan aan de datawetenschapper om, binnen de discipline van ML, de drempelwaarde (eng: _threshold_) te bepalen tussen wat voldoende zeker is en wat niet. Stel dat we in dit geval de drempelwaarde $\tau=0.99=99\%$ aannemen, dan vertaalt dit inderdaad naar het (in dit geval correcte) antwoord $\hat{y}_{300}=\hat{g}(x_{300}, \tau=0.99)=6$.
+We zien nu ogenblikkelijk dat $p(\hat{y}_{300}=6|x_{300}) = 99.99\%$. Dus in plaats dat het model ons het cijfer `6` teruggeeft, geeft het een schatting van de _kansverdeling_ over alle mogelijke uitkomsten $P(cijfer|beeld)$. Het is dan aan de datawetenschapper om, in samenspraak met anderen binnen het team, de drempelwaarde (eng: _threshold_) te bepalen tussen wat voldoende zeker is en wat niet. Stel dat we in dit geval de drempelwaarde $h_\tau=0.99=99\%$ aannemen, dan vertaalt dit inderdaad naar het (in dit geval correcte) antwoord $\hat{y}_{300}=\hat{f}(x_{300}, h_\tau=0.99)=6$.
 
 ## Het MNIST model
 
-We weten nog steeds niet hoe het model voor het herkennen van de MNIST cijfers eruit ziet, laat staan hoe het tot stand is gekomen. Laten we eerst eens proberen na te gaan hoe het model er van binnen uitziet. In dit geval bestaat het model uit een complex netwerk van _gewichten_ $\mathscr{v}_{j}$ die in lagen verdeeld zijn (zie figuur \@ref(fig:mnist-model)).
+We weten nog steeds niet hoe het model voor het herkennen van de MNIST cijfers eruit ziet, laat staan hoe het tot stand is gekomen. Laten we eerst eens proberen na te gaan hoe het model er van binnen uitziet. In dit geval bestaat het model uit een complex netwerk van _gewichten_ $\mathbf{\theta}$ die in lagen verdeeld zijn (zie figuur \@ref(fig:mnist-model)).
 
 ```{r mnist-model, fig.cap="(ref:mnist-model)", echo=FALSE}
 include_graphics("img/mnist_model.png")
 ```
 
-(ref:mnist-model) Schematische voorstelling van het MNIST model. Elke grijswaarde (uiterst links) in een afbeelding is verbonden met allerlei noden van de eerste laag in het netwerk (groot blauw raster links) en elke node uit de eerste laag is verbonden met de noden uit de tweede laag (kleiner blauw raster rechts). De oranje blak uiterst rechts stelt het antwoord voor, de kansverdeling over alle mogelijke uitkomsten, zoals uitgelegd in [vorige paragraaf](#het-resultaat-van-mnist-analyse).
+(ref:mnist-model) Schematische voorstelling van het MNIST model. Elke grijswaarde (uiterst links) in een afbeelding is verbonden met allerlei noden van de eerste laag in het netwerk (groot blauw raster links) en elke node uit de eerste laag is verbonden met de noden uit de tweede laag (kleiner blauw raster rechts). De oranje balk uiterst rechts stelt het antwoord voor, de kansverdeling over alle mogelijke uitkomsten, zoals uitgelegd in [vorige paragraaf](#het-resultaat-van-mnist-analyse).
 
 We kunnen de gewichten uit het model opvragen:
 
@@ -257,31 +263,35 @@ def model(x, tau = 0.99):
   return y_hat
 ```
 
-In ons voorbeeld zou, indien `x` overeenkomt met $x_{300}$ uit \@ref(fig:mnist-cijfer), `y_dist` overeenkomen met $P(\hat{y}_{300}|x_{300})$, `y_hat_prob` met $99.999893\%$ en `y_hat` met $6$. Indien de berekende distributie 10 waarden zou bevatten die allen kleiner zijn dan $\tau$, zou dit model aangeven dat er te weinig zekerheid is door `None` terug te geven.
+In ons voorbeeld zou, indien `x` overeenkomt met $x_{300}$ uit \@ref(fig:mnist-cijfer), `y_dist` overeenkomen met $P(\hat{y}_{300}|x_{300})$, `y_hat_prob` met $99.999893\%$ en `y_hat` met $6$. Indien de berekende distributie 10 waarden zou bevatten die allen kleiner zijn dan $h_\tau$ (`tau` in de code hierboven), zou dit model aangeven dat er te weinig zekerheid is over welk cijfer de afbeelding moet voorstellen door de waarde `None` terug te geven.
+
+```{definition onzeker-model}
+Het is volstrekt normaal dat een ML model in sommige situaties _geen voorspelling_ kan maken.
+```
 
 ## Het leerproces voor begeleid ML
 
-Zoals gezegd gaan we nog niet volledig in detail onderzoeken _hoe_ een ML model tot stand komt, maar laten we toch al trachten het ML proces te schematisch reconstrueren, specifiek voor wanneer het gaat om begeleid leren. Wat weten we tot nu toe? We weten dat we vertrekken met training data $\left(\mathcal{X}_{trn},\mathcal{Y}_{trn}\right)$ en eindigen met een model $\hat{g}$. We weten ook al dat het model een functie is die test data $\mathcal{X}_{tst}$ als invoer heeft en een voorspelling (eng: _prediction_) $\hat{y}$ als uitvoer (zie Figuur \@ref(fig:proces-1)).
+Zoals gezegd gaan we nog niet volledig in detail onderzoeken _hoe_ een ML model tot stand komt, maar laten we toch al trachten het ML proces te schematisch reconstrueren, specifiek voor wanneer het gaat om begeleid leren. Wat weten we tot nu toe? We weten dat we vertrekken met training data $\left(\mathcal{X}_{trn},\mathcal{Y}_{trn}\right)$ en eindigen met een model $\hat{f}$. We weten ook al dat het model een functie is die test data $\mathcal{X}_{tst}$ als invoer heeft en een voorspelling (eng: _prediction_) $\hat{y}$ als uitvoer (zie Figuur \@ref(fig:proces-1)).
 
 ```{r proces-1, fig.cap="(ref:proces-1)", echo=FALSE}
 include_graphics("img/proces_1.svg")
 ```
 
-(ref:proces-1) Eerste overzicht van het leerproces voor begeleid ML. Ronde vormen staan voor acties of functies, rechthoekige vormen geven objecten weer. Met andere woorden, het proces voor ML kan gecodeerd worden als $\hat{g}=\ell(\mathcal{X}, \mathcal{Y})$.
+(ref:proces-1) Eerste overzicht van het leerproces voor begeleid ML. Ronde vormen staan voor acties of functies, rechthoekige vormen geven objecten weer. Met andere woorden, het proces voor ML kan gecodeerd worden als $\hat{f}=\ell(\mathcal{X}, \mathcal{Y})$. $trn$ staat voor training, $tst$ voor test. _leren_: eng. _learning_, _training_. _voorspellen_: eng. _to predict_, _inference_.
 
 ## De onderdelen van een model
 
-Het _model_ is dus een functie met daarin de gewichten $\mathscr{v}_j$ alsook de nodige logica om de invoer op de juiste manier te bewerken met de gewichten. Dit laatste wordt in tekstboeken vaak over het hoofd gezien omdat het in de praktijk vaak neerkomt op een eenvoudige matrix vermenigvuldiging. Hier wordt ervoor gekozen om dit een beetje explicieter te maken. In het MNIST model uit vorige paragraaf zien we nog een derde element, het argument `tau`. Dit is een _hyperparameter_. Hyperparameters die gekoppeld zijn aan een model dienen vaak, net als bij `tau`, om een grenswaarde te bepalen tussen wat een goede voorspelling is en wat niet. We zullen in volgende paragraaf zien dat er ook hyperparameters gekoppeld kunnen worden aan het leeralgoritme, waar ze gewoonlijk een heel andere rol gaan spelen.
+Het _model_ is dus een functie met daarin de gewichten $\mathbf{\theta}$ alsook de nodige logica om de invoer op de juiste manier te bewerken met de gewichten. Dit laatste wordt in tekstboeken vaak over het hoofd gezien omdat het in de praktijk vaak neerkomt op een eenvoudige matrix vermenigvuldiging. Hier wordt ervoor gekozen om dit een beetje explicieter te maken. In het MNIST model uit vorige paragraaf zien we nog een derde element, het argument $h_\tau$ (`tau` in code). Dit is een _hyperparameter_. Hyperparameters die gekoppeld zijn aan een model dienen vaak, net als bij $h_\tau$, om een grenswaarde te bepalen tussen wat een goede voorspelling is en wat niet. We zullen in volgende paragraaf zien dat er ook hyperparameters gekoppeld kunnen worden aan het leeralgoritme, waar ze gewoonlijk een heel andere rol gaan spelen.
 
 ```{definition ml-output}
 Het model dat het resultaat is van begeleid machinaal leren bestaat uit minstens 2 onderdelen:
 
-- de gewichten $\mathscr{\theta}_j$
+- de gewichten $\mathbf{\theta}$
 - de modellogica
 
 maar is vaak pas bruikbaar mits het definiëren van nog een derde onderdeel:
 
-- de hyperparameters $\mathscr{v}_k$
+- de hyperparameters $\mathbf{h}_f$
 ```
 
 ## Hyperparameters
@@ -292,7 +302,7 @@ Hyperparameters worden zo genoemd om ze duidelijk te onderscheiden van gewichten
 Hyperparameters geven aan _hoe_ een proces moet verlopen. Parameters dienen als invoer voor een functie.
 ```
 
-De manier waarop parameters tot stand komen worden bepaald door het leeralgoritme (zie volgende §). Hyperparameters, daarentegen worden door de datawetenschapper gekozen ofwel in een afzonderlijk  proces automatisch geoptimaliseerd. De keuze voor de waarde van een hyperparameter zoals `tau` kan gemaakt worden door de datawetenschapper op basis van ervaring ofwel omdat het door de omgeving wordt opgelegd. Laten we twee voorbeelden bekijken die aangeven hoe de omgeving een drempelwaarde kan opleggen.
+De manier waarop parameters tot stand komen worden bepaald door het leeralgoritme (zie volgende §). Hyperparameters, daarentegen worden door de datawetenschapper gekozen ofwel in een afzonderlijk  proces automatisch geoptimaliseerd. De keuze voor de waarde van een hyperparameter zoals $h_\tau$ kan gemaakt worden door de datawetenschapper op basis van ervaring ofwel omdat het door de omgeving wordt opgelegd. Laten we twee voorbeelden bekijken die aangeven hoe de omgeving een drempelwaarde kan opleggen.
 
 ```{example drempel-kat-hond}
 Stel, er wordt de datawetenschapper gevraagd om een algoritme te ontwikkelen om afbeeldingen van katten en honden (en telkens exact één kat of één hond) te onderscheiden, gewoon voor het plezier. Stel dat het algoritme slechts één waarde uitvoert, namelijk de probabiliteit $p_{kat}$ dat de afbeelding een kat laat zien. De probabiliteit dat het een hond is ($p_{niet kat}$), kan hieruit berekend worden met de formule $p_{niet kat}=1-p_{kat}$. Een logische drempelwaarde op deze probabiliteiten is $0.5$. Vanaf dat $p_{kat}$ zakt onder deze waarde, gaan we ervan uit dat het om een hond gaat.
@@ -301,7 +311,7 @@ Stel, er wordt de datawetenschapper gevraagd om een algoritme te ontwikkelen om 
 ```
 
 ```{example drempel-gezond-ziek}
-De datawetenschapper wordt nu gevraagd om een algoritme te ontwikkelen om op basis van tal van bloedwaarden van een patiënt te bepalen of deze ziek is of niet. Het algoritme voert weer slechts één waarde uit, ditmaal de kans om ziek te zijn $p_{ziek}$. De drempelwaarde mag nu niet meer zo maar op $0.5$ worden geplaatst. Waarom niet? ML algoritmen maken fouten maar niet alle fouten zijn even erg. Het foutief aanduiden van een gezonde persoon als `ziek` is niet zo erg als het foutief aanduiden van een zieke patiënt als persoon. Maar hoe weet de datawetenschapper dan welke drempelwaarde er gekozen moet worden? Nu komt het: in dit geval mag de datawetenschapper in geen geval een drempelwaarde zelf bepalen. De arsten die de opdracht geven dragen de verantwoordelijkheid om de ideale drempelwaarde te bepalen
+De datawetenschapper wordt nu gevraagd om een algoritme te ontwikkelen om op basis van tal van bloedwaarden van een patiënt te bepalen of deze ziek is of niet. Het algoritme voert weer slechts één waarde uit, ditmaal de kans om ziek te zijn $p_{ziek}$. De drempelwaarde mag nu niet meer zo maar op $0.5$ worden geplaatst. Waarom niet? ML algoritmen maken fouten maar niet alle fouten zijn even erg. Het foutief aanduiden van een gezonde persoon als 'ziek' is niet zo erg als het foutief aanduiden van een zieke patiënt als gezond. Maar hoe weet de datawetenschapper dan welke drempelwaarde er gekozen moet worden? Nu komt het: in dit geval mag de datawetenschapper in geen geval een drempelwaarde zelf bepalen. De arsten die de opdracht geven dragen de verantwoordelijkheid om de ideale drempelwaarde te bepalen
 
 ![](img/drempel-gezond-ziek.svg)
 ```
@@ -312,20 +322,30 @@ Hyperparameters _moeten_ vaak door andere mensen dan de datawetenschapper worden
 
 ## Het leeralgoritme
 
-Om van de training data naar het model te gaan heb je een _leeralgoritme_ $\ell$ nodig. Voorbeelden hiervan zien support vector machines (SVM), neuraal netwerk (NN), naïef Bayes algoritme (NB), enzovoort&hellip; Er zijn wel honderden algoritmen waaruit een datawetenschapper kan kiezen, en voor elk algoritme zijn er gewoonlijk oneindig veel mogelijke instellingen[^1] (lett.). We begrijpen uit vorige paragraaf dat parameters en hyperparameters verschillend zijn maar puur wiskundig beschouwd, dienen ze allebei gewoon als invoer voor de ene of ander functie. Noteren we de hyperparameters bij het leeralgoritme nu als $\mathscr{l}_k$, dan krijgen we het volgende:
+Om van de training data naar het model te gaan heb je een _leeralgoritme_ $\ell$ nodig. Voorbeelden hiervan zijn support vector machines (SVM), neuraal netwerken (NN), naïef Bayes algoritmen (NB), enzovoort&hellip; Er zijn wel honderden algoritmen waaruit een datawetenschapper kan kiezen, en voor elk algoritme zijn er gewoonlijk oneindig veel mogelijke instellingen[^1] (lett.). We begrijpen uit vorige paragraaf dat parameters en hyperparameters verschillend zijn maar puur wiskundig beschouwd, dienen ze allebei gewoon als invoer voor de ene of ander functie. Noteren we de hyperparameters bij het leeralgoritme nu als $\mathbf{h}_\ell$, dan krijgen we het volgende:
 
-$$\hat{g}=\ell\left(\{\mathcal{X}, \mathcal{Y}\}, \mathscr{l}_k\right)$$
+$$\hat{f}=\ell\left(\{\mathcal{X}, \mathcal{Y}\}, \mathbf{h}_\ell\right)$$
 
-Hier staat: het ML model wordt, in het geval van begeleid ML, gevormd door een leeralgoritme dat zowel data als invoer heeft ($\{\mathcal{X}, \mathcal{Y}\}$) als hyperparameters die het leerproces kunnen beïnvloeden. Wat is dan de rol van de hyperparameters die op het leeralgoritme inwerken? Zonder nu al te veel in gaan op het intern mechanisme van de leeralgoritmen, is één van de veel voorkomende functies van $\mathscr{l}_k$ om te bepalen hoe snel het leeralgoritme te werk moet gaan.
+Hier staat: het ML model wordt, in het geval van begeleid ML, gevormd door een leeralgoritme dat zowel data als invoer heeft ($\{\mathcal{X}, \mathcal{Y}\}$) als hyperparameters die het leerproces kunnen beïnvloeden. Wat is dan de rol van de hyperparameters die op het leeralgoritme inwerken? Zonder nu al te veel in gaan op het intern mechanisme van de leeralgoritmen, is één van de veel voorkomende functies van $\mathbf{h}_\ell$ om te bepalen hoe snel het leeralgoritme te werk moet gaan.
 
-Ik wil hier nog even benadrukken dat het resultaat van het leeralgoritme moet bestaan uit een set van parameters én een functie-logica. Deze functie-logica ligt voor een bepaald leeralgoritme vast. Bijvoorbeeld, voor een logistische regressie, bestaat deze logica uit een logit-transformatie en een matrix vermenigvuldiging. Deze logica plus de parameters $\mathscr{\theta}_j$ vormen samen het model. De hyperparameters die op het model inwerken worden, zoals uitgelegd in vorige §, meestal _achteraf_ bepaald door de datawetenschapper of opgelegd door de omgeving.
+Ik wil hier nog even benadrukken dat het resultaat van het leeralgoritme moet bestaan uit een set van parameters én een functie-logica. Deze functie-logica ligt voor een bepaald leeralgoritme vast. Bijvoorbeeld, voor een logistische regressie, bestaat deze logica uit een logit-transformatie en een matrix vermenigvuldiging. Deze logica plus de parameters $\mathbf{\theta}$ vormen samen het model. De hyperparameters die op het model inwerken worden, zoals uitgelegd in vorige §, meestal _achteraf_ bepaald door de datawetenschapper of opgelegd door de omgeving.
 
 ## Model complexiteit
 
-Merk op dat een ML model niet zo complex hoeft te zijn als dit MNIST model. Het kan best dat een model bestaat uit slecht een handvol parameters. Zo zullen nog zien dat je met de [iris dataset](https://en.wikipedia.org/wiki/Iris_flower_data_set) drie sterk gelijkende bloemensoorten onderscheiden op basis van slechts 2 variabelen (de lengte van het kroonblad $p$ en de lengte van het kelkblad $s$) en 3 parameters die hierop inwerken ($\theta_1 = 2.5$, $\theta_2 = 1.2$ en $\theta_3=0.3$):
+Merk op dat een ML model niet zo complex hoeft te zijn als dit MNIST model. Het kan best dat een model bestaat uit slecht een handvol parameters. Laten we een voorbeeld in beschouwing nemen.
 
-$$species=\begin{cases}\text{setosa als }p<\theta_1\\\text{versicolor als }s>\theta_2p+\theta_3\\\text{virginica anders}\end{cases}$$
-In dit geval ziet ons model er dan zo uit (Python):
+```{example iris-simple-model}
+Een zeer bekende oefen-dataset is de [iris dataset](https://en.wikipedia.org/wiki/Iris_flower_data_set) waarin afmetingen van de kelkbladen en kroonbladen van drie soorten irissen werden opgenomen.
+
+![](img/iris.png)
+<small>Bron: @iris-setosa, @iris-versicolor, @iris-virginica.</small>
+
+Stel dat het doel is om de drie sterk gelijkende bloemensoorten te onderscheiden op basis van slechts 2 variabelen, namelijk de lengte van het kroonblad $x_p$ en de lengte van het kelkblad $x_s$. Veronderstel verder dat het model reeds getraind werd. Het model zou bijvoorbeeld kunnen afhangen van slechts 3 parameters die op $x_s$ en $x_p$ inwerken, bijvoorbeeld: $\theta_1 = 2.5$, $\theta_2 = 1.2$ en $\theta_3=0.3$. De _logica_ van het model zou er dan bijvoorbeeld als volgt kunnen uitkzien:
+
+$$species=\begin{cases}\text{setosa als }x_p<\theta_1\\\text{versicolor als }x_s>\theta_2p+\theta_3\\\text{virginica anders}\end{cases}$$
+```
+
+In dit geval kan de model-logica als volgt gecodeerd worden (Python):
 
 ```python
 def model(x):
@@ -338,11 +358,15 @@ def model(x):
   return "virginica"
 ```
 
-Deze versie van het iris-model met slechts 3 gewichten (te vergelijken met gewichten) is wel erg eenvoudig maar er bestaan ook andere ML modellen die in productie gebruikt worden en niet veel complexer zijn. Complexiteit is trouwens geen goede maatstaf voor de 'kwaliteit' van een model. Aan de andere kant bestaan er ook modellen die nog véél complexer zijn dan het MNIST model met honderden miljarden gewichten ($J > 10^{11}$; @shazeer2017).
+Deze versie van het iris-model met slechts 3 gewichten (parameters!) is wel erg eenvoudig maar er staan ML modellen in productie die niet veel complexer zijn en toch hun werk doen. Complexiteit is trouwens geen goede maatstaf voor de 'kwaliteit' van een model. Soms eisen de vragende partij of andere belanghebbenden in het AI project nadrukkelijk een zo eenvoudig mogelijk model zodat het begrijpbaar en transparant blijft. Aan de andere kant bestaan er ook modellen die nog véél complexer zijn dan het MNIST model met honderden miljarden gewichten ($J > 10^{11}$; @shazeer2017)!
+
+```{definition model-complexiteit}
+Model complexiteit is geen goede maatstaf voor de 'kwaliteit' van een model.
+```
 
 ## Comprimeren door middel van een ML model
 
-Uit de vorige paragraaf leren we dat modellen zeer eenvoudig of zeer complex kunnen zijn. Meestal bevat het model inclusief de gewichten weliswaar véél minder informatie dan de oorspronkelijk data waarop getraind werd. In deze gevallen kan je het model beschouwen als een vereenvoudigde voorstelling van de werkelijkheid of nog als een geavanceerde 'Zip-functie', hetzij eentje die niet volmaakt is (eng: _lossless_). Het zou ons te ver leiden om de compressie-factor (eng: _compression ratio_) te berekenen op basis van de [Informatietheorie](https://nl.wikipedia.org/wiki/Informatietheorie), maar misschien kunnen we een grove schatting maken van de compressie-factor voor ons MNIST-model (zie Voorbeeld \@ref(exm:mnist-compression)).
+Uit de vorige paragraaf leren we dat modellen zeer eenvoudig of zeer complex kunnen zijn. Meestal bevat het model inclusief de gewichten weliswaar véél minder informatie dan de oorspronkelijk data waarop getraind werd. In deze gevallen kan je het model beschouwen als een vereenvoudigde voorstelling van de werkelijkheid of nog als een geavanceerde 'zip-functie', hetzij eentje die niet volmaakt is (eng: _lossless_). Het zou ons te ver leiden om de compressie-factor (eng: _compression ratio_) te berekenen op basis van de [Informatietheorie](https://nl.wikipedia.org/wiki/Informatietheorie), maar misschien kunnen we een grove schatting maken van de compressie-factor voor ons MNIST-model (zie Voorbeeld \@ref(exm:mnist-compression)).
 
 ```{example mnist-compression}
 
@@ -359,14 +383,22 @@ Dit brengt ons op een compressie-factor van:
 $$\frac{1.5\cdot10^9 bits}{3.2\cdot10^6 bits} > 450$$
 ```
 
+```{exercise iris-compression, name="Iris compressie"}
+Probeer nu zelf ook eens de compressiefactor in te schatten voor het iris-model uit Voorbeeld \@ref(exm:iris-simple-model). Zei opties meerkeuzevraag op [Digitap](https://learning.ap.be/course/view.php?id=35676).
+```
+
 ## Leren versus ontwerp
 
-We hebben al heel wat woorden vuil gemaakt om te begrijpen wat ML eigenlijk inhoud. Laten we nu even stilstaan bij wat ML _niet_ is. Om te beginnen is ML niet ontwerpen. Wat is het verschil? Ook hier is het gemakkelijkste om het verschil aan te tonen aan de hand van twee voorbeelden. De probleemstelling is als volgt:
+We hebben al heel wat woorden vuil gemaakt om te begrijpen wat ML eigenlijk inhoud. Laten we nu even stilstaan bij wat ML _niet_ is. Om te beginnen is ML niet ontwerpen. Wat is het verschil? Ook hier is het gemakkelijkste om het verschil aan te tonen aan de hand van twee voorbeelden. 
 
-<q>Maak een verkoopautomaat die op basis van de massa en de diameter de 4 verschillende Indiase muntstukken (0.5, 1, 2 en 5 Rs) zo goed mogelijk kan onderscheiden.</q>
+```{example verkoopautomaat-ontwerp, name="Ontwerp-benadering verkoopsautomaat probleem"}
+De probleemstelling is als volgt:
 
-```{example verkoopautomaat-ontwerp}
-__Ontwerp-benadering van het verkoopsautomaat probleem__: zoek naar de specificaties die gebruikt worden tijdens het ontwerpen van de munstukken. Op de [webpagina van Takashi Shimazaki](http://www.tadopika.net/en/14currency/worldcoins.htm) vind je een samenvatting:
+Maak een verkoopautomaat die op basis van de massa en de diameter de 4 verschillende Indiase muntstukken (0.5, 1, 2 en 5 Rs) zo goed mogelijk kan onderscheiden.
+
+_Oplossing via ontwerp_:
+
+Zoek naar de specificaties die gebruikt worden tijdens het ontwerpen van de munstukken. Op de [webpagina van Takashi Shimazaki](http://www.tadopika.net/en/14currency/worldcoins.htm) vind je een samenvatting:
 
 | Waarde (Rs) | Massa ($g$) | Diameter ($mm$) |
 | ----------- | --------- | ------------- |
@@ -380,8 +412,8 @@ We veronderstellen verder een standaardafwijking op de metingen van $0.09g$ en $
 ![verkoopautomaat-ontwerp](img/verkoopautomaat-ontwerp.png)
 ```
 
-```{example verkoopautomaat-ml}
-__ML-benadering van het verkoopsautomaat probleem__: zoek naar _data_ met werkelijke metingen van de massa's en diameters van de verscheidene Indiase munstukken. Bij gebrek aan zulke data zit er niets anders op dan een random steekproef te nemen van de munstukken en ze zelf te meten (of door iemand betrouwbaar te laten meten). Hier is het resultaat van de metingen:
+```{example verkoopautomaat-ml, name="ML-benadering van het verkoopsautomaat probleem"}
+_Oplossing via ML_: zoek naar _data_ met werkelijke metingen van de massa's en diameters van de verscheidene Indiase munstukken. Bij gebrek aan zulke data zit er niets anders op dan een random steekproef te nemen van de munstukken en ze zelf te meten (of door iemand betrouwbaar te laten meten). Hier is het resultaat van de metingen:
 
 ![verkoopautomaat-ml](img/verkoopautomaat-ml.png)
 
@@ -391,7 +423,6 @@ De kleuren stellen het resultaat voor van een clusteralgoritme (k-means), dit is
 De grafiek voor __ontwerp benadering__ kan je genereren met de onderstaande R code:
 
 ```{r eval=FALSE}
-library(data.table)
 library(plotrix)
 
 coins <- fread("
@@ -416,14 +447,11 @@ dummy <- coins[, text(Diameter, Massa, Waarde)]
 Hieronder vind je de code terug voor de ML-benadering uit Voorbeeld \@ref(exm:verkoopautomaat-ml). Merk op dat ik hier, omdat er niet direct data voorhanden was, de data zelf heb gesimuleerd.
 
 ```{r eval=FALSE}
-library(data.table)
-library(magrittr)
 library(MASS)
 
 set.seed(42)
 
 # Generating data
-
 copula <- function(lab, n, rho, mu1, mu2, sd1, sd2){
   mu <- c(mu1,mu2)
   sigma <- matrix(c(sd1 ^ 2, sd1 * sd2 * rho, sd1 * sd2 * rho, sd2 ^ 2),2)
@@ -449,16 +477,18 @@ text(model$centers[,"Diameter"], model$centers[,"Mass"],
   LETTERS[1:4])
 ```
 
-## Leren versus onthouden
+## Leren versus onthouden en inferentie
 
-De moeilijkste te onderscheiden begrippen in de wereld van ML zijn _leren_ versus _onthouden_. Dit probleem komt trouwens deels overeen met het onderscheid tussen respectievelijk _ML_ en _regressie_. Zich de moeite getroosten om een model te ontwikkelen heeft alleen maar nut indien het ook achteraf gebruikt zal worden om voorspellingen mee te doen. Met andere woorden om dingen te ontdekken die men (t.t.z. de computer) nog niet wist. Laten we onderstaand voorbeeld onderzoeken om te begrijpen wat het precies betekent om niets nieuw te leren.
+De moeilijkste te onderscheiden begrippen in de wereld van ML zijn _leren_ versus _inferentie_. Dit probleem komt trouwens deels overeen met het onderscheid tussen respectievelijk _ML_ en _regressie_. Zich de moeite getroosten om een model te ontwikkelen heeft alleen maar nut indien het ook achteraf gebruikt zal worden om voorspellingen mee te doen. Met andere woorden om dingen te ontdekken die men (t.t.z. de computer) nog niet wist. Laten we onderstaand voorbeeld onderzoeken om te begrijpen wat het precies betekent om niets nieuw te leren.
 
-```{example cars-regressie}
-__MT cars relatie__: De Motor Trend Car Road Tests dataset bevat 10 standaard eigenschappen voor de motoren van 32 automerken zoals verbruik, cilinderinhoud en dergelijke. Deze data zijn net als iris dataset en sommige anderen een waarde geworden in de wereld van de statistiek. De data werd oorspronkelijk verzameld uit het Motor Trend US magazine van 1974 (zie @henderson1981). Geef `?mtcars` in R om meer te weten te komen. Stel nu dat er een theorie bestaat die de cilinderinhoud $c$ in verband brengt met de massa $w$ van de wagen door middel van een variant van de zogenaamde hill-functie:
+```{example cars-regressie, name="MT cars relatie"}
+De Motor Trend Car Road Tests dataset bevat 10 standaard eigenschappen voor de motoren van 32 automerken zoals verbruik, cilinderinhoud en dergelijke. Deze data zijn net als iris data een waarde geworden in de wereld van de statistiek. De data werd oorspronkelijk verzameld uit het Motor Trend US magazine van 1974 (zie @henderson1981). Geef `?mtcars` in R om meer te weten te komen.
+
+Stel nu dat er een theorie bestaat die de cilinderinhoud $c$ in verband brengt met de massa $w$ van de wagen door middel van een variant van de zogenaamde hill-functie:
 
 $$c=\theta_1+\frac{\theta_2-(w-\theta_3)^2}{\theta_4^2+(w-\theta_3)^2}$$
 
-De datawetenschapper zal trachten deze vraag te beantwoorden. Hij voert een niet-lineare regressie analyse uit. Hierbij zal een zogenaamd _optimalisatie-algoritme_ de 4 parameters wijzigen totdat de functie die zo ontstaat zo goed mogelijk overeenkomt met de aangeleverde dataset. De onderstaande clip brengt dit proces tot leven:
+De onderzoeker zal trachten deze vraag te beantwoorden. Hij voert een niet-lineare regressie analyse uit. Hierbij zal een zogenaamd _optimalisatie-algoritme_ de 4 parameters wijzigen totdat de functie die zo ontstaat zo goed mogelijk overeenkomt met de aangeleverde dataset. De onderstaande clip brengt dit proces tot leven:
 
 ![cars-regressie](img/regressie.gif)
 
@@ -467,7 +497,7 @@ Naarmate dat de optimalisatie vordert (zie @nelder1965), verkleint de afwijking 
 $$\theta_1=78, \theta_2=517.47, \theta_3=1.87, \theta_4=2.10$$
 ```
 
-Wat het Voorbeeld \@ref(exm:cars-regressie) laat zien is dat gebaseerd op een vooraf bepaald model, waarvan wel de parameters maar niet de complexiteit gewijzigd mag worden er inderdaad een ideale parameterset gevonden kan worden die bij deze 32 datapunten past. Maar wat als dezelfde opdrachtgever nu tegen de datawetenschapper zegt dat die zich vergist had. Het zou beter zijn om te de puntenwolk te beschrijven door middel van een polynoom van de vijfde graad. De datawetenschapper zet zich eraan en schrijft de volgende R code:
+Wat het Voorbeeld \@ref(exm:cars-regressie) laat zien is gebaseerd op een vooraf bepaalde model-logica. Van dit model mogen wel de parameters maar niet de complexiteit noch de formule gewijzigd worden. Er kan inderdaad een ideale parameter-set gevonden kan worden die bij deze 32 datapunten past. Maar wat als dezelfde opdrachtgever nu tegen de onderzoeker zegt dat die zich vergist had. Het zou beter zijn om te de puntenwolk te beschrijven door middel van een polynoom van de vijfde graad. De onderzoeker zet zich eraan en schrijft de volgende R code:
 
 ```r
 rmse <- function(y, x){
@@ -478,7 +508,7 @@ model <- lm(disp ~ poly(wt, 5), data = mtcars)
 rmse(model$fitted.values, mtcars$disp)
 ```
 
-Het resultaat is nu een RMSE van 52.492, beter dan het vorige resultaat, alleen ziet de resulterende curve er nu een beetje vreemd uit:
+Het resultaat is nu een RMSE van 52.492, beter dan het vorige resultaat, alleen ziet de resulterende curve er nu een beetje vreemder uit:
 
 ```{r cars-regressie-2-res, out.width="318px", echo=FALSE}
 include_graphics("img/regressie2.png")
@@ -490,7 +520,9 @@ Het probleem is natuurlijk dat hoe hoger de graad van de polynoom, hoe beter de 
 include_graphics("img/regressie3.png")
 ```
 
-Wat hier aan het gebeuren is noemt met _overfit_. Een polynoom met zulke hoge graad is veel te complex voor het onderliggend patroon. We voelen dit ergens wel aan maar kunnen we dit ook formaliseren of zelfs bewijzen? Het antwoord is ja en ja. Het eerste (het formaliseren) zou ons te ver leiden, maar voor de geïnteresseerden raad ik aan om de term [_VC dimension_](https://en.wikipedia.org/wiki/Vapnik%E2%80%93Chervonenkis_dimension) op te zoeken, genoemd naar twee grondleggers van de ML theorie: Vladimir Vapnik en Alexey Chervonenkis en het boek (of online lezingen) van Yaser Abu-Mostafa te bekijken (@learningfromdata). Het tweede aspect (het bewijzen) is eenvoudiger. We moeten gewoon op zoek gaan naar nieuwe data:
+Wat hier aan het gebeuren is noemt met _overfit_. Een polynoom met zulke hoge graad is veel te complex voor het onderliggend patroon. We voelen dit ergens wel aan. Voordat ML populair was, zou een onderzoeker 'op het gevoel' afgaan om de graad van de polynoom te bepalen. In ML wordt de complexiteit niet op voorhand opgegeven en zoekt het leeralgoritme zelf uit hoe complex het model mag worden alvorens er overfit optreedt.
+
+Kunnen we dat overfitten ook formaliseren of zelfs bewijzen? Het antwoord is ja en ja. Het eerste (het formaliseren) zou ons te ver leiden, maar voor de geïnteresseerden raad ik aan om de term [_VC dimension_](https://en.wikipedia.org/wiki/Vapnik%E2%80%93Chervonenkis_dimension) op te zoeken, genoemd naar twee grondleggers van de ML theorie: Vladimir Vapnik en Alexey Chervonenkis en het boek (of online lezingen) van Yaser Abu-Mostafa (zie \ref(thm: abumostafa)) te bekijken (@learningfromdata). Het tweede aspect (het bewijzen) is eenvoudiger. We moeten gewoon op zoek gaan naar nieuwe data:
 
 ```{r cars-regressie-4-res, out.width="318px", echo=FALSE}
 include_graphics("img/regressie4.png")
@@ -500,10 +532,10 @@ We zien nu het gevolg van overfitting. Wanneer we het model blootstellen aan nie
 
 ## Onbegeleid ML
 
-Tot hier toe werd er voornamelijk gesproken rond begeleid ML (eng: _supervised machine learning_). Er zijn nog twee andere vormen die binnen sommige disciplines erg populair zijn, maar minder in deze cursus aan bod zullen komen. In Voorbeeld \@ref(exm:verkoopautomaat-ml) werd wel gesproken van clusters, en dat is een voorbeeld van onbegeleid ML (eng: _unsupervised machine learning_ of _self-organization_). Het verschil tussen begeleid en onbegeleid is het gebruik van de uitkomsten ($y$) als invoer voor het leeralgoritme.
+Tot hier toe werd er voornamelijk gesproken rond begeleid ML (eng: _supervised machine learning_). Er zijn nog minstens twee andere vormen die binnen sommige disciplines erg populair zijn. In Voorbeeld \@ref(exm:verkoopautomaat-ml) werd wel gesproken van clusters, en dat is een voorbeeld van onbegeleid ML (eng: _unsupervised machine learning_ of _self-organization_). Het verschil tussen begeleid en onbegeleid is het gebruik van de uitkomsten ($y$) als invoer voor het leeralgoritme.
 
 ```{definition def-vergelijk-begeleid}
-Bij __begeleid ML__ wordt het leeralgoritme getraind op invoer data ($\mathbf{x}$; de onafhankelijke variabelen) die paarsgewijs gekoppeld zijn met uitvoer data ($\mathbf{y}$; de afhankelijke variabele of uitkomst). Het algoritmeUit leert de verbanden tussen  $\mathbf{x}$ en $\mathbf{y}$.
+Bij __begeleid ML__ wordt het leeralgoritme getraind op invoer data ($\mathbf{x}$; de onafhankelijke variabelen) die paarsgewijs gekoppeld zijn met uitvoer data ($\mathbf{y}$; de afhankelijke variabele of uitkomst). Het algoritme leert de verbanden tussen  $\mathbf{x}$ en $\mathbf{y}$.
 
 Bij __onbegeleid__ ML is er geen sprake van een uitkomst en leert het algoritme gewoon patronen te herkennen in de invoer data.
 ```
@@ -514,9 +546,13 @@ include_graphics("img/begeleid-vs-onbegeleid.svg")
 
 (ref:begeleid-vs-onbegeleid) Vergelijking tussen het proces van begeleid L en het proces van onbegeleid 'leren'.
 
-Welke van beide moet je nu gebruiken? Heel simpel: als je een betrouwbare uitkomst in je bezit hebt, dan kies je best begeleid ML, omdat deze altijd beter zal presteren. Heb je geen uitkomsten of twijfel je aan de authenticiteit of accuraatheid, dan kan je overstappen onbegeleid leren.
+Welke van beide moet je nu gebruiken? Heel simpel: als je een betrouwbare uitkomst in je bezit hebt, dan kies je best begeleid ML, omdat deze altijd beter zal presteren. Heb je geen uitkomsten of twijfel je aan de authenticiteit of accuraatheid, dan kan je (tijdelijk) overstappen op onbegeleid leren.
 
-Binnen onbegeleid leren, zijn er twee families aan onbegeleid ML die veel gebruikt worden. Eentje is de principale componenten analyse (PCA; eng: _principal component analysis_), de ander is cluster analyse (eng: _cluster analysis_). In beide gevallen is het resultaat een categorisatie van de instanties (zoals bijvoorbeeld een clustering) of een associatie (zoals bijvoorbeeld aanbevelingen, eng: _customer recommendations_). Met andere woorden, een onbegeleid ML algoritme vertelt je of twee instanties bij elkaar horen (grote kans op associatie, zelfde cluster, &hellip;) of niet.
+Binnen onbegeleid leren, zijn er twee families die veel gebruikt worden. Eentje is de principale componenten analyse (PCA; eng: _principal component analysis_), de ander is cluster analyse (eng: _cluster analysis_). In beide gevallen is het resultaat een categorisatie  van de instanties (zoals bijvoorbeeld een clustering) of een set van associaties (zoals bijvoorbeeld aanbevelingen, eng: _customer recommendations_).
+
+```{definition onbegeleid-leren-def}
+Een onbegeleid ML algoritme vertelt je of twee instanties bij elkaar horen (grote kans op associatie, zelfde cluster, &hellip;) of niet.
+```
 
 Laten we de discussie van onbegeleid ML afsluiten met een voorbeeld:
 
@@ -528,7 +564,7 @@ Stel, een klant wil een geautomatiseerd systeem ontwikkelen om de scherpte meten
 Het doel is om de oppervlakte te bepalen van de fellere horizontale lijn (de messnede), maar om dit te kunnen doen moet er een duidelijk onderscheid worden gemaakt tussen fellere pixels en donkere pixels. M.a.w., elke pixel moet gecategoriseerd worden als 'messnede' of 'achtergrond'. Een begeleid ML aanpak zou inhouden dat een mens heel wat afbeeldingen manueel beoordeeld en dat er een classificatie algoritme gevoed zou worden met deze uitkomst data. Alleen is dat hier niet erg praktisch en bovendien erg onbetrouwbaar. Vandaar de keuze voor onbegeleid leren.
 ```
 
-Elke pixel in bovenstaande afbeelding bevat een R, een G en een B waarde. Het doel is om de afbeelding om te zetten naar een grijswaarde afbeelding, maar dan wel met de optimale gewichten voor de afzonderlijke R, G en B kleur-kanalen zodat er een maximaal contrast ontstaat. We zien immers dat de snede van het mes groen-achtig en niet wit is en we kunnen dus vermoeden dat de drie kleuren een verschillend gewicht gaan krijgen bij het zoeken naar het hoogste mogelijk contrast. Hieronder wordt de code getoond (imports en een aantal helperfuncties weggelaten):
+Elke pixel in bovenstaande afbeelding bevat een R, een G en een B waarde. Het doel is om de afbeelding om te zetten naar een grijswaarde afbeelding, maar dan wel met de optimale gewichten voor de afzonderlijke R, G en B kleur-kanalen zodat er een maximaal contrast ontstaat. We zien immers dat de snede van het mes groen-achtig en niet wit is en we kunnen dus vermoeden dat de drie kleuren een verschillend gewicht gaan krijgen bij het zoeken naar het hoogste mogelijk contrast. Hieronder wordt de code getoond (imports en een aantal helperfuncties weggelaten; zie broncode voor details):
 
 ```{r demo-pca-helper, echo = FALSE}
 library(imager)
@@ -599,7 +635,7 @@ Voor conditionering (reinforcement learning) heb je geen historische data nodig.
 
 Conditionering kent toepassingen in erg veel verschillende disciplines waaronder de statistiek, maar ook de speltheorie, [meet- en regeltechniek](https://nl.wikipedia.org/wiki/Meet-_en_regeltechniek), [operationeel onderzoek](https://nl.wikipedia.org/wiki/Operationeel_onderzoek), de [informatietheorie](https://nl.wikipedia.org/wiki/Informatietheorie), enzovoort&hellip;. Het werkt zo. Een _software-agent_ (eng: _agent_) krijgt de keuze uit een aantal _acties_ (eng: _actions_) die het kan uitvoeren op een _omgeving_ (eng: _environment_). Het (voorlopig immatuur) model (een _tolk_; eng: _interpreter_) vertaalt de gekozen actie naar enerzijds een toestand-wijziging (eng: _state change_) en anderzijds een beloning (eng: _reward_).
 
-```{r conditionering, fig.cap="(ref:conditionering)"}
+```{r conditionering, fig.cap="(ref:conditionering)", echo=FALSE}
 include_graphics("img/conditionering.svg")
 ```
 
@@ -646,7 +682,7 @@ memory = np.matrix(np.zeros([6, 6]))
 In andere situaties kan het aantal toestanden waarin een agent zich kan bevinden helemaal niet gedefinieerd zijn en dan moet de matrix dynamisch worden opgesteld. Het opvullen van de toestand-matrix gebeurt volgens de onderstaande _transitie regel_ (eng: _transition rule_):
 
 $$
-Q(toestand, actie)=R(toestand, actie)+\gamma\cdot max(Q(volgende\,toestand,\,alle\,acties))
+Q(toestand, actie)=R(toestand, actie)+h_\gamma\cdot max(Q(volgende\,toestand,\,alle\,acties))
 $$
 
 We hebben nu een functie die, gegeven een bepaalde toestand, de set van mogelijke volgende toestanden teruggeeft (`available_actions`) en een tweede die gegeven de mogelijke toestanden er een willekeurige toestand uitkiest (`sample_next_action`).
@@ -678,7 +714,7 @@ def update(current_state, action, gamma):
     gamma * max_value
 ```
 
-We initialiseren nu het spel met de leersnelheid $\gamma$ en de initiële kamer (2) en de doel-ruimte (buiten, ruimte 5) en voeren de eerste update uit:
+We initialiseren nu het spel met de leersnelheid $h_\gamma$ en de initiële kamer (2) en de doel-ruimte (buiten, ruimte 5) en voeren de eerste update uit:
 
 ```{python escape-room-code-05}
 gamma = 0.8
