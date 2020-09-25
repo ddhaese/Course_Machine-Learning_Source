@@ -50,7 +50,7 @@ De datawetenschapper wil tijdens het controleren van een variabele de volgende e
 	
 <details><summary>__R__ elevantie</summary>Indien gegeven de doelstelling van het onderzoek er geen goede verantwoording (technisch noch functioneel) gevonden kan worden waarom deze variabele zou worden opgenomen (naar alle belanghebben zoals opdrachtgever en eindgebruiker algoritme), dan kan je deze ook beter niet gebruiken</details>
 
-```{r dipkever, echo=FALSE}
+```{r dipkever, echo=FALSE, fig.align='center'}
 include_graphics("img/dipkever.png")
 ```
 
@@ -70,11 +70,13 @@ Elke exploratie is anders en iedereen heeft zo zijn eigen methode, maar als leid
 
 ## Voorbeeld data exploratie
 
-We gaan dit doen aan de hand van een voorbeeld (in R). _Je kan de Markdown code van deze cursus downloaden en meevolgen door de codeblokken één voor één uit te voeren._
+We gaan dit doen aan de hand van een voorbeeld (in R).
 
-_Vraag_: Sommige mensen zeggen dat er steeds méér terrorisme is in de wereld. Andere zeggen dat er altijd al terrorisme heeft bestaan. Wie heeft er gelijk?
+```{example terrorism}
+__Vraag__: Sommige mensen zeggen dat er steeds méér terrorisme is in de wereld. Andere zeggen dat er altijd al terrorisme heeft bestaan. Wie heeft er gelijk?
+```
 
-_Antwoord_: Via de [bovenstaande link](https://vincentarelbundock.github.io/Rdatasets/datasets.html) naar de standaard datasets vinden we twee datasets met het woordje "terrorism" in de titel. Ééntje heeft 206 rijen (`nkill.byCountryYr`), laten we die eens van naderbij bekijken:
+__Antwoord__: Via de [bovenstaande link](https://vincentarelbundock.github.io/Rdatasets/datasets.html) naar de standaard datasets vinden we twee datasets met het woordje "terrorism" in de titel. Ééntje heeft 206 rijen (`nkill.byCountryYr`), laten we die eens van naderbij bekijken:
 
 ```{r example-terrorism-includes}
 library(Ecdat)
@@ -101,7 +103,9 @@ We onderzoeken nu de documentatie en vinden dat de databank wel erg relevant en 
 
 Hierop lanceren we de vraag:
 
+```{example}
 __Vraag terug__: met 'méér terrorisme', bedoel je méér aanslagen of méér slachtoffers
+```
 
 Stel dat de opdrachtgever het volgende antwoord geeft:
 

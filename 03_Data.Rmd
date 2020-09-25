@@ -25,7 +25,7 @@ Leeralgoritmen gebruiken data om er een model uit te destilleren. Als er iets fo
 When it comes to ML, garbage in, garbage out (GIGO).
 ```
 
-De datawetenschapper streeft ernaar om de data die hij of zij te zien krijgt zo goed mogelijk te begrijpen. Wiskundig gezien is dat misschien niet zo belangrijk, maar het gaat hier over de ethiek. Als je van plan bent om uitspraken te doen op basis van data, ben je ook verantwoordelijk voor het opbouwen van een grondig begrip vam wat de data voor staat. 
+De datawetenschapper streeft ernaar om de data die hij of zij te zien krijgt zo goed mogelijk te begrijpen. Wiskundig gezien is dat misschien niet zo belangrijk, maar het gaat hier over enerzijds het maken van de juiste keuzes en anderzijds voor de ethische overwegingen. Als je van plan bent om uitspraken te doen op basis van data, ben je ook verantwoordelijk voor het opbouwen van een grondig begrip van wat de data voor staat. 
 
 ```{r gossip, fig.cap="(ref:gossip)", echo=FALSE}
 include_graphics("img/gossip.png")
@@ -147,7 +147,9 @@ Whenever we encounter a categorical feature, we may have to consider to create a
 
 In some cases, the categories in categorical data have some natural ordering such as is the case for ranking or scoring measures (e.g. "good", "medium", "bad"). Coding such a variable into a discrete numerical one is not very good from a statistical point of view (because then you assume a ratio scale which may not be realistic) but sometimes understandable from the practical point of view, especially if, for your particular problem, finding an appropriate learner can be hard. There is also the possibility to treat the ordinal-scale variable as a categorical one (and e.g. creating a set of dummy variables) but be aware that you lose information along the way. The same is true for other forms of discretizations, by the way.
 
-> PRINCIPLE: One can always convert a variable with a _rich_ data type to one with _poor_ data type. This can benefit practicality be always means losing information.
+```{remark losing-by-coercion}
+One can always convert a variable with a _rich_ data type to one with _poor_ data type. This can benefit practicality be always means losing information.
+```
 
 ## Circular-Scale
 

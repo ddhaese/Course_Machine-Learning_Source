@@ -189,7 +189,7 @@ _Guido Van Rossum_ is the father of Python. He developed the language in 1989 as
 
 ## RStudio
 
-Rstudio was found by far to be the most valuable and student-friendly IDE (integrated development environment) for working professionally with data, not just in R, but also in Python, Julia and other (scripting) languages such as SQL and Stan. In addition, it is the easiest IDE for people who have limited computer experience. Installing RStudio is free for academic use. See https://rstudio.com for more information, installation generally takes only a few minutes.
+Rstudio was found by far to be the most valuable and student-friendly IDE (integrated development environment) for working professionally with data, not just in R, but also in Python, Julia and other (scripting) languages such as SQL and Stan. In addition, it is the easiest IDE for people who have limited computer experience. Installing RStudio is free for academic use. See https://rstudio.com for more information, installation generally takes only a few minutes. Once installed, get acquainted with the IDE. See the book of Campbell for details on the IDE (@campbell2019rstudio).
 
 ## Installing Tensorflow
 
@@ -399,7 +399,61 @@ tf.Tensor(22.580101, shape=(), dtype=float32)
 
 ## Waar vind ik hulp
 
-Laten we beginnen met waar je de verscheidene leeralgoritmen kunt terugvinden? In sommige gevallen, zoals voor een enkelvoudig _perceptron_, kan je het zelf gewoon coderen maar meestal worden de algoritmen gelukkig ter beschikking gesteld. Omdat wiskundigen eerder R gebruiken zullen de nieuwere leeralgoritmen gewoonlijk eerst in R verschijnen en pas later in Python. Bij het publiceren van nieuwe methoden wordt er immers vaak van de auteurs verwacht dat ze het algoritme als een peer-reviewed R pakket (eng: _package_) registreren en publiek ter beschikking stellen. Het Comprehensive R Archive Network ([CRAN](https://cran.r-project.org/)), dat de R pakketten beheert en erop toeziet dat de pakketten zowel wiskundig als programmatorisch aan bepaalde standaarden voldoet, stelt zogenaamde _task views_ op met telkens een overzicht van de pakketten die kunnen helpen bij een welbepaalde taak. Zoeken we naar "machine learning", komen we op honderden pakketten uit van `ahaz` tot `xgboost` [^1] en vele van deze pakketten geven toegang tot tientallen verschillende typen leeralgoritmen. Maar dat is niet alles. Op de webpagina met het [overzicht van alle task views](https://cran.r-project.org/web/views/), vinden we bijvoorbeeld het onderwerp natuurlijke taalverwerking (eng: _natural language processing_; NLP) met nog eens tientallen pakketten specifiek rond dit thema.
+Als je een bepaalde actie wil uitvoeren in R, maar je kent de naam van het pakket niet, dan zijn [R Bloggers](https://www.r-bloggers.com/) en [Stack Overflow](https://stackoverflow.com/) vermoedelijk de beste plaatsen om te zoeken. Gaat over de RStudio IDE, dan is de [RStudio Community](https://community.rstudio.com/) misschien wel iets. Zoek je toch op Google, voeg dan de term `package` toe aan de lijst van zoektermen om betere resultaten te bekomen. Heb je de naam van een R pakket of een functie en werk je met RStudio, dan moet je meestal de IDE niet te verlaten. Wil je meer weten over een bepaald pakket, dan zijn er vignettes (soort handleiding) en documentatie. Vignettes roep je aan d.m.v. de `vignette()` functie, documentatie met `?` of `help()`. Verder heeft R ook demo's en kan je rechtstreeks de voorbeelden uit de technische documentatie uitvoeren zonder de code te moeten kopiëren.
+
+```{r hulp-in-r, eval=FALSE}
+# Start
+help.start()
+
+# Documentatie
+?magrittr
+?magrittr::extract
+
+# Zoeken naar hulp op basis van term
+help.search("pipes")
+
+# Informatie/handleiding specifiek pakket
+vignette('magrittr')
+
+# Lijst pakketten van gekoppelde bibliotheken
+vignette(all = FALSE)
+
+# Lijst pakketten geïnstalleerde bibliotheken
+vignette(all = TRUE)
+
+# Lijst alle vignettes
+browseVignettes()
+
+# Demonstratie
+demo(image)
+
+# Voorbeeld-code uit documentatie
+example("stl")
+
+# Pakket info (auteur, versie, ...)
+library(help = "magrittr")
+
+# R site
+RSiteSearch("magrittr")
+
+# CRAN repository pakketten
+browseURL("https://cran.r-project.org/web/packages/available_packages_by_name.html")
+
+# CRAN repo specifiek pakket
+browseURL("https://cran.r-project.org/web/packages/magrittr/index.html")
+
+# CRAN task views
+browseURL("https://cran.r-project.org/web/views/")
+
+# CRAN speciefieke task view
+browseURL("https://cran.r-project.org/web/views/Hydrology.html")
+```
+
+Voor Python en andere talen verwijs ik naar [Stack Overflow](https://stackoverflow.com/). Zie ook volgende paragraaf voor wat meer info over rond Python.
+
+## Waar vind ik leeralgoritmen terugvinden
+
+Laten we beginnen met waar je de verscheidene leeralgoritmen kunt terugvinden. In sommige gevallen, zoals voor een enkelvoudig _perceptron_, kan je het zelf gewoon coderen maar meestal worden de algoritmen gelukkig ter beschikking gesteld. Omdat wiskundigen eerder R gebruiken zullen de nieuwere leeralgoritmen gewoonlijk eerst in R verschijnen en pas later in Python. Bij het publiceren van nieuwe methoden wordt er immers vaak van de auteurs verwacht dat ze het algoritme als een peer-reviewed R pakket (eng: _package_) registreren en publiek ter beschikking stellen. Het Comprehensive R Archive Network ([CRAN](https://cran.r-project.org/)), dat de R pakketten beheert en erop toeziet dat de pakketten zowel wiskundig als programmatorisch aan bepaalde standaarden voldoet, stelt zogenaamde _task views_ op met telkens een overzicht van de pakketten die kunnen helpen bij een welbepaalde taak. Zoeken we naar "machine learning", komen we op honderden pakketten uit van `ahaz` tot `xgboost` [^1] en vele van deze pakketten geven toegang tot tientallen verschillende typen leeralgoritmen. Maar dat is niet alles. Op de webpagina met het [overzicht van alle task views](https://cran.r-project.org/web/views/), vinden we bijvoorbeeld het onderwerp natuurlijke taalverwerking (eng: _natural language processing_; NLP) met nog eens tientallen pakketten specifiek rond dit thema.
 
 Voor Python ontwikkeling verwijzen we voor leeralgoritmen eerst en vooral naar [scikit-learn](https://scikit-learn.org/stable/). Deze bibliotheek biedt een ruime gereedschapskist aan voor beginnende datawetenschappers. De naam komt trouwens van Science-kit $\rightarrow$ scikit $\rightarrow$ sk. Dan is er [Tensorflow](https://www.tensorflow.org/) waar in de cursus dieper op wordt ingegaan. Ook hier vind je een rijke schat aan informatie. Python biedt een aantal voordelen voor ML en het belangrijkste voordeel is misschien wel dat Python een algemene programmeertaal is waarmee je gemakkelijker volwaardige applicaties kunt maken of met hardware interfacen. De bewering dat Python 'krachtiger' of 'performanter' zou zijn dan R neem ik eerder met een korreltje zout. Op de weinige momenten waarop beide platformen op eerlijke wijze vergeleken worden is het verschil onbeduidend en bovendien moet je voornamelijk rekening houden met ontwikkeltijd en daar biedt Python zeker geen voordeel. Tenslotte vermeld ik hier nog even [Julia](https://julialang.org/), een opkomende taal waarin ML eenvoudiger moet worden.
 

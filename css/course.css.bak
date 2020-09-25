@@ -68,6 +68,14 @@ div.exercise{
   background-color: #E6E6E6;
 }
 
+div.example{
+  padding: 10px;
+  margin: 30px 10px;
+  border: 1px solid #9e9b98;
+  color: #92501B;
+  background-color: #F7E2D2;
+}
+
 div.theorem{
   padding: 10px;
   margin: 30px 10px;
