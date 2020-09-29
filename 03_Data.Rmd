@@ -19,7 +19,7 @@ include_graphics("img/proces_2.svg")
 
 ## Data voor ML
 
-Leeralgoritmen gebruiken data om er een model uit te destilleren. Als er iets fout gaat, heeft dit dat ook erg vaak te maken met de staat waarin de data zich bevinden of de manier waarop er met de data wordt omgesprongen.
+Leeralgoritmen gebruiken data om er een model uit te destilleren. Als er iets fout gaat, dan heeft dit vaak te maken met de staat waarin de data zich bevinden of de manier waarop er met de data wordt omgesprongen.
 
 ```{definition}
 When it comes to ML, garbage in, garbage out (GIGO).
@@ -46,7 +46,7 @@ Bij dit principe moeten we tegenwoordig niet erg lang stilstaan. Het is ondertus
 Ook hier moeten we niet te lang bij blijven stilstaan. We bekijken wel een aantal vaak gebruikte termen.
 
 - _Interne data_: Private data die behoren tot een organisatie.
-- _Externe data_: Publieke of private data van een andere organisatie
+- _Externe data_: Publieke data of private data van een andere organisatie
 - _Ongestructureerde data_: Data die niet in een platte tabel-structuur kan worden weergegeven. Als het gekozen leeralgoritme hier niet mee overweg kan, moet je eerst features extraheren en zelf een platte tabel maken (eng: _melting data_)
 - _Metadata_: Is data over data zoals tijdstip van opname, gebeurtenissen uit logboek, enz&hellip;
 
@@ -83,7 +83,7 @@ Hieronder een collage van een aantal potentiële interessante bronnen van data o
 Hierboven worden een aantal databronnen opgesomd, maar het vergt vaak wel wat meer speurwerk om de ideal dataset te vinden. We gaan hier even een fictief voorbeeld aanhalen van hoe zo een zoektocht zou kunnen verlopen.
 
 ```{example data-zoeken,}
-__Op zoek naar data__ (_hypothetisch_): je bent op zoek naar een gratis beschikbare data die een voorspellende waarde heeft voor het transportsnelheid van goederen over de Westerschelde. Dit zou je zoektocht naar geschikte data bijvoorbeeld kunnen zijn:
+__Op zoek naar data__ (_hypothetisch_): je bent op zoek naar een gratis beschikbare data die een voorspellende waarde heeft voor het transportsnelheid van goederen over de Westerschelde. Je denkt dat windsnelheid misschien een impact kan hebben op de vaarsnelheid. Dit zou je zoektocht naar geschikte data bijvoorbeeld kunnen zijn:
 
 1. Je zoekt eerst naar een website die historische windsterkte vrijgeeft, liefst via API
 2. Je vind wel een aantal bronnen maar geen daarvan zijn én gratis én in staat om historische data op te halen
@@ -131,19 +131,25 @@ include_graphics("img/data-types.svg")
 
 Je kan deze enkelvoudige data types indelen volgens drie dimensies:
 
-- __Numeriek vs ordinaal vs nominaal__: Met numerieke data kan je berekeningen maken, met ordinale gegevens kan je enkel [ongelijkheid](https://nl.wikipedia.org/wiki/Ongelijkheid_(wiskunde)) testen en met nominale gegevens kan je nog berekenen noch ongelijkheid testen
-- __Continu vs discreet__: Bij een continue variabele kan je tussen twee willekeurig gekozen waarden oneindig veel andere waarden plaatsen. Bij een discrete variabele kan dat niet. Continue variabelen worden verder onderscheiden van op basis van de [meetschaal](https://nl.wikipedia.org/wiki/Meetschaal. Bij een _intervalschaal_ is er geen betekenisvol nulpunt (zoals bij temperatuur in graden Celcius) bij een getal met _ratioschaal_ is dat wél het geval.
+- __Numeriek vs ordinaal vs nominaal__: Met numerieke data kan je berekeningen maken, met ordinale gegevens kan je enkel [ongelijkheid](https://nl.wikipedia.org/wiki/Ongelijkheid_(wiskunde)) testen en met nominale gegevens kan je noch berekenen noch ongelijkheid testen
+- __Continu vs discreet__: Bij een continue variabele kan je tussen twee willekeurig gekozen waarden oneindig veel andere waarden plaatsen. Bij een discrete variabele kan dat niet. Continue variabelen worden verder onderscheiden van op basis van de [meetschaal](https://nl.wikipedia.org/wiki/Meetschaal). Bij een _intervalschaal_ is er geen betekenisvol nulpunt (zoals bij temperatuur in graden Celcius) bij een getal met _ratioschaal_ is dat wél het geval.
 - __Circulair vs lineair__: Bij circulaire data is de as op zichzelf teruggeplooid om een cirkel te vormen.
 
-## Nominal-Scale Data
+## (Eng) Nominal-Scale Data
 
 Whenever the data consist of __categories__, typically, we deal with so-called nominal-scale data. Examples are department, blood type, country, …. Whenever there are only two categories, we speak of __binary data__ (true/false, yes/no, success/failure, ….).
 
+## (Eng) Dummy Variables
+
 Whenever we encounter a categorical feature, we may have to consider to create a set of dummy variables out of a single categorical variable so as to support statistical analysis in general and ML using a specific learner in particular:
 
-![Use of dummy variables](img/dummy.svg)
+```{r dummy-variables, fig.cap="(ref:dummy-variables)", echo=FALSE}
+include_graphics("img/dummy.svg")
+```
 
-## Ordinal-Scale Data
+(ref:dummy-variables) Demonstration of the use of dummy variables.
+
+## (Eng) Ordinal-Scale Data
 
 In some cases, the categories in categorical data have some natural ordering such as is the case for ranking or scoring measures (e.g. "good", "medium", "bad"). Coding such a variable into a discrete numerical one is not very good from a statistical point of view (because then you assume a ratio scale which may not be realistic) but sometimes understandable from the practical point of view, especially if, for your particular problem, finding an appropriate learner can be hard. There is also the possibility to treat the ordinal-scale variable as a categorical one (and e.g. creating a set of dummy variables) but be aware that you lose information along the way. The same is true for other forms of discretizations, by the way.
 
@@ -151,13 +157,17 @@ In some cases, the categories in categorical data have some natural ordering suc
 One can always convert a variable with a _rich_ data type to one with _poor_ data type. This can benefit practicality be always means losing information.
 ```
 
-## Circular-Scale
+## (Eng) Circular-Scale
 
-Whenever there is no maximum or minimum value for a scale, it is said to be __circular-scaled__.  Examples of such measurements are time of day, day of week, wind direction, bearing, …. This type of scaled can be super-imposed on other scale types and can be both discrete and continuous. For example, direction measured relative to e.g. the magnetic north is a interval-scaled continuous circular measure and the hour of the day follows a discrete circular scale. Mind that circular scale data is very hard to work as even simple operations such as a mean requires special attention:
+Whenever there is no maximum or minimum value for a scale, it is said to be __circular-scaled__.  Examples of such measurements are time of day, day of week, wind direction, bearing, …. This type of scale can be super-imposed on other scale types and can be both discrete and continuous. For example, direction measured relative to e.g. the magnetic north is a interval-scaled continuous circular measure and the hour of the day follows a discrete circular scale. Mind that circular scale data is very hard to work with as even simple operations such as a mean requires special attention:
 
-![Circular scale data requires special attention](img/circular_Stats.svg)
+```{r circular, fig.cap="(ref:circular)", echo=FALSE}
+include_graphics("img/circular_Stats.svg")
+```
 
-## Censoring
+(ref:circular) Circular scale data requires special attention.
+
+## (Eng) Censoring
 
 Sometimes data is according to a truncated scale. For example, in clinical data sets you frequently encounter situations where as patient is said to survive for at least x years after the treatment, indicated as `>x` (e.g. `>12` years). For such a truncation we call the data __right-censored__. Similarly lab measurements are frequently reported to be below a certain limit without knowing the exact number such as `<1.03 mmol/L HDL`, this is called a __left-censored__ datum. In case we have censoring at both ends of the scale, we speak of __interval censoring__ (e.g. `2 < x < 5 births per day`). It remains important to try to understand the reason of the censoring. It could be that the measurement was not sufficiently accurate or maybe it was done accurately but afterwards categorized (placed into bins) during some preprocessing step.
 
@@ -165,7 +175,7 @@ In case you need to deal with censoring there is a limited number of statistical
 
 ## Tijd en ruimte
 
-Data is een spiegel voor allerlei informatie uit de reële wereld. Tocj zijn er twee grootheden die eruit steken. Het gaat om de twee dimensies tijd en ruimte. Andere variabelen zijn vaak secundair aan deze dimensies. Voorbeelden zijn het voorspellen van de toekomstige _verkoopcijfers_ of de verspreiding van een virus tijdens een pandemie. Laten we naar een bekende (maar gedateerde) dataset kijken van de farmareus Johnson & Johnson:
+Data is een spiegel voor allerlei informatie uit de reële wereld. Toch zijn er twee grootheden die eruit steken. Het gaat om de twee dimensies tijd en ruimte. Andere variabelen zijn vaak secundair aan deze dimensies. Voorbeelden zijn het voorspellen van de toekomstige _verkoopcijfers_ of de verspreiding van een virus tijdens een pandemie. Laten we naar een bekende (maar gedateerde) dataset kijken van de farmareus Johnson & Johnson:
 
 ```{r}
 plot (JohnsonJohnson, main = "Kwartaalcijfers J&J")
@@ -197,7 +207,7 @@ munip <- merge(munip_map, munip_data,
 qtm(munip, fill = "hoofdcluster_lbl", fill.title = "")
 ```
 
-Ook bij ruimtelijke variabelen merken we dat ze een autocorrelatie, waarbij de waarde op één plaats niet onafhankelijk is van de waarde op een naburige plaats.
+Ook bij ruimtelijke variabelen merken we een autocorrelatie op, waarbij de waarde op één plaats niet onafhankelijk is van de waarde op een naburige plaats.
 
 ## Toegang tot data
 
@@ -208,8 +218,11 @@ Je moet natuurlijk zien toegang te krijgen tot de data. Als datawetenschapper mo
 Soms zijn de data publiek toegankelijk en is het gewoon een kwestie om tijd te nemen om door de data te lopen, i.e. aan exploratie te doen. Soms moeten de data nog verzameld worden. Dan wil de datawetenschapper ook inspraak hebben in het verzamelen en de eventuele verwerking van de gegevens. Het kan natuurlijk voorkomen dat men enkel toegang verschaft nadat er een akkoord is om een ML project op te starten. Het advies is hier om er alles aan te doen om toch op zijn minst een glimp te kunnen opvangen van de data. Soms zijn de data te koop en krijg je geen data te zien alvorens je betaalt? Wel, indien je op voorhand geen toegang krijgt tot zelfs een klein representatief deel van de gegevensberg of -stroom, dan kan je nog altijd een samenvatting opvragen, het zogenaamd _codeboek_. Je kan de opdrachtgever belagen met vragen:
 
 <q>Hoeveel tabellen zijn er?</q>
+
 <q>Voor elke tabel, hoeveel rijen en kolommen zijn er?</q>
+
 <q>Hoeveel data ontbreekt er?</q>
+
 <q>Wat is het formaat van de gegevens?</q>
 
 enz&hellip;
@@ -254,11 +267,11 @@ Het eerste contact met een dataset verloopt normaal gezien via het codeboek. Het
 
 Dit voorbeeld van een codeboek is oorspronkelijk afkomstig van de [UCI repository](https://archive.ics.uci.edu/ml/datasets/Occupancy+Detection+). Het is daarna nog hier en daar aangepast om als voorbeeld te kunnen dienen. Dat het in JSON formaat staat is niet onbelangrijk. Soms gaat het over complexe datasets met duizenden kolommen. Zo bestaat de _learning_ databank, onderliggend aan onze Digitap omgeving, uit 4992 kolommen! Als je dan op zoek moet naar de exacte eenheid waarin een variabele beschreven staat of wat een variabele nu weer precies betekent is dat niet werkbaar.
 
-Uit de beschrijving lezen we dat het gaat over sensordata in een ruimte om te proberen voorspellen of er iemand in de ruimte aanwezig is of niet. We zien dat er 20 560 _instanties_ zijn, waarbij op elke instantie gegevens verzameld worden van de verscheidene sensoren. Dat is zeker niet slecht. Om aan statistiek te doen (ML behoort voor 100% tot de statistiek) moet je voldoende gegevens hebben en als de patronen in de gegevens maar amper 'boven de ruis' uitsteken, dan heb je méér data nodig.
+Uit de het bovenstaande codeboek lezen we dat het gaat over sensordata in een ruimte om te proberen voorspellen of er iemand in de ruimte aanwezig is of niet. We zien dat er 20 560 _instanties_ zijn, waarbij op elke instantie gegevens verzameld worden van de verscheidene sensoren. Dat is zeker niet slecht. Om aan statistiek te doen (ML behoort voor 100% tot de statistiek) moet je voldoende gegevens hebben en als de patronen in de gegevens maar amper 'boven de ruis' uitsteken, dan heb je méér data nodig.
 
 Daaronder lezen we dat de data publiek zijn gemaakt op `2016-02-29`. Dit strookt met wat we later zouden ontdekken, namelijk dat de datums in de dataset vóór deze datum liggen (`2015-02-02 14:19`, &hellip;). Het wetenschappelijk artikel werd gepubliceerd in 2016, dus dat kan ook kloppen. Door op deze wijze een soort reconstructie te doen van de feiten kan een datawetenschapper soms achterhalen of de data nog wel hedendaags zijn of dat er bijvoorbeeld iets niet pluis is.
 
-Dit kom je niet vaak tegen, maar idealiter is het goed om, zoals hier, over de _contactgegevens_ te beschikken voor in geval er toch nog vragen opduiken. Er wordt dus ook verwezen naar het wetenschappelijk artikel en daar vind je normaal gezien een detail-beschrijving van de methodologie. Zo vind je daar terug dat één van de gebruikte sensoren van het type `DHT22` is, iets wat van pas mocht als iets vreemd gaande is met de output van in dit geval de vochtigheid- en temperatuur-metingen.
+Dit kom je niet vaak tegen, maar idealiter is het goed om, zoals hier, over de _contactgegevens_ te beschikken voor in geval er toch nog vragen opduiken. Er wordt dus ook verwezen naar het wetenschappelijk artikel en daar vind je normaal gezien een detail-beschrijving van de methodologie. Zo vind je daar terug dat één van de gebruikte sensoren een vochtigheid- en temperatuur-sensor is van het type `DHT22`, informatie die van pas kan komen indien deze data anomalieën zouden vertonen.
 
 Tenslotte vinden we natuurlijk in het codeboek ook een beschrijving van de variabelen. Deze beschrijving omvat idealiter de volgende elementen:
 

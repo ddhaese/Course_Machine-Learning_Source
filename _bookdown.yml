@@ -16,7 +16,7 @@ language:
     exm: "Voorbeeld "
     exr: "Oefening "
     proof: "Proof "
-    remark: "Remark "
+    remark: "Opmerking "
     solution: "Solution "
   ui:
     edit: Bewerken

@@ -20,6 +20,15 @@ span.term {
     border-bottom: 1px dotted;
 }
 
+span.remark em{
+  font-size: .8;
+  background-color: #333333;
+  color: white;
+  border-radius: 3px;
+  padding: 2 4px;
+  margin-right: 10px;
+}
+
 h2.author{
   font-size: .6em;
 }
@@ -80,6 +89,12 @@ div.theorem{
   padding: 10px;
   margin: 30px 10px;
   border: 1px solid gray;
+}
+
+div.remark{
+  padding: 10px;
+  margin: 30px 10px;
+  font-style: italic;
 }
 
 div.theorem p{
