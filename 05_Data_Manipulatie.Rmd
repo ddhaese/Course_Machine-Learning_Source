@@ -17,30 +17,66 @@ palette(dyad[c(9, 20, 66)])
 Past de juiste principes toe tijdens het exploreren, hanteren en opkuisen van data ([_EA_LD758_](#leerdoelen)).
 ```
 
+Hieronder volgt een korte samenvatting van een aantal vaak gebruikte transformaties. Waarom zou je data willen transformeren. Hier staan een aantal redenen opgesomd:
 
-## Transformations
+- Om duidelijkheid te scheppen en de data leesbaarder te maken voor mensen
+- Om de data voor te bereiden voor statische analyse
+- Om nieuwe variabelen te creëren (eng: _feature engineering_)
+- Om eenvoudiger [gedistribueerd en parallel](https://nl.wikipedia.org/wiki/Gedistribueerd_programmeren) te kunnen programmeren
+- Om de data te standaardiseren volgens CDMs (_common data models_) van het bedrijf (zoals voor een EDM Enterprise Data Model) of van een discipline (zoals [CDISC standaarden](https://www.cdisc.org/standards) in de klinische wereld)
+- Om de data te onderworpen aan de regels van een bepaalde type opslag software. Wil je bijvoorbeeld de analyse dataset bewaren in een relationele databank, dan zal je rekening moeten houden met de regels rond primary, surrogate en foreign keys.
 
-Data generally needs to be transformed somehow. There are several possible reasons to transform the data:
+## Kort overzicht van de manipulaties
 
-- Adopt the naming conventions of the EDM (Enterprise Data Model)
-- Standardize primary and foreign keys
-- Avoid confusion and ambiguity by human or by machines
-- Abide by the rules of the statistical software or other software
-- Adopt to good practices in the field
-- Adhere to standardizations of regulatory bodies
+### Filteren en versnijden (eng: _subsetting_, _slicing_)
 
-## Subsetting or Slicing
+Het versnijden is hier te interpreteren in de betekenis van _aan stukken van een bepaalde vorm snijden_ en niet bijvoorbeeld in de betekenis van _aanmengen met iets van mindere kwaliteit_. Het komt er op neer dat er een selectie van variabelen en instanties gemaakt wordt.
 
-![Subsetting](Media/Subsetting.png)
+```{r versnijden, fig.cap="(ref:versnijden)", echo=FALSE}
+include_graphics("img/subsetting.svg")
+```
 
-These actions can simply be summarized as filtering out instances and/or features of a data table. Which features to remove has typically been decided already early in the EDA. Sometimes, however, there are sometimes justifications for removing instances as well:
+(ref:versnijden) Schematisch overzicht van het versnijden van een dataset.
 
-- Contains many outliers that can be explained or that are beyond doubt
-- The instance is otherwise unreliable even without outliers
-- The instance must be removed for privacy reasons
-- The instance falls outside the scope of the DWH
+Denk eraan dat het selecteren van van variabelen een courante activiteit is, terwijl het selecteren van instanties eerder zeldzaam is.
 
-## Booleaans masker
+```{definition outliers}
+Het achterhouden of selecteren van variabelen, maar voornamelijke van instanties, kan vertrekkende gevolgen hebben. De datawetenschapper moet in het algemeen alle manipulaties maar filter-operaties in het bijzonder zoals het versnijden volledig en transparant rapporteren.
+```
+
+Dus voorzichtig heid geboden. Maar in sommige gevallen is het verantwoord om ook instanties uit de dataset te filteren:
+
+- De data bevat uitlopers die verantwoord kunnen worden of die zonder twijfel veroorzaakt worden door een foutieve invoer
+- De combinatie van sommige variabelen voor een bepaalde instantie is heel waarschijnlijk foutief en is niet het gevolg van structurele maar eerder van eenmalig fouten in de dataset of het invoer-proces
+- Een instantie bevat een combinatie van variabele waarden die de privacy van één of meerdere personen in het gedrang brengt
+
+```{example vb-versnijden, name="Versnijden van data"}
+De wijn kwaliteit dataset bevat mogelijk outliers in de suikerwaarden, laten we dat eens nader bekijken.
+```
+
+```{r oef-versnijden-1}
+rode_wijn <- fread("https://archive.ics.uci.edu/ml/machine-learning-databases/wine-quality/winequality-red.csv")
+
+rode_wijn[, `residual sugar`] %>%
+  density %>%
+  plot (main="Residual sugar (g/L)")
+```
+
+Stel dat rode wijn met een suikergehalte boven de 10g/L wordt afgedaan als fruitsap, dan zou je er van uit mogen gaan dat er een aantal uitlopers zijn, zo halen we ze eruit:
+
+```{r oef-versnijden-2}
+aantal_uitlopers <- rode_wijn[`residual sugar` > 10, .N]
+
+rode_wijn_echt <- rode_wijn[`residual sugar` < 10]
+
+rode_wijn_echt$`residual sugar` %>%
+  density %>%
+  plot (main="Residual sugar (g/L)",
+    sub = paste("Excluding", aantal_uitlopers,
+      "'outliers' above 10g/L"))
+```
+
+### Booleaans masker
 
 Een booleaans masker is gewoon een vector of lijst van booleaanse waarden die gebruikt kunnen worden om uit data frames en data tables die rijen te selecteren die overeenkomen met `TRUE` in het masker. 
 
@@ -48,7 +84,13 @@ Een booleaans masker is gewoon een vector of lijst van booleaanse waarden die ge
 include_graphics("img/masker.svg")
 ```
 
-## Grouping and Aggregation
+In het Voorbeeld \@ref(exm:oef-versnijden-2) werd er reeds van een masker gebruik gemaakt:
+
+```{r masker-vb}
+rode_wijn[,`residual sugar` < 10] %>% head(50)
+```
+
+### (Eng.) Grouping and Aggregation
 
 Upon Grouping the data table according to one or more features, the other variables need to be aggregated en this can be done using:
 
@@ -58,7 +100,7 @@ Upon Grouping the data table according to one or more features, the other variab
 - Extremes (min, max)
 - Counts (Count, unique count, sum, majority vote, counts of missing values, &hellip;)
 
-## Transforming text
+### (Eng.) Transforming text
 
 |Transformation|Example|Possible justification|
 |-|-|-|
@@ -68,7 +110,7 @@ Upon Grouping the data table according to one or more features, the other variab
 |Add Leading zeroes|`"653"`, `"61"`, &hellip; &rarr; `"0653"`, `"0061"`, &hellip;|Avoid str/num confusion by humans and machines|
 |Add prefix|`"0653"` &rarr; `"UHR0653"`|Avoid confusion with other IDs|
 
-## Re-Scaling Numerical Values
+### (Eng.) Re-Scaling Numerical Values
 
 Here are some of the countless different types of re-scaling:
 
@@ -80,7 +122,7 @@ Here are some of the countless different types of re-scaling:
 - Multiplication (e.g. `Quantity x Unit_Price`, `Quantity x Unit_Cost`)
 - Subtraction (e.g. `Sales_value – Sales_cost`)
 
-## Discretizations
+### (Eng.) Discretizations
 
 Is going from continuous data to more discrete data. Here are some examples:
 
@@ -89,26 +131,26 @@ Is going from continuous data to more discrete data. Here are some examples:
 
 Mind that discretization always leads to loss of information.
 
-## Information Content
+### (Eng.) Information Content
 
 The information of a feature or an entire data set can be measured using indices such as the Shannon Entropy or the limiting density of discrete points.
 
-## Reformatting, Type Conversion, Casting or Coercion
+### (Eng.) Reformatting, Type Conversion, Casting or Coercion
 
 Examples:
 
 - String to Integer or vice versa
 - Reformatting date to ISO-8601 (`"07/04/2008` &rarr; `"2007-07-04" (YYYY-MM-DD)`)
 
-## Changing numerical Values 
+### (Eng.) Changing numerical Values 
 
 Far more invasive then re-scaling is when the data is changed based on some custom algorithm. An example hereof is the removal of a drift in the data (de-trending). Similarly, seasonal effects in time series data can be compensated away. Such changes can obviously impact the outcome of the analysis significantly and needs thorough justification.
 
-## Changing Category Names
+## (Eng.) Changing Category Names
 
 This is sometimes called **recoding** or **refactorization** and only affects nominal features. It serves to adhere to EDM, to the standards of the DWH and to ensure compatibility across data sets. Alternatively, it simply ensures that misspelled category names are being corrected and alternative spellings are being merged.
 
-## Imputation
+## (Eng.) Imputation
 
 Imputation is the completion of missing data. Depending of the patterns the 'holes' in the data display or on prior knowledge, separate techniques exist to fill in the blanks.
 
