@@ -34,21 +34,21 @@ De twee hoofddoelen die de datawetenschapper voor ogen heeft tijden het explorer
 
 De datawetenschapper wil tijdens het controleren van een variabele de volgende eigenschappen onderzoeken:
 
-<details><summary>__D__ uidelijkheid</summary>Indien de betekenis van de variabele niet achterhaald kan worden, is het vaak veiliger die niet te gebruiken (heeft onder meer met data lekkage te maken)</details>
+<details><summary>__D__ uidelijkheid</summary>Kan de betekenis van de variabele achterhaald worden? Zo niet, dan is het vaak veiliger de variabele niet te gebruiken.</details>
 	
-<details><summary>__I__ nformatief</summary>Indien er wel data is maar deze een te lage informatie inhoud heeft</details>
+<details><summary>__I__ nformatief</summary>Is de informatie inhoud voldoende groot. Bijvoorbeeld, is het erg repetitieve data, dan is het misschien niet erg bruikbaar. Wordt mede bepaald door voorradigheid (zie hieronder).</details>
 	
-<details><summary>__P__ rivacy</summary>Indien de betrokken variabele het risico loopt om de privacy van de eindgebruiker te schenden volgens de opgestelde Privacy Impact Assessment (PIA) of volgens de Vlaamse of Federale wetgeving, dan mag je deze variabele simpelweg niet ontsluiten</details>
+<details><summary>__P__ rivacy</summary>Loop je met de betrokken variabele het risico om de privacy van de eindgebruiker te schenden volgens de opgestelde Privacy Impact Assessment (PIA) of volgens de Vlaamse of Federale wetgeving, dan mag je deze variabele simpelweg niet ontsluiten.</details>
 
-<details><summary>__K__ waliteit</summary>Indien om technische redenen de data niet bruikbaar zou zijn. Voorbeeld: te moeilijk om de data te ontrekken (bij bijv. vrije tekst), onvoldoende resolutie (bij metingen of afbeeldingen), té complex data type (bijv. circulaire), &hellip;</details>
+<details><summary>__K__ waliteit</summary>Zijn er technische redenen om de data niet te kunnen gebruiken? Zijn de data moeilijk om te onttrekken (bij bijv. vrije tekst), is er onvoldoende resolutie (bij metingen of afbeeldingen), gaat het om een té complex data type (bijv. circulaire), &hellip;</details>
 
-<details><summary>__E__ thiek</summary>Het onderwijs is niet immuun voor stereotypering op basis van geslacht, afkomst, leeftijd, enz&hellip;. Het trainen met tendentieuze data leidt tot een tendentieus algoritme. Om dit te voorkomen laat je best variabelen weg die mogelijk wel een zeker voorspellend vermogen hebben maar die de vooringenomenheid uit het verleden zou bevestigen. In dit geval rapporteer je waarom je die variabele niet wenst te gebruiken, zelfs als zou de wet het toelaten.</details>
+<details><summary>__E__ thiek</summary>Het trainen met tendentieuze data leidt tot een tendentieus algoritme. Om dit te voorkomen, laat je best variabelen weg die mogelijk wel een zeker voorspellend vermogen hebben en privacy-gewijs perfect toelaatbaar zijn, maar die de vooringenomenheid uit het verleden zou bevestigen.</details>
 
-<details><summary>__V__ oorradig</summary>Indien méér dan &plusmn;30% ontbreekt (NULL, NA, "", -1, &hellip;), kunnen vele leeralgortimen de data niet gebruiken</details>
+<details><summary>__V__ oorradig</summary>Ontbreekt er méér dan &plusmn;30% van de waarden voor een bepaalde variabele (NULL, NA, "", -1, &hellip;), dan kunnen vele leeralgortimen de data niet gebruiken.</details>
 
-<details><summary>__E__ chtheid</summary>Indien de data weinig betrouwbaar lijken in de zin dat ze vermoedelijk geen goede weerspiegeling zijn van de realiteit, i.e. ofwel vermoedelijk inaccurate data of niet representatief (bijv. slechts geldig voor beperkte subset)</details>
+<details><summary>__E__ chtheid</summary>Het kan voorkomen dat de data weinig betrouwbaar lijken in de zin dat ze vermoedelijk geen goede weerspiegeling zijn van de realiteit, i.e. ofwel vermoedelijk inaccurate data of niet representatief (bijv. slechts geldig voor beperkte subset).</details>
 	
-<details><summary>__R__ elevantie</summary>Indien gegeven de doelstelling van het onderzoek er geen goede verantwoording (technisch noch functioneel) gevonden kan worden waarom deze variabele zou worden opgenomen (naar alle belanghebben zoals opdrachtgever en eindgebruiker algoritme), dan kan je deze ook beter niet gebruiken</details>
+<details><summary>__R__ elevantie</summary>Gegeven de doelstelling van het onderzoek is het goed om je af te vragen of er wel een goede verantwoording (technisch noch functioneel) gevonden kan worden waarom deze variabele zou worden opgenomen. Hou hier best rekeneing met alle belanghebben zoals opdrachtgevers en eindgebruikers.</details>
 
 ```{r dipkever, echo=FALSE, fig.align='center'}
 include_graphics("img/dipkever.png")
@@ -103,9 +103,7 @@ We onderzoeken nu de documentatie en vinden dat de databank wel erg relevant en 
 
 Hierop lanceren we de vraag:
 
-```{example}
 __Vraag terug__: met 'méér terrorisme', bedoel je méér aanslagen of méér slachtoffers
-```
 
 Stel dat de opdrachtgever het volgende antwoord geeft:
 
@@ -161,7 +159,7 @@ dat$incidents %>%
 
 Hierin zien we dat er in het totaal meer dan 30 jaren zijn met minder dan 5000 aanslagen per jaar wereldwijd en dat er 3 jaren zijn met meer dan 10 000 aanslagen.
 
-Dit was de K van DIPKEVER, we zetten onze tocht voort. Over ethiek: voor velen is dit natuurlijk een gevoelig onderwerp maar het weergeven van de aantallen aanslagen kan moeilijk als aanstootgevend worden gezien. Bovendien worden hier nog geen voorspellingen gemaakt, dus dat lijkt in orde. Er ontbreken geen data (dus voorradig). Het consortium rond de Studie van Terrorisme en Responsen op Terrorisme (START) is verantwoordelijk voor de data en gezien hun staat van dienst en academische publicaties waaronder sommige in in gerenommeerde tijdschriften, lijken ze op het eerste gezicht betrouwbaar (cfr. Echtheid). Tenslotte zijn de data ongetwijfeld relevant en daarmee slagen ze voor de volledige DIPKEVER test. Het onderlinge correleren van beide variabelen biedt hier geen meerwaarde.
+Dit was de K van DIPKEVER, we zetten onze tocht voort. Over ethiek: voor velen is dit natuurlijk een gevoelig onderwerp maar het weergeven van de aantallen aanslagen kan moeilijk als aanstootgevend worden gezien. Bovendien worden hier nog geen voorspellingen gemaakt, dus dat lijkt in orde. Er ontbreken geen data (dus voorradig). Het consortium rond de Studie van Terrorisme en Responsen op Terrorisme (START) is verantwoordelijk voor de data en gezien hun staat van dienst en academische publicaties waaronder sommige in gerenommeerde tijdschriften, lijken ze op het eerste gezicht betrouwbaar (cfr. Echtheid). Tenslotte zijn de data ongetwijfeld relevant en daarmee slagen ze voor de volledige DIPKEVER test. Het onderlinge correleren van beide variabelen biedt hier geen meerwaarde.
 
 De exploratiefase is voorbij. Het volstaat ons nu om een grafiek op stellen waarbij het aantal aanslagen in de tijd wordt gevolgd:
 
@@ -172,7 +170,7 @@ void <- dat[, plot(incidents ~ year, type = "l",
 	xlab = "Kalenderjaar", ylab = "Aantal aanslagen per jaar")]
 ```
 
-_Conclusie_: Ja, het aantal gerapporteerde terroristische aanslagen lijkt volgens de START (@pape2014) toegenomen te zijn in de periode 2010 - 2015 ten opzichte van de periode 1970 - 2010.
+__Conclusie__: Ja, het aantal gerapporteerde terroristische aanslagen lijkt volgens de START (@pape2014) toegenomen te zijn in de periode 2010 - 2015 ten opzichte van de periode 1970 - 2010.
 
 ## Univariate verdelingen
 
@@ -202,106 +200,105 @@ rhDNase %>% str
 We gaan nu één voor één de variabelen af:
 
 - `id`: _subject id_. Is de identiteit en het heeft geen nut om hier een verdeling van de trekken.
-- `inst`: _enrolling institution_. Dit is  een `integer`, dus dat lijkt niet te kloppen, want we verwachten een organisatie hier. We behandelen het dan ook als categorische (nominale) variabele (`factor` in R) en maken een staafdiagram (eng: _bar plot_). Er is geen betekenisvolle sortering mogelijk bij categorische variabelen, maar het is een goed gewoonte om te toch even van frequent naar minder frequent te sorteren om een zicht te krijgen om de curve die zo ontstaat.
+- `inst`: _enrolling institution_. Dit is  een `integer`, dus dat lijkt niet te kloppen, want we verwachten een organisatie hier. We behandelen het dan ook als categorische (nominale) variabele (`factor` in R) en maken een staafdiagram (eng: _bar plot_). Er is geen betekenisvolle sortering mogelijk bij categorische variabelen, maar het is een goed gewoonte om te toch even van frequent naar minder frequent te sorteren om een zicht te krijgen op de curve die zo ontstaat.
 
-```{r}
-rhDNase <- rhDNase %>% as.data.table
-rhDNase[, inst := inst %>% factor]
-rhDNase$inst %>% table %>% sort %>% rev %>% 
-	barplot(xlab = "Enrolling institution", ylab = "# of instances",
-		main = "Distribution of the institutions", cex.names = .6, las = 2)
-```
+   ```{r}
+   rhDNase <- rhDNase %>% as.data.table
+   rhDNase[, inst := inst %>% factor]
+   rhDNase$inst %>% table %>% sort %>% rev %>% 
+   	barplot(xlab = "Enrolling institution", ylab = "# of instances",
+   		main = "Distribution of the institutions", cex.names = .6, las = 2)
+   ```
 
    Er zijn wel een aantal dominantere instituten maar die dominantie lijkt niet te extreem er blijft een goede verdeling tussen de verschillende instituten van grofweg 10-15 instanties per instituut.
+
 - `trt` _treatment arm: 0=placebo, 1= rhDNase_ Een arm betekent hier een vertakking van de beslissingsboom die gebruikt wordt om patiënten in een bepaalde categorie te plaatsen. Zulke een binaire kan je evengoed met een staafdiagram voorstellen, maar hier heb je duidelijk een controle experiment (de placebo-arm) en volstaat het om de verhouding behandeld/placebo mee te geven omdat alle informatie van de verdeling hierin vervat zit:
 
-```{r}
-rhDNase$trt %>% sum %>% divide_by(rhDNase %>% nrow) %>%
-	multiply_by(100) %>% 
-	sprintf("%.1f%%", .)
-```
+   ```{r}
+   rhDNase$trt %>% sum %>% divide_by(rhDNase %>% nrow) %>%
+   	multiply_by(100) %>% 
+   	sprintf("%.1f%%", .)
+   ```
 
    Dit ligt héél dicht bij 50% en we kunnen dus zeggen dat de groepen mooi _gebalanceerd_ zijn zoals het hoort
+
 - `entry.dt`: _date of entry into the study_. Uit de structuur zagen we al dat het formaat correct in ingesteld als datum. Een datum is _in theorie_ een continue variabele omdat er tussen twee willekeurig gekozen tijdstippen oneindig veel nieuwe tijdstippen liggen. Bovendien heeft een datum geen betekenisvol nulpunt. Voor een continue variabele is een densiteit-diagram beter geschikt dan een histogram:
 
-```{r}
-rhDNase[, entry.dt.num := entry.dt %>% as.numeric]
-
-rhDNase$entry.dt.num %>% density %>%
-	plot(xaxt = "n", main = "Distribution of start dates ", xlab = "")
-
-axis(1, las = 2, cex = .8,
-	at = rhDNase$entry.dt %>% pretty,
-	labels = rhDNase$entry.dt %>% pretty)
-
-rhDNase$entry.dt.num %>% rug
-```
+   ```{r}
+   rhDNase[, entry.dt.num := entry.dt %>% as.numeric]
+   
+   rhDNase$entry.dt.num %>% density %>%
+   	plot(xaxt = "n", main = "Distribution of start dates ", xlab = "")
+   
+   axis(1, las = 2, cex = .8,
+   	at = rhDNase$entry.dt %>% pretty,
+   	labels = rhDNase$entry.dt %>% pretty)
+   
+   rhDNase$entry.dt.num %>% rug
+   ```
 
    Hier zien we dat de rekrutering van deelnemers voor de klinische studie na één maand op een laag pitje te hebben gestaan pas goed op gang is gekomen. De densiteit laat twee pieken zien (modi), we spreken van een _bimodale verdeling_.
+
 - `end.dt`: _date of last follow-up_. Is sterk gelijkend op het vorige. Laten we deze feature gebruiken om de loopduur van elke instantie te berekenen en de distributie hiervan in grafiek te zetten (zie Oefening \@ref(exr:distributie-loopduur)).
 
-```{exercise distributie-loopduur}
-Probeer de distributie voor de loopduur per instantie in beeld te brengen en te  beschrijven wat je ziet.
-```
-
-```{solution echo=FALSE}
-rhDNase[, end.dt - entry.dt] %>% as.numeric(unit = "days") %>% density %>% plot
-```
+   ```{exercise distributie-loopduur, name="Distributie-loopduur"}
+   Probeer de distributie voor de loopduur per instantie in beeld te brengen en te     beschrijven wat je ziet.
+   ```
 
 - `ivstart` en `ivstop`_days from enrollment to the start of IV antibiotics_  en _days from enrollment to the cessation of IV antibiotics_ (IV staat voor intraveneus) Deze laatste twee variabelen zijn weer verschillend: het gaat om discrete aantallen ($\subset \mathbb{N}$), dus geen kommagetallen, maar, tegen de verwachting, wél negatief kunnen zijn. Bovendien zijn er erg veel ontbrekende waarden:
 
-```{r}
-rhDNase$ivstart %>% head(32)
-```
+   ```{r}
+   rhDNase$ivstart %>% head(32)
+   ```
 
-```{r}
-rhDNase$ivstart %>% is.na %>% table
+   ```{r}
+   rhDNase$ivstart %>% is.na %>% table
 ```
 
    We kunnen zelfs zeggen dat er voor `ivstart` meer gaten zijn dan kaas. We kunnen alsnog de verdeling onderzoeken van de overblijvende waarden:
 
-```{r}
-rhDNase$ivstart %>% hist(
-	main = "Verdeling wachttijd voor behandeling",
-		xlab =  "wachttijd", ylab = "# instanties")
-abline(v = 0, lwd = 2)
-```
+   ```{r}
+   rhDNase$ivstart %>% hist(
+   	main = "Verdeling wachttijd voor behandeling",
+   		xlab =  "wachttijd", ylab = "# instanties")
+   abline(v = 0, lwd = 2)
+   ```
 
    We zien een verdeling die eerder uniform is dan wel normaal. Ook hier kunnen we nu de verdeling van de behandelingsduur in grafiek zetten:
 
-```{r}
-par(mfrow = 1:2)
-
-rhDNase[, ivstop - ivstart] %>%
-	hist (main = "Behandelingsduur")
-rhDNase[, ivstop - ivstart] %>% log %>%
-	hist(main = "ln(Behandelingsduur)")
-```
+   ```{r}
+   par(mfrow = 1:2)
+   
+   rhDNase[, ivstop - ivstart] %>%
+   	hist (main = "Behandelingsduur")
+   rhDNase[, ivstop - ivstart] %>% log %>%
+   	hist(main = "ln(Behandelingsduur)")
+   ```
 
    De eerste grafiek laat zien dat de behandelingsduur nogal  [rechtsscheef](https://nl.wikipedia.org/wiki/Scheefheid) verdeeld is. De transformatie door middel van de natuurlijke logaritme ($ln(x)=\,^elog(x)$) veranderd de verdeling in iets wat normaler lijkt. We zeggen dat de behandelingsduur _lognormaal_ verdeeld lijkt te zijn. Laten we de theoretische curve erbij zetten om de afwijkingen tussen werkelijk en theoretisch te visualiseren:
 
-```{r}
-bduur_log <- rhDNase[,  log(ivstop - ivstart)]
-bduur_log <- bduur_log[!is.na(bduur_log) & !is.infinite(bduur_log)]
-
-bduur_log %>% hist(main = "ln(Behandelingsduur)", freq = FALSE, n = 20)
-
-x <- (1:60 / 10)
-y <- x %>% dnorm(
-	mean = bduur_log %>% mean,
-	sd = bduur_log %>% sd)
-
-lines(x, y , col = 1, lwd = 3)
-```
+   ```{r}
+   bduur_log <- rhDNase[,  log(ivstop - ivstart)]
+   bduur_log <- bduur_log[!is.na(bduur_log) & !is.infinite(bduur_log)]
+   
+   bduur_log %>% hist(main = "ln(Behandelingsduur)", freq = FALSE, n = 20)
+   
+   x <- (1:60 / 10)
+   y <- x %>% dnorm(
+   	mean = bduur_log %>% mean,
+   	sd = bduur_log %>% sd)
+   
+   lines(x, y , col = 1, lwd = 3)
+   ```
 
 We kunnen verdelingen ook met andere grafiek-types in beeld brengen. De meest populaire zijn de [boxplot](https://nl.wikipedia.org/wiki/Boxplot), de {dot plot}(https://en.wikipedia.org/wiki/Dot_plot_(statistics)), de [beeswarm plot](https://www.r-statistics.com/2011/03/beeswarm-boxplot-and-plotting-it-with-r/#:~:text=A%20bee%20swarm%20plot%20is,controlling%20the%20characters%20and%20colors.) en de [violin plot](https://en.wikipedia.org/wiki/Violin_plot).
 
-```{exercise grafieftypes}
+```{exercise grafieftypes, name="Verdeling"}
 Tracht de verdeling van de logaritmisch geschaalde behandelingsduur te visualiseren door middel van de functies `base::dotchart`, `base::boxplot`, `beeswarm::beeswarm` en `vioplot::vioplot `. De oplossing moet er zo uit zien:
 
 ![Eindresultaat grafieftypes](img/eindresultaat-grafieftypes.png)
 
-> Tip: Als je meer dan 300 characters nodig hebt voor heel deze oefening, weet je dat je te ver aan het zoeken bent.
+> Tip: Als je meer dan 300 karakters nodig hebt voor heel deze oefening, weet je dat je te ver aan het zoeken bent.
 
 > Opgelet: de variabele `bduur_log` wordt voor deze oefening verwacht in scope te zijn.
 ```
@@ -333,10 +330,21 @@ for(rho in c(.05, .33, .66, .95)){
 }
 ```
 
-(ref:correl-demo) Demonstratie van de correlatie tussen twee variabelen. Merk op hoe de geschatte correlatie coëfficiënt de werkelijke benaderd. De covariantie matrix komt overeen met $$\begin{bmatrix}1 & \rho\\\rho & 1\end{bmatrix}$$
+(ref:correl-demo) Demonstratie van de correlatie tussen twee variabelen. Merk op hoe de geschatte correlatie coëfficiënt de werkelijke benaderd. De covariantie matrix komt overeen met ($\rho$ is de correlatiecoëfficiënt) $$\begin{bmatrix}1 & \rho\\\rho & 1\end{bmatrix}$$
 
 ```{remark}
 __Opgelet__: een correlatie tussen twee variabelen is geen garantie voor een causaal verband. Bekijk deze kennis-clip om te begrijpen hoe je wel een causaal verband kan onderzoeken:
 	
 <iframe width="566" height="318" src="https://www.youtube.com/embed/HUti6vGctQM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 ```
+
+```{exercise when-to-correlate, name="Wanneer corelleer"}
+Gegeven de volgende combinaties van verschillende soorten variabelen, wanneer mag je wél correleren:
+
+- Nominaal vs numeriek discreet lineair
+- Numeriek continu lineair vs Numeriek continu lineair
+- Nominaal vs numeriek continu circulair
+- Numeriek continu lineair vs numeriek continu circulair
+- Numeriek continu lineair vs ordinaal
+```
+

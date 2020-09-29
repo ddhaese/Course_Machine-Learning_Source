@@ -22,7 +22,7 @@ span.term {
 
 span.remark em{
   font-size: .8;
-  background-color: #333333;
+  background-color: #2D859C;
   color: white;
   border-radius: 3px;
   padding: 2 4px;

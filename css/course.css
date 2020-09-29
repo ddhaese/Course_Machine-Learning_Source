@@ -128,3 +128,11 @@ q{
 iframe[allowfullscreen]{
   margin: 30px 100px;
 }
+
+summary{
+  margin: 10px 0px;
+}
+
+details{
+  margin: 5px 30px;
+}
