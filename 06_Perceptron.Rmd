@@ -17,15 +17,23 @@ palette(dyad[c(9, 20, 66)])
 
 De perceptron is gebaseerde op een wiskundige beschrijving van het dierlijk neuron. De uitvinding van de perceptron wordt toegekend aan [Frank Rosenblatt](https://en.wikipedia.org/wiki/Frank_Rosenblatt) die in 1957 een leeralgoritme programmeerde op een IBM 704 computer.
 
-![IBM 704 computer](https://upload.wikimedia.org/wikipedia/commons/7/7d/IBM_704_mainframe.gif)
+```{r ibm-704, fig.cap="(ref:ibm-704)", echo=FALSE}
+include_graphics("https://upload.wikimedia.org/wikipedia/commons/7/7d/IBM_704_mainframe.gif")
+```
+
+(ref:ibm-704) IBM 704 mainframe. bron: @ibm-704.
 
 In de [New York Times van 8 Juli 1958](https://www.nytimes.com/1958/07/08/archives/new-navy-device-learns-by-doing-psychologist-shows-embryo-of.html) verscheen:
 
 <q>The Navy revealed the embryo of an electronic computer today that it expects will be able to walk, talk, see, write, reproduce itself and be conscious of its existence.</q>
 
-Al snel werd er hardware gemaakt om het algoritme efficiënt uit te voeren, de zogenaamde Mark I Perceptron machine
+Al snel werd er hardware gemaakt om het algoritme efficiënt uit te voeren, de zogenaamde Mark I perceptron machine
 
-![Mark I Perceptron machine](https://upload.wikimedia.org/wikipedia/en/5/52/Mark_I_perceptron.jpeg)
+```{r mark-1, fig.cap="(ref:mark-1)", echo=FALSE}
+include_graphics("https://upload.wikimedia.org/wikipedia/en/5/52/Mark_I_perceptron.jpeg")
+```
+
+(ref:mark-1) De Mark I perceptron machine, waarbij een matrix van 20 bij 20 cadmium sulfide fotocellen verbonden werden met een reeks potentiometers die de gewichten voorzien van de 400 invoer noden. bron: @mark-1.
 
 ## De anatomie van de perceptron
 
@@ -39,7 +47,7 @@ Naar analogie met het biologisch neuron is de functie van een perceptron om comp
 
 \begin{equation}
 	\mathbb{R}^n\rightarrow\mathbb{R}\\
-  z=f(x, \theta)=\sum_{i=0}^{n}{\theta_ix_i}
+  z=g(x, \theta)=\sum_{i=0}^{n}{\theta_ix_i}
   (\#eq:perceptron)
 \end{equation} 
 
