@@ -148,117 +148,23 @@ include_graphics("img/cv_strategy.svg")
 
 (ref:cv-strategie) Een model voorbeeld van hoe een cross-validatie strategie past binnen een begeleid ML proces.
 
-## De beoordelingsfunctie
+## Werkstroom deep learning
 
-Met een beoordelingsfunctie ($\varepsilon$; eng: _objective function_) bereken je de prestatie van een model door de uitvoer van het model $\hat{y}$ te vergelijken met de werkelijke uitkomst $y$. Er zijn veel mogelijke verschillende verliesfuncties afhankelijk van het beoogde doel en type van de uitkomst-variabele. Een populaire keuze wanneer het gaat om reële getallen is de som van de kwadraten van de verschillen (eng: _sum of squared errors_ of kort SME). In feite gaat het over de helft van de som van de kwadraten en waarom dit is, heeft te maken met de differentieerbaarheid ervan (zie &sect; [backpropagation](#nackpropagation) voor meer uitleg hierrond).
+Figuur \@ref(fig:deep-learning-workflow) vat samen hoe de werkstroom van een ANN eruit ziet. Het is een complex schema maar desalniettemin erg belangrijk. Dankzij deze werkstroom weten we hoe lang we moeten blijven trainen, i.e. hoeveel epoch we moeten doorlopen alvorens we kunnen stoppen.
 
-\begin{equation}
-  \varepsilon=E(y,\hat{y})=\frac{1}{2}\sum_{n=1}^{N}{(y_n-\hat{y}_n)^2}
-  (\#eq:kwadratensom)
-\end{equation}
+Het begint met het verzamelen van gegevens. Op basis van de _structuur van de gegevens_ ontwerpen we de architectuur van ons neuraal netwerk. De data wordt ondertussen gesplitst in een training-, validatie- en test-set (zie [betrokken paragraaf](#training--validatie-en-test-set) voor meer info). We gaan eerst aan de slag met met de training-set. Na de eerste epoch eindigen we met een tijdelijke versie van het ANN model. Indien de restterm verkleint controleren we of dit tijdelijk model ook beter presteert op de validatie-set. Indien zo is, gaan we naar de volgende epoch. Deze lus houden we aan totdat de prestatie van het tijdelijk model niet meer verbetert.
 
-Naarmate dat het voorspelde resultaat $\hat{y}$ steeds meer begint af te wijken van het werkelijk resultaat $y$, neemt de restterm $\varepsilon$ razendsnel toe (zie interactieve figuur hieronder) en het doel van het leeralgoritme is om de parameters $\mathbf{\theta}$ zodanig aan te passen dat de fout net zijn klein mogelijk wordt. Men zegt dat het doel is om de verliesfunctie te minimaliseren (eng: _minimize_).
+Er gaat een punt komen waarop de prestatie nog wél verbetert voor de training-set, maar niet voor de validatie-set. Dat is het punt waarop het tijdelijk model begint te _overfitten_. Als dat gebeurt, moet de architectuur van het ANN worden aangepast om de overfitting tegen te werken. Dit kan onder andere gebeuren door een aantal minder belangrijke verbindingen tussen de neuronen te verbreken (zie later).
 
-```{r convex, eval=FALSE, echo=FALSE}
-rgl.open()
-options(rgl.useNULL = FALSE)
+Op een gegeven ogenblik zal natuurlijk ook de fit op de training set niet verbeterd kunnen worden, je kan natuurlijk niet oneindig lang verbeteren. Dit is het punt waarop men niet enkel naar de relatieve prestatie moet kijken (beter versus slechter), maar ook naar de absolute prestatie van het tijdelijk model. Pas wanneer het tijdelijk model op de training-set slaagt voor een aantal voorgedefinieerde criteria, mag er finaal (en dus slechts eenmalig) getest worden op de test-set.
 
-dst <- function(x, y, center = c(0,0)){
-  ((x - center[1]) ^ 2 + (y - center[2]) ^ 2)
-}
+In normale omstandigheden worden de criteria op de test-set (mede-)gestuurd door uitwendige factoren (zie paragraaf rond [Uitwendige invloed](#uitwendige-invloed)). Slaagt het model niet, dan zit er niets anders op om nieuwe data te zoeken. De test-set is nu a.h.w. gecompromitteerd (eng: _compromised_) en mag niet meer in die hoedanigheid functioneren.
 
-bg3d(color = "white")
-
-plot3d(dst,xlim=c(-1, 1), ylim=c(-1, 1), type = "wire",
-  col = colorRampPalette(1:2),
-  xlab = expression(theta[1]),
-  ylab = expression(theta[2]),
-  zlab = expression(epsilon))
-
-view3d( theta = 0, phi = -60, zoom = .8)
-
-writeWebGL(filename = "img/convex.html" ,  width = 600, height = 600)
+```{r deep-learning-workflow, fig.cap="(ref:deep-learning-workflow)", echo=FALSE}
+include_graphics("img/deep-learning-workflow.svg")
 ```
 
-<iframe width="100%" height="650px" src="img/convex.html" sandbox="allow-same-origin allow-scripts allow-popups allow-forms" style="border:0px;"></iframe>
-
-Een andere belangrijke verliesfunctie is de cross-entropie: Deze wordt gebruikt wanneer de uitkomst variabele een kansverdeling (eng: _probability distribution_) voorstel, i.e. wanneer de waarden voor de uitkomsten reële getallen getallen zijn in het bereiek $[0, 1]$ en wanneer alle waarden voor de categorieën in de uitvoerlaag van het netwerk optellen tot 1. Deze laatste wordt gewaarborgt door de zogenaamde softmax restrictie (zie [Types neuronen](#types-neuronen)).
-
-\begin{equation}
-  E(y, \hat{y})=-\frac1N\sum_{n=1}^{N}{\left[y_n\,log(\hat{y}_n) + (1-y) \,log(1-\hat{y})\right]}
-  (\#eq:cross-entropie)
-\end{equation}
-
-Het is mooi om zulke verliesfunctie in beeld te brengen, maar in werkelijkheid spelen er meer dan twee parameters in het spel en zijn niet alle neuronen lineair. Als gevolg zal de verliesfunctie de vorm van een hypervlak in een meer-dimensionale ruimte gaan innemen en zal de vorm ook veel grilliger zijn dan hier voorgesteld.
-
-## Gradiënt afdaling
-
-De bedoeling is om het laagste punt van de hierboven gedemonstreerde verliesfunctie te vinden. Indien het werkelijk om kwadratische verlies-oppervlakten zou gaan, dan was er geen probleem omdat met het laagste punt dan analytisch zou kunnen vinden, i.e. met een relatief eenvoudige matrix bewerking. Maar in werkelijkheid zijn de verliesfuncties grillig en meerdimensionaal (\@ref(fig:complexe-verlies-landschappen)). Dan is er een soort trial-and-error manier nodig om het laagste punt te vinden.
-
-```{r curve-vorm, fig.cap="(ref:curve-vorm)", echo=FALSE}
-include_graphics("img/curve-vorm.svg")
-```
-
-(ref:curve-vorm) Onderscheid tussen kwadratische, convexe en grillige functies, hier voor de eenvoud voorgesteld als abstracte twee-dimensionale functies.
-
-Het zoeken naar zulk een minimum van zulk een functie noemt men een _optimalisatie-probleem_ en een groot deel van het onderzoek naar ANNs situeert zich rond het vinden van een efficiënt optimalisatie algoritme. Deze optimalisatie is trouwens waarnaar in de paragraaf rond de perceptron verwezen werd als zijnde de administratie rondom de functies $f$ en $t$.
-
-```{r complexe-verlies-landschappen, echo=FALSE, fig.cap="(ref:complexe-verlies-landschappen)"}
-include_graphics(paste0("https://www.cs.umd.edu/~tomg/img/",
-  "landscapes/noshort.png"))
-```
-
-(ref:complexe-verlies-landschappen) Voorbeeld van een realistische geprojecteerde verlies-functie bekomen door Ankur Mohan volgens de methode beschreven in @li2018. Kijk ook eens op [losslandscape.com](https://losslandscape.com/) voor artistieke rendering van 'verlies-landschappen'.
-
-Maar goed, laten we, om de eenvoud te bewaren, toch nog even voortbouwen op een verliesfuncties met een eenvoudige convexe vorm. Bij het initialiseren van de parameters met willekeurige waarden stellen we ons een willekeurig punt voor in het $\theta_1\perp\theta_2$-vlak. Vanuit dit punt projecteren we ons op het verlies-oppervlakte, door parallel te lopen met de $\varepsilon$-as totdat we het oppervlakte kruisen. We bevinden ons nu ergens op dit oppervlak, in het punt $e$. Hoe vinden we nu het laagste punt op dit oppervlak? Simpel, volg de weg die het steilst naar beneden gaat en, in het geval van een convexe functie, kom je vanzelf uit op het laagste punt. De weg van de steilste afdaling (eng: _steepest ascent_) wordt wiskundig uitgedrukt als de [gradient](https://nl.wikipedia.org/wiki/Gradi%C3%ABnt_(wiskunde)) $\nabla\varepsilon$ in $e$. Een gradient kan gezien worden als een meerdimensionale afgeleide en kan in een 2-dimensionale context (2 parameters) voorgesteld worden als een raakvlak in het punt $e$. Vandaar de naam van een familie aan optimalisatie-algoritmen en ook de titel van deze paragraaf: gradiënt afdaling (eng: _gradient descent_).
-
-We weten nu in welke richting we moeten gaan, het enige dat overblijft is de grootte van de stap die we in die richting nemen. De grootte van de stap wordt bepaald door de leersnelheid $r$ (eng: _learning rate_). Nemen we te grootte stappen, dan kunnen we het minimum missen doordat we er over springen. Nemen we te kleine stappen, dan duurt het mogelijk te lang en riskeren we bovendien om achter kleine heuveltjes van de ruis te komen vastzitten.
-
-Wanneer we voldoende dicht komen bij het (lokaal) minimum van het verlies-oppervlakte, verwachten we dat de gradient in dat punt heel erg klein wordt. We zeggen dan dat het optimalisatie-algoritme __convergeert__. Wat 'voldoende dicht' precies moet zijn, wordt door de datawetenschapper bepaald en is meestal een arbitrair klein getal. Blijft tijdens het zoeken de gradient fluctueren, dan kan de datawetenschapper beslissen dat de zoektocht vroegtijdig gestaakt wordt alvorens er convergentie bereikt wordt. Er is immers niet altijd een garantie dat convergentie mogelijk is en zelfs als je optimalisatie-algoritme convergeert, heb je bij grillige oppervlakten nooit de garantie dat het lokaal minimum ook het globaal minimum is.
-
-```{definition}
-Bij complexe en grillige verlies-oppervlakten zal het vakk zo zijn dat er geen garanties gegeven kunnen worden dat het optimilsatie-algoritme convergeert of dat het gevonden minimum ook de best mogelijk oplossing is.
-```
-
-Wiskundig kunnen we de gradiënt-afdaling van het optimalisatie-algoritme als volgt samenvatten:
-
-\begin{equation}
-  \theta\leftarrow\theta-r\cdot\nabla\varepsilon(\theta)
-  (\#eq:gradient-afdaling)
-\end{equation}
-
-De leersnelheid wordt vaak, zoals bij de familie aan optimalisatie-algoritmes die men [_simluated annealing_](https://nl.wikipedia.org/wiki/Simulated_annealing) noemt, bij elke epoch aangepast aan de zogenaamde _temperatuur_ die langzaam afneemt.
-
-## Stochastische en Minibatch gradiënt afdaling
-
-```{r, eval=FALSE, echo=FALSE}
-eggholder <- function(x1, x2){
-  -(x2 + 47) * sin(sqrt(abs(x2 + x1/2 + 47))) -
-    (x1 * sin(sqrt(abs(x1 - (x2 + 47)))))
-}
-
-rgl.open()
-options(rgl.useNULL = FALSE)
-
-
-bg3d(color = "white")
-lim <- c(-600, 600)
-plot3d(eggholder, xlim = lim, ylim = lim, type = "wire",
-  col = colorRampPalette(1:2),
-  xlab = expression(theta[1]),
-  ylab = expression(theta[2]),
-  zlab = expression(epsilon))
-
-view3d( theta = 0, phi = -60, zoom = 1.2)
-
-writeWebGL(filename = "img/eggholder.html" ,  width = 600, height = 600)
-```
-
-<iframe width="100%" height="650px" src="img/eggholder.html" sandbox="allow-same-origin allow-scripts allow-popups allow-forms" style="border:0px;"></iframe>
-
-De afdaling zoals beschreven in vorige paragraaf baseert zich op verlies-landschappen die berekend werden op de ganse dataset. In dat geval spreekt men van _batch gradiënt afdaling_ (eng: _batch gradiënt descent_). Zoals reeds aangehaald, deze strategie werkt niet goed wanneer het oppervlakte van het verlies-landschap grillig is zoals in het voorbeeld hier direct boven. Die grilligheid wordt veroorzaakt omdat net de verliesfuncties van alle instanties in de dataset samen worden beschouwd. In de _stochastische gradiënt-afdaling_ (eng:_stochastic gradient descent_) worden de verlies-hypervlakken berekend telkens voor slechts één instantie tegelijk. Deze benadering maakt dat de rekentijd bij grote datasets te hoog zou oplopen. Daarom is er een tussenvorm bedacht, de _minibatch gradiënt-afdaling_ (eng: _minibatch gradient descent_). HIer wordt telkens een subset (de minibatch) van de dataset gebruikt om het verlies-oppervlak te berekenen. De minibatch grootte is een hyperparameter van het leeralgoritme.
-
-Je kan waarschijnlijk hele bibliotheken vullen met informatie over de verschillende optimalisatie-algoritmen, maar hier volstaat het om te weten dat er erg veel verschillende zijn en dat er nog actief onderzoek naar wordt gedaan.
+(ref:deep-learning-workflow) De typische werkstroom voor het afhandelen van deep-learning ANN. Meer uitleg in de tekst. Gebaseerd op de werkstroom in figuur 2-14 van @buduma.
 
 ## Uitwendige invloed
 

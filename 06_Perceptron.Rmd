@@ -43,7 +43,7 @@ include_graphics("img/neuron.png")
 
 (ref:neuron) De anatomie van het neuron en de overeenkomstige node van een neuraal netwerk. In het dierlijke neuron (boven) krijgt het cellichaam (eng: _cell body_) allerlei invoer van verscheidene locaties. In dit cellichaam vindt de integratie plaats (sommatie) en transformatie waarna het signaal (in de vorm van een zogenaamde actiepotentiaal) langsheen het axon reist naar het axon-uiteinde (eng: _synaptic terminals_). In een neuraal netwerk zijn de axon-uiteinden verbonden met de dendrieten (eng: _dendrites_) van een ander neuron. In een perceptron (onder) wordt de invoer ($x$) gewogen en geïntegreerd tot één getal ($z$) dat getransformeerd kan worden alvorens het wordt als uitvoer ($y$) wordt vrijgegeven. Bron: @neuron.
 
-Naar analogie met het biologisch neuron is de functie van een perceptron om complexe invoer om de ene of andere manier te reduceren tot één getal ($z$; zie Formule \@ref(eq:perceptron)).
+Naar analogie met het biologisch neuron is de functie van een perceptron om complexe invoer om de ene of andere manier te reduceren tot één getal ($z$; zie Formule \@ref(eq:perceptron)). Dit getal wordt soms de _logit_ van een neuron genoemd.
 
 \begin{equation}
 	\mathbb{R}^n\rightarrow\mathbb{R}\\
@@ -51,7 +51,7 @@ Naar analogie met het biologisch neuron is de functie van een perceptron om comp
   (\#eq:perceptron)
 \end{equation} 
 
-In een tweede functie wordt dit resultaat nog eens getransformeerd tot de voorspelling $\hat{y}$. Één voorbeeld van zulk een transformatie is [het signum](https://nl.wikipedia.org/wiki/Signum_(wiskunde)) (eng:_sign function_):
+In een tweede functie, de zogenaamde _activatiefunctie_ (eng: _activation function_),  wordt dit resultaat nog eens getransformeerd tot de voorspelling $\hat{y}$. Één voorbeeld van zulk een transformatie is [het signum](https://nl.wikipedia.org/wiki/Signum_(wiskunde)) (eng:_sign function_):
 
 \begin{equation}
 	\hat{y}=t(z)=
@@ -101,7 +101,7 @@ De perceptron is een leeralgoritme dat enkel geschikt is voor het onderscheiden 
 
 ## De perceptron klasse
 
-We gaan de perceptron in Python coderen, al zullen de resultaten in R worden onderzocht (zie ### om te begrijpen waarom).
+We gaan de perceptron in Python coderen, terwijl de resultaten in R zullen worden onderzocht (zie de &sect; _The R Language_ in de Appendix om te begrijpen waarom).
 
 ```{python perceptron-klasse, eval=FALSE}
 import numpy as np
@@ -115,10 +115,10 @@ class Perceptron:
     self.errs = []
 ```
 
-De `Perceptron` klasse wordt geïnitialiseerd met de hyperparameters `learning_rate` en `n-iter`. De `learning_rate` (nl: _leersnelheid_) is een correctiefactor waarmee de gewichten $\theta_i$ worden vermenigvuldigd indien de uitkomst van de instantie fout is. `iteration_count` geeft aan hoeveel cycli het leeralgoritme moet volbrengen. `theta_0` en `theta` zijn de _parameters_ en `theta_o` is een constante $\theta_0$ die aan de formule \@ref(eq:perceptron)) kan worden toegevoegd (zie Formule \@ref(eq:perceptron-constante) en komt in het tweedimensionaal geval neer op een asafsnede (eng: _intercept_). Deze constante wordt echter meestal weggelaten omdat het erop neerkomt dat een extra berekende variabele $x_0$ wordt toegevoegd, bestaande uit allemaal enen, waarvoor dan een overeenkomstige $\theta_0$ wordt voorzien.
+De `Perceptron` klasse wordt geïnitialiseerd met de hyperparameters `learning_rate` en `n-iter`. De `learning_rate` (nl: _leersnelheid_) is een correctiefactor waarmee de gewichten $\theta_i$ worden vermenigvuldigd indien de uitkomst van de instantie fout is. `iteration_count` geeft aan hoeveel cycli het leeralgoritme moet volbrengen. `theta_0` en `theta` zijn de _parameters_ en `theta_0` is een constante $\theta_0$ die aan de formule \@ref(eq:perceptron)) kan worden toegevoegd (zie Formule \@ref(eq:perceptron-constante) en komt in het tweedimensionaal geval neer op een asafsnede (eng: _intercept_). Deze constante wordt echter meestal weggelaten omdat het erop neerkomt dat een extra berekende variabele $x_0$ wordt toegevoegd, bestaande uit allemaal enen, waarvoor dan een overeenkomstige $\theta_0$ wordt voorzien.
 
 \begin{equation}
-  f(x,\theta)=\theta_0+\sum_{i=1}^{n}{\theta_ix_i}
+  g(x,\theta)=\theta_0+\sum_{i=1}^{n}{\theta_ix_i}
   (\#eq:perceptron-constante)
 \end{equation}
 
@@ -128,13 +128,13 @@ Hoewel in bovenstaande code hier nog geen gebruik van wordt gemaakt, zorgt de ge
 
 ## De perceptron functies
 
-We zagen twee functies die de eigenlijke kern vormen van de perceptron: $f$ en $t$. Laten we deze als [methoden](https://stackoverflow.com/questions/155609/whats-the-difference-between-a-method-and-a-function) toevoegen:
+We zagen twee functies die de eigenlijke kern vormen van de perceptron: $g$ en $t$. Laten we deze als [methoden](https://stackoverflow.com/questions/155609/whats-the-difference-between-a-method-and-a-function) toevoegen:
 
 ```{python perceptron-functies, eval=FALSE}
 class Perceptron:
   [...]
 
-  def f(self, x: np.array) -> float:
+  def g(self, x: np.array) -> float:
     return np.dot(x, self.theta) + self.theta_0
   
   def t(self, z: float) -> int:
@@ -154,7 +154,7 @@ def fit(self, x: np.array, y: np.array):
     for iteration in range(self.iteration_count):
         err_iter = 0
         for xi, yi in zip(x, y):
-            update = self.learning_rate * (yi - self.t(self.f(xi)))
+            update = self.learning_rate * (yi - self.t(self.g(xi)))
             self.theta_0 += update
             self.theta += update * xi
             err_iter += int(update != 0.0)
@@ -187,7 +187,7 @@ yi = 1
 Binnen in deze lus, wordt er berekend met hoeveel de parameters moeten worden verminderd: 
 
 ```{python perceptron-update, eval=FALSE}
-update = self.learning_rate * (yi - self.t(self.f(xi)))
+update = self.learning_rate * (yi - self.t(self.g(xi)))
 ```
 
 Stel dat het leeralgoritme voor een bepaalde instantie `1` voorspelt, maar dat de werkelijke uitkomst `-1` is, dan worden de parameters _vermeerderd_ met de fractie
@@ -207,7 +207,7 @@ class Perceptron:
     self.theta = None
     self.errs = []
 
-  def f(self, x: np.array) -> float:
+  def g(self, x: np.array) -> float:
     return np.dot(x, self.theta) + self.theta_0
 
   def t(self, z: float) -> int:
@@ -219,7 +219,7 @@ class Perceptron:
     for iteration in range(self.iteration_count):
       err_iter = 0
       for xi, yi in zip(x, y):
-        update = self.learning_rate * (yi - self.t(self.f(xi)))
+        update = self.learning_rate * (yi - self.t(self.g(xi)))
         self.theta_0 += update
         self.theta += update * xi
         err_iter += int(update != 0.0)
@@ -228,7 +228,7 @@ class Perceptron:
 
 ## Trainen van de perceptron
 
-De tijd is aangebroken om de perceptron te trainen met de data van de iris bloemen. Het enige wat we nog willen doen is de invoergegevens standaardiseren, i.e. de zogenaamde [Z-score](https://nl.wikipedia.org/wiki/Z-score) berekenen. Let wel deze Z _heeft niets te maken_ met de $z$ die we eerder zagen.
+De tijd is aangebroken om de perceptron te trainen met de data van de iris bloemen. Het enige wat we nog willen doen is de invoergegevens standaardiseren, i.e. de zogenaamde [Z-score](https://nl.wikipedia.org/wiki/Z-score) berekenen. Let wel deze Z _heeft niets te maken_ met de $z$ (de _logit_) die we eerder zagen.
 
 \begin{equation}
   Z=\frac{x_j-\mu_j}{\sigma_j}
@@ -292,7 +292,7 @@ grid_y <- seq(x2_lim[1], x2_lim[2], l = 100)
 
 grid <- expand.grid(x = grid_x, y = grid_y) %>% as.matrix
 
-grid_z <- py$model$t(py$model$f(grid))
+grid_z <- py$model$t(py$model$g(grid))
 ```
 
 Nu plotten we de (gestandaardiseerd) data met de scheidingslijn (eng: _boundary line_) en duiden we de gebieden aan die, volgens het model, tot _Iris setosa_ behoort of niet:
@@ -321,7 +321,7 @@ Laten we nu het model gebruiken om een voorspelling te maken op ongeziene data.
 ```{python perceptron-test, cache=FALSE}
 from sklearn.metrics import accuracy_score
 
-print(accuracy_score(model.t(model.f(x_test)), y_test))
+print(accuracy_score(model.t(model.g(x_test)), y_test))
 ```
 
 Een perfect resultaat!

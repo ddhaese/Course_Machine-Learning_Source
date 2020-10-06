@@ -84,7 +84,7 @@ Een booleaans masker is gewoon een vector of lijst van booleaanse waarden die ge
 include_graphics("img/masker.svg")
 ```
 
-In het Voorbeeld \@ref(exm:oef-versnijden-2) werd er reeds van een masker gebruik gemaakt:
+In het Voorbeeld \@ref(exm:vb-versnijden) werd er reeds van een masker gebruik gemaakt:
 
 ```{r masker-vb}
 rode_wijn[,`residual sugar` < 10] %>% head(50)
