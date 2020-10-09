@@ -34,6 +34,105 @@ knit_engines$set(cmd = function(options){
 
 # (APPENDIX) Appendix {-}
 
+# De Logaritme
+
+De logaritme is een functie en die als het omgekeerde van een exponentiële functie beschouwd kan worden:
+
+$$
+y = ^g\!log(x) \\
+g^y=x
+$$
+
+waarbij $g$ het grondtal is. Indien het niet meegegeven wordt, veronderstelt men dat $g$ gelijk is aan $e = 2.718281828..$ en komt de logaritme overeen met de _natuurlijk logaritme_ dat in _België en sommige andere delen van de wereld_ aangeduid wordt met $ln(x)$.
+
+Een belangrijke reden om een variabele te transformeren met de logaritme is omdat de verdeling ervan een grote scheefheid vertoond waardoor:
+
+1. de verdeling moeilijker te interpreteren is en
+2. de verdeling te sterk afwijkt van normaliteit, een assumptie waar erg veel statistieken van afhangen
+
+In het R pakket `MASS` vinden we een heel simpele dataset `mammals` met gemiddelde lichaamsgewichten en hersenen-massa's. Deze data laat het probleem alsook het effect van de log-transformatie visueel zien:
+
+```{r logaritme, fig.cap="(ref:logaritme)", fig.width=7, fig.height=8, echo=FALSE}
+library(MASS)
+data(mammals)
+
+par(mfrow = c(2, 2), mar = c(8, 4, 5, 1), oma = c(0, 0, 2, 0))
+mammals <- as.data.table(mammals)
+
+mammals$body %>%
+  density %>%
+  plot(
+    main = "Linear scale",
+    xlab = "Body mass",
+    xlim = c(-1000, 7000))
+
+m <- mammals$body %>% mean
+s <- mammals$body %>% sd
+
+polygon(
+  c(m - s, m - s, m + s, m + s),
+  c(-.1, 1, 1, -.1),
+  col = paste0(dyad[12], "44"),
+  border = NA)
+abline(v = m + (-1:1) * s, lty = c(2, 1, 2), col = dyad[12])
+
+mammals$body %>%
+  log %>% 
+  density %>%
+  plot(
+    main = "Logarithmic scale",
+    xlab = "Body mass")
+
+m <- mammals$body %>% log %>% mean
+s <- mammals$body %>% log %>% sd
+
+polygon(
+  c(m - s, m - s, m + s, m + s),
+  c(-.1, 1, 1, -.1),
+  col = paste0(dyad[12], "44"),
+  border = NA)
+abline(v = m + (-1:1) * s, lty = c(2, 1, 2), col = dyad[12])
+
+mammals[, plot(brain ~ body, pch = 19,
+  main = "Linear scale",
+  xlab = "Body mass", ylab = "Brain mass")] -> dummy
+
+mammals[, plot(log(brain) ~ log(body), pch = 19,
+  main = "Logarithmic scale",
+  xlab = "Body mass", ylab = "Brain mass")] -> dummy
+
+title("Distribution body mass of mammals", line = 0, outer = TRUE)
+title("Brain mass versus body mass", line = -23, outer = TRUE)
+```
+
+(ref:logaritme) Lichaamsgewichten alleenstaand als verdelingen (boven) of tegenover hersenen-massa's (onder) in de lineaire schaal (links) of de logaritmische schaal (links). De blauwe balken geven het gemiddelde (volle blauwe lijn) weer &plusmn; standaardafwijking (blauwe stippellijnen).
+
+Bedenk wel dat enkel [strikt positieve](https://nl.wikipedia.org/wiki/Positief_getal#:~:text=Getallen%20groter%20dan%20nul%20worden,dus%20noch%20positief%2C%20noch%20negatief.) lineair-numerieke meetwaarden ($\mathbb{R}^+$) voor een log-transformatie in aanmerking komen.
+
+```{r warning=FALSE}
+curve(log(x), xlim = c(-5, 10), col = dyad[16], lwd = 2)
+polygon(c(-7, -7, 0, 0), c(-3, 3, 3, -3),
+  angle = 45, density = 10, col = dyad[16])
+```
+
+Op internet kan je trucjes vinden om log-transformaties te doen op data die 0 waarden bevatten. Een voorbeeld van zo een trucje is om bij elke waarde &frac12; bij op te tellen. Zulke procedures kunnen helpen voor de visualisatie maar hebben vaak geen statistische grondslag, dus opgelet hiermee.
+
+We staan er niet meer bij stil hoe fantastisch het eigenlijk is om in een machine `log(2.34651)` te kunnen opgeven. Wil je weten hoe men vroeger logs berekende? Net als voor andere functies (`sin`, `tanh`, &hellip;) gebeurde dit aan de hand van tabellen:
+
+```{r log-tabellen, fig.cap="(ref:log-tabellen)", echo=FALSE}
+include_graphics("img/log-tables.png")
+```
+
+(ref:log-tabellen) Zo ging men vroeger te werk voor het berekenen van een logaritme!
+
+```{exercise log-test, name="Probeer het uit"}
+Maak nu zelf eens een vector van negen waarden gaande van `1E-4` tot `1E4` en neem de logaritme van deze vector.
+```
+
+```{exercise anti-log, name="Anti-log"}
+Deze paragraaf begon met de stelling dat de logaritme als het omgekeerde van een exponentiële functie kan beschouwd worden. Toon dat eens voor jezelf aan. Probeer eens zeer kleine en zeer grote waarden uit voor $x$ en probeer eens verschillende grondtallen uit.
+```
+
 # Inwendig product, matrix-vermenigvuldiging, vectoren en tensoren
 
 De perceptron is een leeralgoritme dat de 'gewichten' $\theta$ probeert te vinden die na vermenigvuldiging met de invoer $x$ de uitkomst $y$ tracht te benaderen met $\hat{y}$.
