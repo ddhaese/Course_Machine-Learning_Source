@@ -305,26 +305,28 @@ Je kan waarschijnlijk hele bibliotheken vullen met informatie over de verschille
 
 ## Regularisatie
 
-[Regularisatie](https://en.wikipedia.org/wiki/Regularization_(mathematics)) (eng: _regularization_) is een manier om het overfitten tegen te gaan. Het wordt algemeen gebruikt in ML en is niet bepaald specifiek voor neurale netwerken. Het is een heel eenvoudig principe. Het komt erop neer dat er aan de kost-functie een term wordt toegevoegd dat ervoor zorgt té complexe modellen worden afgestraft. Specifiek voor ANNs gaat het om een term die te grote gewichten $\mathbf{\theta}$ afstraft.
+[Regularisatie](https://en.wikipedia.org/wiki/Regularization_(mathematics)) (eng: _regularization_) is een manier om het overfitten tegen te gaan. Het wordt algemeen gebruikt in ML en is niet bepaald specifiek voor neurale netwerken. Het is een heel eenvoudig principe. Het komt erop neer dat er aan de kost-functie een term wordt toegevoegd dat ervoor zorgt té complexe modellen worden afgestraft.
+
+Specifiek voor ANNs gaat het om een term die te grote gewichten $\mathbf{\theta}$ afstraft.
 
 \begin{equation}
-  \varepsilon'=\varepsilon+\lambda \cdot f(\theta)
+  \varepsilon'=\varepsilon+\lambda \cdot r(\theta)
   (\#eq:regularisatie)
 \end{equation}
 
-In de formule \@ref(eq:regularisatie) dient $f(\theta)$ om de vorm aan te geven van de functie die toeneemt naarmate $||\theta||$ toeneemt en is $\lambda$ een hyperparameter die de sterkte aangeeft waarmee te grote parameters moeten worden afgestraft. Met $\lambda=0$ nemen we geen maatregelen tegen overfitting met alle gevolgen van dien. Een te grote $\lambda$-waarde is ook nefast omdat het leerproces dan te fel gehinderd wordt.
+In de formule \@ref(eq:regularisatie) dient $r(\theta)$ om de vorm aan te geven van de functie die toeneemt naarmate $||\theta||$ toeneemt en is $\lambda$ een hyperparameter die de sterkte aangeeft waarmee te grote parameters moeten worden afgestraft. Met $\lambda=0$ nemen we geen maatregelen tegen overfitting met alle gevolgen van dien. Een te grote $\lambda$-waarde is ook nefast omdat het leerproces dan te fel gehinderd wordt.
 
 Er zijn meerdere regularisatie termen mogelijk. Een gangbare regularisatie is de zogenaamde L2 regularisatie. Dit is dus een regularisatie op basis van L2, de euclidische norm (Formule \@ref(eq:euclidische-norm)).
 
 \begin{equation}
-  f(\theta)=||\mathbf{\theta}||^2=\sqrt{\theta_1 ^ 2+\theta_2 ^ 2+..+\theta_n ^ 2}
+  r(\theta)=||\mathbf{\theta}||^2=\sqrt{\theta_1 ^ 2+\theta_2 ^ 2+..+\theta_n ^ 2}
   (\#eq:euclidische-norm)
 \end{equation}
 
 Omdat echter the vierkantswortel een vorm van schaling veroorzaakt en omdat $\lambda$ deze functie al overneemt gebruikt men meestal de volgende regularisatie-functie:
 
 \begin{equation}
-  f(\theta)=\frac12\lambda\sum{\theta^2}
+  r(\theta)=\frac12\lambda\sum{\theta^2}
   (\#eq:l2-regularisatie)
 \end{equation}
 
@@ -333,7 +335,7 @@ Bij elke epoch verkleinen de waarden van de parameters lineair naar nul. Daarom 
 Een andere regularisatie term is de L~1~ norm:
 
 \begin{equation}
-  f(\theta)=\lambda\sum{|\theta|}
+  r(\theta)=\lambda\sum{|\theta|}
   (\#eq:l1-regularisatie)
 \end{equation}
 
