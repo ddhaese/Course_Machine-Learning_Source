@@ -15,6 +15,8 @@ opts_chunk$set(echo = TRUE, cache = TRUE, message = FALSE, warning = FALSE)
 # options(rgl.printRglwidget = TRUE)
 
 source("r/md_tools.r")
+source("r/utils.r")
+
 dyad <- readRDS("r/Palette_5YR_5B_Dyad.RDS")
 palette(dyad[c(9, 20, 66)])
 
@@ -132,6 +134,50 @@ Maak nu zelf eens een vector van negen waarden gaande van `1E-4` tot `1E4` en ne
 ```{exercise anti-log, name="Anti-log"}
 Deze paragraaf begon met de stelling dat de logaritme als het omgekeerde van een exponentiële functie kan beschouwd worden. Toon dat eens voor jezelf aan. Probeer eens zeer kleine en zeer grote waarden uit voor $x$ en probeer eens verschillende grondtallen uit.
 ```
+
+# Normaliseren versus Standaardiseren
+
+Beide termen worden, vooral in de Engelstalige literatuur, door elkaar gehaald. Hier worden de meer statistische betekenissen van deze termen gehanteerd.
+
+```{definition normaliseren, name="Normaliseren"}
+Een __normalisatie__ van een reeks getallen zorgt ervoor dat de getallen zich tussen een opgegeven __minimum__ en een __maximum__ waarde begeven.
+```
+
+```{definition standaardiseren, name="Standaardiseren"}
+Een standaardisatie van een reeks getallen zorgt ervoor dat het gemiddelde van de reeks gelijk wordt aan 0 en de standaardafwijking gelijk wordt aan 1.
+```
+
+Dus, twee transformaties op een reeks getallen die al-bij-al toch vrij verschillend zijn. Hieronder wordt met code en met beelden de verschillen nog verder verduidelijkt. We grijpen hiervoor terug naar de lengtes van de kelkbladen van de irissen.
+
+```{r norm-vs-stand, warning = FALSE, fig.height=10, fig.width=5}
+normalize <- function(x) {
+  x_min <- min(x, na.rm = TRUE)
+  x_max <- max(x, na.rm = TRUE)
+  
+  (x - x_min) / (x_max - x_min)
+}
+
+x <- iris$Sepal.Length
+
+par(mfrow = c(3, 1), mar = c(4, 5, 5, 2))
+
+x %>% density %>%
+  plot(col = 2, main = "Origineel", xlab = "", ylab = "dichtheid")
+rug(x, col = 2)
+
+x_norm <- x %>% normalize
+x_norm %>% density %>% mirror(0:1) %>% 
+  plot(col = 2, main = "Normalisatie", xlab = "", ylab = "dichtheid")
+rug(x_norm, col = 2)
+
+x_stand <- x %>% scale
+x_stand %>% density %>%
+  plot(col = 2, main = "Standaardisatie", xlab = "", ylab = "dichtheid")
+rug(x_stand, col = 2)
+abline(v = 0, lty = 2)
+```
+
+Merk op dat de verdeling grotendeels ongewijzigd blijft, behalve aan de randen bij de normalisatie als gevolg van de `mirror`-operatie, enkel de x-as wijzigt. De functie `mirror` is een interne functie op de densiteitscurve (niet de data) binnen de extremen te houden om een wijze die licht verschilt van het `cut` argument op `density`.
 
 # Inwendig product, matrix-vermenigvuldiging, vectoren en tensoren
 

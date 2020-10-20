@@ -91,7 +91,7 @@ div.theorem{
   border: 1px solid gray;
 }
 
-div.remark{
+div.remark, div.corollary{
   padding: 10px;
   margin: 30px 10px;
   font-style: italic;

@@ -13,7 +13,6 @@ dyad <- readRDS("r/Palette_5YR_5B_Dyad.RDS")
 palette(dyad[c(9, 20, 66)])
 ```
 
-
 # Convolutionele Neurale Netwerken (CNN)
 
 ## Het onstaan van Computer Vision
