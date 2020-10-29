@@ -36,7 +36,7 @@ De autoencoder is een functie die dus zal trachten om de dimensionaliteit van de
 
 
 - __Data-type specifiek__: Een autoencoder werkt niet zoals een beeld-compressie algoritme of als een ZIP-functie op eender welk type data, in plaats daarvan werkt de autoencoder op basis van de inhoud. Dat betekent dat een autoencoder getraind op auto's niet geschikt is voor het comprimeren van afbeeldingen van huiskatten.
-- __Niet perfect__: (eng: _lossy_) Na een decompressie bekoemt nooit nooit exct de oorpronkelijke data. Met autoencoder verlies je altijd data.
+- __Niet perfect__: (eng: _lossy_) Na een decompressie bekoemt nooit nooit exact de oorpronkelijke data. Met autoencoder verlies je altijd data.
 - __Zelflerend__: (eng: _self-supervised_) een autoencoder heeft geen input nodig van buitenaf buiten een beperkt aantal hyperparameters
 ```
 
@@ -45,7 +45,7 @@ De autoencoder is een functie die dus zal trachten om de dimensionaliteit van de
 PCA is familie aan onbegeleide leeralgoritmen die bekend staat om de dimensionaliteit van de data te kunnen verlagen, i.e. door het aantal variabelen te verminderen zonder al te veel van de onderliggende patronen (of 'informatie') te verliezen. We genereren nog eens een puntenwolk waarbij twee hypothetische variabelen met een sterke correlatie ($\rho = 0,7$) worden uitgebeeld:
 
 ```{r pca-demo-copula}
-library (MASS)
+library(MASS)
 set.seed(42)
 
 copula <- function(n, rho, mu1, mu2, sd1, sd2, names){
@@ -107,6 +107,8 @@ dat_pca$x[, 1] %>% cbind(rep(0, nrow(dat_pca$x))) %>%
 abline(h = 0)
 ```
 
+Merk op dat we met 50% van de data 90% van de informatie behouden. Naarmate dat er meerdere variabelen zijn, zal de compressiefactor nog veel hoger zijn. Laten we PCA eens uitproberen op de MNIST dataset.
+
 ## PCA op de MNIST dataset
 
 Nu dat we het principe van PCA beter begrijpen, kunnen we het proberen toepassen op de MNIST dataset. We beginnen met het definiëren van een aantal helper-functies.
@@ -157,28 +159,28 @@ predict_pca <- function(x, n) {
 
 par(mfrow = c(6, 5))
 
-for (i in 1:5){
-  mnist [i, ] %>% plot_digit("Orig.")
+for (i in 1:5) {
+  mnist[i, ] %>% plot_digit("Orig.")
 }
 
-for(k in c(1, 5, 10, 25, 50)){
+for (k in c(1, 5, 10, 25, 50)) {
   mnist_recon <- mnist %>%
       prcomp %>%
       predict_pca(k)
   
-  for (i in 1:5){
-    mnist_recon [i, ] %>% plot_digit(k)
+  for (i in 1:5) {
+    mnist_recon[i, ] %>% plot_digit(k)
   }
 }
 ```
 
-(ref:mnist-pca) PCA-reconstructie van 5 cijfers uit een willekeurige subset van 100 cijfers uit de MNIST dataset. Het kleine gedrukte cijfer linksboven in elke afbeelding geeft het aantal principale componenten waarmee de afbeelding werd gereconstrueerd.
+(ref:mnist-pca) PCA-reconstructie van 5 cijfers uit een willekeurige subset van 100 cijfers uit de MNIST dataset. Het kleine gedrukte cijfer linksboven in elke afbeelding geeft het aantal principale componenten weer waarmee de afbeelding werd gereconstrueerd.
 
-naarmate er meer componenten gebruikt worden voor de reconstructie, des te beter wordt de gelijkenis met het origineel (bovenste rij in Figuur \@ref(fig:mnist-pca)). PCA is dus in staat om een gigantische compressie door te voeren, want vergeet niet dat de originele bestanden 784 variabelen telt. Door dit terug te brengen naar 50 (compressie factor van `r round(784/50, 2)`) of zelfs minder, slaagt PCA erin de cijfers herkenbaar terug te reconstrueren.
+Naarmate er meer componenten gebruikt worden voor de reconstructie, des te beter wordt de gelijkenis met het origineel (bovenste rij in Figuur \@ref(fig:mnist-pca)). PCA is dus in staat om een gigantische compressie door te voeren, want vergeet niet dat de originele bestanden 784 variabelen telt. Door dit terug te brengen naar 50 (compressie factor van `r round(784/50, 2)`) of zelfs minder, slaagt PCA erin de cijfers herkenbaar terug te reconstrueren.
 
 ## Beperkingen van PCA
 
-PCA is een lineair systeem, en werkt niet goed wanneer er niet-lineaire verbanden bestaan onder de originele variabelen. Bedank bijvoorbeeld een afbeelding met concentrische cirkels. In dat geval bestaan er kwadratische verbanden tussen de variabelen en zal PCA niet goed presteren. We kunnen dan wel een polaire transformatie uitvoeren om de cirkels om te zetten naar lijnen, maar in een realistische situatie, met een complexe mix van lineaire en niet-lineaire verbanden, brengt een transformatie geen zode aan de dijk. We moeten op zoek naar een niet-lineaire compressie-techniek.
+PCA is een lineair systeem, en werkt niet goed wanneer er niet-lineaire verbanden bestaan onder de originele variabelen. Bedank bijvoorbeeld een afbeelding die bestaat uit concentrische cirkels. In dat geval bestaan er kwadratische verbanden tussen de variabelen en zal PCA niet goed presteren. We kunnen dan wel een polaire transformatie uitvoeren om de cirkels om te zetten naar lijnen, maar in een realistische situatie, met een complexe mix van lineaire en niet-lineaire verbanden, brengt een transformatie geen zode aan de dijk. We moeten op zoek naar een niet-lineaire compressie-techniek.
 
 ## De Architectuur van de Autoencoder
 
@@ -266,12 +268,12 @@ Het momentum algoritme is dan weer afgeleid van een bal die op het grillige vlak
 
 RMSProp komt van _Root Mean Square Propagation_. In dit laatste algoritme past de leersnelheid zich aan aan de kwadraten van de recente gradiënten.
 
-Behalve de leersnelheid ($\alpha$) hangt Adam ook af van de hyperparameters $\beta_1$ en $\beta_2$, de verval-constanten voor de L1 en L2 momenten van de gradiënten, en $\epsilon$ (niet te verwarren met $\varepsilon$): een klein getal om deling door nul te voorkomen.
+Behalve de leersnelheid ($\alpha$) hangt Adam ook af van de hyperparameters $\beta_1$ en $\beta_2$, de verval-constanten voor de L1 en L2 momenten van de gradiënten, en $\epsilon$ (epsilon; niet te verwarren met $\varepsilon$): een klein getal om deling door nul te voorkomen.
 ```
 
-Rest ons om het NN te trainen 
+Rest ons om het NN te trainen:
 
-```{python ae-training, include = FALSE}
+```{python ae-training, include = FALSE, echo = TRUE}
 autoencoder.fit(x_train, x_train,
                 epochs = 50,
                 batch_size = 256,
@@ -282,7 +284,7 @@ encoded_imgs = encoder.predict(x_test)
 decoded_imgs = decoder.predict(encoded_imgs)
 ```
 
-Het resultaat is verbluffend, met slechts 10 variabelen (compressie-factor van `r round(100 * (1 - 10/784), 2)`%) kunnen de cijfers goed gereproduceerd worden:
+Het resultaat is verbluffend, met slechts 10 variabelen (compressiefactor van `r round(100 * (1 - 10/784), 2)`%) kunnen de cijfers goed gereproduceerd worden:
 
 ```{r ae-result}
 par(mfrow = c(2, 5))
@@ -293,7 +295,7 @@ py$decoded_imgs[1:5, ] %>% apply(1, plot_digit) -> bin
 
 ## Autoencoder met CNN
 
-Niets houd ons tegen om nu met andere type encoders en decoders te werken en omdat het in het MNIST voorbeeld om afbeeldingen gaat, kan je evengoed een convolutioneel NN gebruiken:
+Niets houdt ons tegen om nu met andere type encoders en decoders te werken en omdat het in het MNIST voorbeeld om afbeeldingen gaat, kan je evengoed een convolutioneel NN gebruiken:
 
 ```{python eval=FALSE}
 input_img = keras.Input(shape=(28, 28, 1))
@@ -321,10 +323,10 @@ autoencoder.compile(optimizer='adam', loss='binary_crossentropy')
 
 ## Autoencoder als ruis-verwijderaar
 
-Autoencoders kunnen naast het reduceren van de dimensionaliteit ook gebruikt worden om ruis te verwijderen (eng: _denoising_). Om dit te demonstreren transformeren we eerst de input zodat er kunstmatige ruis toegevoegd wordt:
+Autoencoders kunnen naast het reduceren van de dimensionaliteit ook gebruikt worden om ruis te verwijderen (eng: _denoising_). Om dit te demonstreren vermenigvuldigen we de grijswaarden van de input eerst met uniform verdeelde ruis:
 
 ```{python}
-noise_factor = 0.5
+noise_factor = 0.75
 
 x_train_noisy = x_train * \
   np.random.uniform(high = noise_factor, size = x_train.shape) 

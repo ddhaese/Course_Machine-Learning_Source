@@ -91,8 +91,8 @@ Het toevoegen van een extra verborgen laag in ons model zorgt ervoor dat de tota
 
 We gaan nu iets specifieker moeten zijn in wat de regels rond een ANN zijn en hoe een ANN aan zijn oplossing komt. Om te beginnen leggen we de regels vast voor de noden en connectoren (pijlen) een FF-ANN:
 
-```{definition ff-ann-noden}
-__Noden__:
+```{definition ff-ann-noden, name="Regels voor FF-ANN"}
+Regels:
 
 - De _invoer-laag_ is verplicht en bevat één node voor elke feature
 - De _uitvoer-laag_ is ook verplicht en bevat één node voor elke afhankelijke variabele (_regressie_) of één node voorelke categorie van de uitkomst (_classificatie_) ^[Een _regressie_ gebruik je wanneer de afhankelijke variabelen numeriek continue zijn. Een _classificatie_ gebruik wanneer de afhankelijke variabelen ordinaal, nominaal of numeriek discreet zijn.]
