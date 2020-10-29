@@ -218,7 +218,7 @@ model.compile(
 
 Rest ons nu om het model uit te voeren. We vertrekken vanaf de `padded_sequence` zodat de input een vast formaat heeft. We geven mee dat 20% van de data gebruikt mag worden voor de validatie dataset. We houden 5000 reviews en overeenkomstige emoties opzij als test dataset. Dit kan omdat we eerder de set van reviews ge-shuffled hebben.
 
-```{python sent-fit-1 message=FALSE, warning=FALSE, error=FALSE}
+```{python sent-fit-1, message=FALSE, warning=FALSE, error=FALSE}
 from keras.callbacks import TensorBoard
 import numpy as np
 
