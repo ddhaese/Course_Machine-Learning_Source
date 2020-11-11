@@ -1,4 +1,3 @@
-
 ```{r include=FALSE}
 library(knitr)
 library(data.table)
@@ -32,7 +31,7 @@ include_graphics("img/neurale-n-grammen.svg")
 
 (ref:neurale-n-grammen) Principe van neurale $2$-grammen als voorbeeld van een seq2seq strategie. Opgelet, de term $n$-gram slaagt op een sequentie van opeenvolgende elementen, maar de elementen kunnen van alles zijn: woorden, letters, lettergrepen, fonemen, basenparen, &hellip;
 
-Het werken met een context venster is echter niet voldoende. Vooral wanneer de invoer-sequentie niet exact dezelfde lengte heeft als de uitvoer-sequentie, komt men vast te zitten. Wat er ontbreekt is een _geheugen_ (eng: _memory_ of _state_). De eerder besproken NN types hadden geen geheugen en toch werkte ze. Waarom zou men dan nu een geheugen nodig hebben? Bij het gebruik van sequenties is er vaak sprake van autocorrelatie (zie &sect rond [Tijd en Ruimte](#tijd-en-ruimte)) en moeten deze verbanden ook in beschouwing worden genomen. Vandaar dat voor sequentie-analyse een geheugen cruciaal is.
+Het werken met een context venster is echter niet voldoende. Vooral wanneer de invoer-sequentie niet exact dezelfde lengte heeft als de uitvoer-sequentie, komt men vast te zitten. Wat er ontbreekt is een _werkgeheugen_ (eng: _working memory_ of _state_). De eerder besproken NN types hadden geen geheugen en toch werkte ze. Waarom zou men dan nu een geheugen nodig hebben? Bij het gebruik van sequenties is er vaak sprake van autocorrelatie (zie &sect rond [Tijd en Ruimte](#tijd-en-ruimte)) en moeten deze verbanden ook in beschouwing worden genomen. Vandaar dat voor sequentie-analyse een geheugen cruciaal is.
 
 ## Recurrente NN
 
@@ -123,27 +122,27 @@ review_max_len = 200
 
 tokenizer = Tokenizer(num_words = most_freq_top)
 tokenizer.fit_on_texts(r.x)
-encoded_docs = tokenizer.texts_to_sequences(r.x)
-padded_sequence = pad_sequences(encoded_docs, maxlen = review_max_len)
+encoded_docs = tokenizer.texts_to_sequences(r.x) 
+padded_sequence = pad_sequences(encoded_docs, maxlen = review_max_len) 
 ```
 
 Laten we alvast controleren dat de tokenizer het verwachte resultaat oplevert. Eerst bekijken we de eerste review, na indexering:
 
 ```{r sent-encoded}
-py$encoded_docs[[1]]
+py$encoded_docs[[1]] 
 ```
 
 Via de 'woordenboek' zouden we deze review moeten kunnen reproduceren:
 
 ```{r sent-recontr}
 py$tokenizer$word_index[py$encoded_docs[[1]]] %>% names %>%
-  paste(collapse = " ")
+  paste(collapse = " ") 
 ```
 
 De oorspronkelijke tekst was als volgt:
  
 ```{r sent-recontr-orig}
-x[1]
+x[1] 
 ```
 
 Merk op dat leestekens inderdaad verdwenen zijn, dat alles in kleine letters staat (maar dat was ook al zo in het origineel) en dat er woorden ontbreken, namelijk de woorden die niet in de top 5000 van de meest voorkomende woorden staan. Merk ook op dat in het origineel stukken tekst lijken te ontbreken. Heb je enig idee waarom dit het geval zou zijn?
@@ -152,12 +151,12 @@ De `padded_sequence` variabele bevat alle afgekapte reviews in één grote 2-dim
 
 ```{python padded}
 padded_sequence.shape
-padded_sequence[0, ]
+padded_sequence[0, ] 
 ```
 
 We kunnen nu beginnen aan de opbouw van de architectuur van het LSTM netwerk:
 
-```{python embedding-layer}
+```{python embedding-layer, eval=FALSE}
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import LSTM,Dense, Dropout, SpatialDropout1D
 from tensorflow.keras.layers import Embedding
@@ -184,13 +183,13 @@ include_graphics("img/embedding.svg")
 
 De volgende laag die we toevoegen is een speciale vorm van de Dropout laag, die later in het netwerk trouwens ook toegevoegd zal worden. Bij `SpatialDropout1D` wordt in feite een ganse feature map verwijderd in plaats van specifieke nodes. Het komt erop neer dat gemiddeld `r .25 * 32` van de 32 vectoren van de embedding-laag worden meegenomen terwijl de rest genegeerd wordt. Bij elke epoch wordt er opnieuw gerandomiseerd.
 
-```{python sent-spatial-dropout1d}
+```{python sent-spatial-dropout1d, eval=FALSE}
 model.add(SpatialDropout1D(0.25))
 ```
 
 De eigenlijke implementatie van LSTM gebeurt d.m.v. de gelijknamige functie binnen Keras.
 
-```{python sent-lstm-layer}
+```{python sent-lstm-layer, eval=FALSE}
 model.add(LSTM(units = 50, dropout = 0.5, recurrent_dropout = 0.5))
 ```
 
@@ -198,18 +197,18 @@ model.add(LSTM(units = 50, dropout = 0.5, recurrent_dropout = 0.5))
 
 Rest ons om nog een (gewone) dropout toe te voegen en af te sluiten met de enige node in de output laag van ons netwerk (omdat we gewoon `positive` = 1 of `negative` = 0 willen voorspellen). 
 
-```{python sent-last-layers}
+```{python sent-last-layers, eval=FALSE}
 model.add(Dropout(0.2))
 model.add(Dense(1, activation = "sigmoid")) 
 ```
 
 Het netwerk zoals gevisualiseerd door Tensorboard (na uitvoeren van onderstaande code) ziet er als volgt uit:
 
-![img/sentiment-graph.png)
+![](img/sentiment-graph.png)
 
 We compileren het model zoals voorheen:
 
-```{python sent-compile}
+```{python sent-compile, eval=FALSE}
 model.compile(
   loss = "binary_crossentropy",
   optimizer = "adam",
@@ -218,7 +217,7 @@ model.compile(
 
 Rest ons nu om het model uit te voeren. We vertrekken vanaf de `padded_sequence` zodat de input een vast formaat heeft. We geven mee dat 20% van de data gebruikt mag worden voor de validatie dataset. We houden 5000 reviews en overeenkomstige emoties opzij als test dataset. Dit kan omdat we eerder de set van reviews ge-shuffled hebben.
 
-```{python sent-fit-1, message=FALSE, warning=FALSE, error=FALSE}
+```{python sent-fit-1, eval=FALSE}
 from keras.callbacks import TensorBoard
 from keras.callbacks import ModelCheckpoint
 import numpy as np
@@ -241,7 +240,9 @@ Hier is de evolutie van de accuraatheid op de training set (oranje) en de valida
 
 ![](img/sent-graph.png)
 
-```{r sent-accuracy-val}
+In R kunnen we dezelfde grafieke reproduceren
+
+```{r sent-accuracy-val, eval=FALSE}
 py$accuracy$history %>%
   as.data.table %>%
   extract(, .(accuracy, val_accuracy)) %>%
@@ -249,9 +250,11 @@ py$accuracy$history %>%
   plot (main = "Evolution of accuracy")
 ```
 
+![Resultaten sentimentanalyse in R](img/sent-result-r.png)
+
 Op basis van de bovenstaande grafiek, kunnen we besluiten dat het voldoende is om slechts 2 epochs de trainen. De finale accuraatheid bekomen we door een voorspelling te doen op de test dataset.
 
-```{python sent-tst}
+```{python sent-tst, eval=FALSE}
 model.load_weights(checkpoint_path)
   
 prediction = model.evaluate(
@@ -261,7 +264,7 @@ prediction = model.evaluate(
 
 Het finaal resultaat op ongeziene test dataset is als volgt:
 
-```{r}
+```{r sent-acc-evol, eval=FALSE}
 py$prediction$history %>%
   as.data.table %>%
   extract(, .(accuracy, val_accuracy)) %>%
@@ -269,10 +272,9 @@ py$prediction$history %>%
   plot (main = "Evolution of accuracy")
 ```
 
-
 Laten we nu zelf eens nieuwe reviews verzinnen en kijken wat het model teruggeeft:
 
-```{r sent-new}
+```{r sent-new, eval=FALSE}
 new_review <- c(
    "I am not sure I understand all aspects of the movie,
        but overall I loved the atmosphere",
@@ -280,14 +282,17 @@ new_review <- c(
    "This movie was so bad that I almost started to love it")
 ```
 
-```{python sent}
+```{python sent-test-new, eval=FALSE}
 new_review_prepped = pad_sequences(tokenizer.texts_to_sequences(r.new_review), \
   maxlen = 200)
 ```
 
-```{r}
+```{r sent-test-new-r, eval=FALSE}
 py$new_review_prepped %>% (py$model$predict) %>% extract(, 1) %>% 
   multiply_by(100) %>% sprintf("%.2f%%", .)
 ```
+```
+[1] "96.09%" "35.46%" "49.16%"
+ ```
 
 Zeer goed resultaat, maar zoals verwacht heeft het model het nog moeilijk met cynisme.

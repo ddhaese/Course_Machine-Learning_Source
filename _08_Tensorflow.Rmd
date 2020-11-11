@@ -18,6 +18,8 @@ palette(dyad[c(9, 20, 66)])
 
 # TensorFlow
 
+> Opgelet: Dit hoofdstuk behoort niet tot de cursus en mag je volledig negeren
+
 ```{lemma online-workshops}
 Ontwikkelt het vermogen om zelfstandig technisch-uitdagende online workshops uit te voeren ([_EA_LD755_](#leerdoelen)).
 ```

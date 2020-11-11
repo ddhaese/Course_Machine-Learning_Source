@@ -73,10 +73,10 @@ Behalve een invoer-laag en een uitvoer-laag, kan een netwerk ook worden opgebouw
 
 ```{r nn-iris-1, fig.cap="(ref:nn-iris-1)"}
 library(neuralnet)
-
+ 
 nn = neuralnet(Species ~ Sepal.Length + Sepal.Width,
   data = iris, hidden = 3, linear.output = TRUE) 
-nn %>% plot(rep = "best")
+nn %>% plot(rep = "best") 
 ```
 
 (ref:nn-iris-1) Idem als voor Figuur \@ref(fig:nn-iris-0), maar nu met toevoeging van een verborgen laag met 3 neuronen.

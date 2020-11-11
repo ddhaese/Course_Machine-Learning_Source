@@ -1,0 +1,18 @@
+```{r include=FALSE}
+library(knitr)
+library(data.table)
+library(reticulate)
+library(magrittr)
+library(e1071)
+library(latex2exp)
+library(DiagrammeR)
+
+opts_chunk$set(echo = TRUE, cache = TRUE, message = FALSE, warning = FALSE)
+source("r/md_tools.r")
+dyad <- readRDS("r/Palette_5YR_5B_Dyad.RDS")
+palette(dyad[c(16, 59)])
+```
+
+# Ethisch ML
+
+(Komt nog.)
