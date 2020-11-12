@@ -25,6 +25,14 @@ Het resultaat van een zelfstandig extern geheugen is de productie van een zelfst
 
 <small>Bron afbeelding: <a href="https://commons.wikimedia.org/wiki/File:Seagate_ST33232A_hard_disk_head_and_platters_detail.jpg">Eric Gaba</a> onder een <i>Creative Commons Attribution-Share Alike 3.0 Unported</i> licentie</small>
 
+```{theorem alan-turing, name="Alan Turing"}
+
+
+![](img/alan_turing.jpg)
+
+_Alan Turing_ was een Britse wiskundige, theoretische bioloog en computerpionier. Een ronduit briljante persoonlijkheid aan wie we erg veel te danken hebben, te veel om hier zelfs op te noemen, incluis vrede in Europa! Als je deze persoonlijkheid niet kent, bekijk zijn [Wikipedia pagina](https://nl.wikipedia.org/wiki/Alan_Turing) en kijk naar [_The Imitation Game_](https://nl.wikipedia.org/wiki/The_Imitation_Game). Om aan te geven hoe belangrijk hij was heeft de Bank of England aangekondigd dat vanaf eind 2021 Alan Turing op het 50 pond biljet zal prijken. 
+```
+
 ## Neurale Turing Machines
 
 Neural Turing Machines (NTMs) werden bedacht door Google's  DeepMind team (zie @graves). Net als bij LSTM is het doel van NTMs om de lange-termijn afhankelijkheden te capteren. NTMs verschillen echter van eerdere RNN in dat ze zogenaamde aandacht mechanismen (eng: _attention mechanisms_) gebruiken om het lezen en schrijven naar het extern geheugen efficiënter te laten verlopen. De abstrahering van de architectuur van een NTM vind je in Figuur \@ref(fig:ntm).
@@ -49,9 +57,9 @@ $$
 Waarom zo moeilijk doen?
 
 ```{definition why-probabilistic-selection, name="Waarom geen discrete selectie van geheugen elementen"}
-De traditionele manier om elementen uit een rij of matrix te selecteren, zoals bij $M_3$, maakt gebruik van discrete indices ($M_i$ met $i \subset {1, 2, ...}$). Tijdens het leerproces zal de NTM de ideale indices trachten te voorspellen. Willen we echter gebruik maken van het Backpropagation algoritme en van de gradiënt-afdaling waarvan eerder sprake, dan moet deze indices differentieerbaar zijn. Discrete waarden zijn dat _niet_. Het is immers absurd om zoiets als het volgende te onderzoeken: wat is het effect van een kleine wijziging in de index (bijvoorbeeld van 3 naar 3.0001) op de accuraatheid van de voorspelling. Vandaar de noodzaak om een continue indexering te gebruiken i.p.v. een discrete indexering.
+De traditionele manier om elementen uit een rij of matrix te selecteren, zoals bij $M_3$, maakt gebruik van discrete indices ($M_i$ met $i \subset {1, 2, ...}$). Tijdens het leerproces zal de NTM de ideale indices trachten te voorspellen. Willen we echter gebruik maken van het Backpropagation algoritme en van de gradiënt-afdaling waarvan eerder sprake, dan moet deze indices differentieerbaar zijn. Discrete waarden zijn dat _niet_. Het is immers absurd om zoiets als het volgende te onderzoeken: wat is het effect van een kleine wijziging in de index (bijvoorbeeld van 3 naar 3.0001) op de accuraatheid van de voorspelling? Vandaar de noodzaak om een continue indexering te gebruiken i.p.v. een discrete indexering.
 
-> Belangrijke noot: de gradieënt-afdaling is geen verplichting, het maakt een ANN mogelijk eenvoudiger, maar er zijn evenzeer specialisten die vinden dat het blijven vasthouden aan de gradiënt-afdaling eerder een belemmering is en stellen de noodzaak ervan in vraag.
+> Belangrijke noot: de gradiënt-afdaling is geen verplichting, het maakt een ANN mogelijk eenvoudiger, maar er zijn evenzeer specialisten die vinden dat het blijven vasthouden aan de gradiënt-afdaling eerder een belemmering is en stellen de noodzaak ervan in vraag.
 ```
 
 Op het bovenstaande principe zijn de lees- en schrijf operaties ten aanzien van het extern geheugen van een NTM gebaseerd. Het lezen gebeurt a.d.h.v. een aandachtsvector (eng: _attention vector_) die op een continue wijze een geheugenplaats selecteert (zie Figuur \@ref(fig:ntm-read)).
@@ -79,24 +87,24 @@ Het adresseren van een NTM geheugen kan op twee manieren plaatsvinden.
 
 ## Inhoud-gebaseerde adressering
 
-De controller van een NTM kan aanleren om een geheugenplaats (een rij binnen de geheugen matrix) terug te vinden dat zo geooed mogelijk overeenstemt met een vooropgestelde sleutelvector $\mathbf{k_t}$ (eng: _key vector_). Hiervoor wordt de aandachtsvector als volgt berekend:
+De controller van een NTM kan aanleren om een geheugenplaats (een rij binnen de geheugen matrix) terug te vinden dat zo goed mogelijk overeenstemt met een vooropgestelde sleutelvector $\mathbf{k_t}$ (eng: _key vector_). Hiervoor wordt de aandachtsvector als volgt berekend:
 
 $$
 w_t^c=\frac{\exp\left(\beta_t\mathscr{D}\left(M_t,\mathbf{k_t}\right)\right)}{\sum_{i=0}^{N}\exp\left(\beta_t\mathscr{D}\left(M_t,\mathbf{k_t}\right)\right)}
 $$
 
-, waarbij $\beta$ hier voor een vermenigvuldigingsfactor staat (eng: _key strength_) en waarbij $\mathscr{D}$ voor een afstand-functie staat (eng: _similarity function_). Voor $\mathscr{D}$ wordt meestal de [cosinusgelijkenis](https://nl.wikipedia.org/wiki/Cosinusgelijkenis) genomen. Je zal merken dat bovenstaande vergelijking erg lijkt op de softmax en inderdaad, het komt neer op een genormaliseerde versie van de softmax. De parameter $\beta$ is geen hyperparameter. Het wordt door de controller aangeleverd en aangeleerd. Een hogere waarde voor $\beta$ zal ervoor zorgen dat een onbesliste sleutel-vector (in het extreme geval een eenheidsvector) toch een duidelijk gefocusseerde aandachtsvector oplevert.
+, waarbij $\beta$ hier voor een vermenigvuldigingsfactor staat (eng: _key strength_) en waarbij $\mathscr{D}$ voor een afstand-functie staat (eng: _similarity function_). Voor $\mathscr{D}$ wordt meestal de [cosinusgelijkenis](https://nl.wikipedia.org/wiki/Cosinusgelijkenis) genomen. Je zal merken dat bovenstaande vergelijking erg lijkt op de softmax en inderdaad, het komt neer op een genormaliseerde versie van de softmax. De parameter $\beta$ is geen hyperparameter. Het wordt door de controller aangeleverd en aangeleerd. Een hogere waarde voor $\beta$ zal ervoor zorgen dat een onbesliste sleutel-vector (tot bijna het extreme geval van een eenheidsvector) toch een duidelijk gefocusseerde aandachtsvector oplevert.
 
 ## Locatie-gebaseerde adressering
 
 Deze adressering moet toelaten dat de controller aanleert om bepaalde geheugenplaatsen op te roepen en om te navigeren naar een naburige geheugenplaats. Dit gebeurt door op de aandachtsvector een rottionele convolutie uit te voeren (i.e. filter operatie) met een zogenaamde _shift weighting_ $\mathbf{s_t}$:
 
 
-```{r ntm_conv_shift, fig.cap="(ref:ntm_conv_shift)", echo=FALSE}
+```{r ntm-conv-shift, fig.cap="(ref:ntm-conv-shift)", echo=FALSE}
 include_graphics("img/ntm_conv_shift.svg")
 ```
 
-(ref:ntm_conv_shift) Voorbeeld van een convolutionele shift-operatie om de focus één plaats naar onder te verschuiven. Merk op dat dit een cyclisch gebeuren is in de zin dat de cel van de aandachtsvector $w_t$ die a.h.w. van de vector valt bovenaan wordt gerecycleerd (i.e. $\widetilde{w}_{t,1} = w_{t, 6}$).
+(ref:ntm-conv-shift) Voorbeeld van een convolutionele shift-operatie om de focus één plaats naar onder te verschuiven. Merk op dat dit een cyclisch gebeuren is in de zin dat de cel van de aandachtsvector $w_t$ die a.h.w. van de vector valt bovenaan wordt gerecycleerd (i.e. $\widetilde{w}_{t,1} = w_{t, 6}$).
 
 ## Adresseringsmechanisme
 
@@ -106,7 +114,9 @@ Hier volgt een beschrijving van het volledig adresseringsmechanisme.
 include_graphics("img/ntm_address.svg")
 ```
 
-1. Zoek een geheugenplaats op basis van de sleutelvector $\mathbf{k_t}$ en de vermenigvuldigingsfactor $beta$
+(ref:ntm-address) Overzicht van het adresseringsmechanisme. Zie tekst voor meer uitleg.
+
+1. Zoek een geheugenplaats op basis van de sleutelvector $\mathbf{k_t}$ en de vermenigvuldigingsfactor $\beta$
 1. Interpoleer de resulterende aandachtsvector $w_t^c$ met de aandachtsvector $w_{t-1}$ van het vorige tijdstip:
    
    $$
@@ -135,7 +145,7 @@ Deze beperkingen werden door dezelfde auteurs onderzocht waarop ze met een verbe
 
 ![An artist's impression of Google's Differentiable Neural Computer © Google DeepMind](https://www.ft.com/__origami/service/image/v2/images/raw/http%3A%2F%2Fcom.ft.imagepublish.prod.s3.amazonaws.com%2Fd4d0912c-8fd4-11e6-a72e-b428cb934b78?fit=scale-down&source=next&width=700)
 
-Bron afbeelding: Adam Cain, een artist bij het DeepMind team.
+<small>Bron afbeelding: Adam Cain, een artist bij het DeepMind team.</small>
 
 We gaan ons hier niet verder verdiepen in de architectuur van een DNC, maar ik geef toch even mee wat de verschillen zijn t.o.v. een NTM:
 
@@ -165,6 +175,6 @@ DNC zijn instaat om allerlei vragen te beantwoorden over een graaf-gestructureer
 
 In een ander voorbeeld, dat gerelateerd is met het aanleren van concepten (denk aan het concept 'boom' uit de eerste les), wil men bijvoorbeeld een ANN het volgende 'raadsel' proberen oplossen:
 
-<q>Alice gaat naar de keuken, alwaar ze een glas milk neemt. Onderweg naar de living neemt ze een appel uit de fruitmand.<br><br>Vraag: Hoeveel objecten heeft Alice bij zich?</q>
+<q>Alice gaat naar de keuken, alwaar ze een glas melk neemt. Onderweg naar de living neemt ze een appel uit de fruitmand.<br><br>Vraag: Hoeveel objecten heeft Alice bij zich?</q>
 
 Het lijkt verschrikkelijke overkill om hiervoor zulk een complex netwerk op te zetten. Maar wat als je niet op voorhand weet welke vraag er gesteld gaat worden? 

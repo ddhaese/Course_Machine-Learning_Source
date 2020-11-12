@@ -15,4 +15,8 @@ palette(dyad[c(16, 59)])
 
 # Deep Reinforcement Learning
 
-(Komt nog.)
+:::{.message}
+
+Hier wordt nog aan gewerkt...
+
+:::

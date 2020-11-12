@@ -13,6 +13,12 @@ palette(dyad[c(9, 20, 66)])
 
 # Rapporteren
 
+:::{.message}
+
+Hier wordt nog aan gewerkt...
+
+:::
+
 ```{lemma rapporteren}
 Rapporteert op correcte wijze de resultaten van een ML analyse ([_EA_LD763_](#leerdoelen)).
 ```

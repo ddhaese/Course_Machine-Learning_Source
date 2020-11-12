@@ -17,13 +17,13 @@ palette(dyad[c(16, 59)])
 
 ## Inleiding
 
-Neurale netwerken stellen ons in staat om in plaats van statische gegevens ook sequenties en data-stromen te verwerken. Voorbeelden van sequenties zijn muziek, een tekst, een presentatie, de beurs-cijfers, etc&hellip;.
+Neurale netwerken stellen ons in staat om in plaats van statische gegevens ook sequenties en data-stromen te verwerken. Voorbeelden van sequenties zijn muziek, een tekst, een presentatie, de beurs-cijfers, etc&hellip;. Dit is vooral nuttig wanneer er tussen de elementen van de sequentie een zekere autocorrelatie heerst, i.e. wanneer de sequentie ook een reeks vormt.
 
 ## Sequence-To-Sequence
 
-Een voorbeeld waarbij zowel de in- als de uitvoer van een NN de vorm van een sequentie heeft (eng: _sequence-to-sequence_ of _seq2seq_), is bij ge-automatiseerde taalkundige zinsontleding. Hierbij probeert men dus een NN te maken dat voor elke woord de woordsoort (eng: _part-of-speech_ of _POS_66) bepaalt (onderwerp, lijdend voorwerp, lidwoord, bijvoeglijk naamwoord, Werkwoord, etc&hellip). Andere seq2seq voorbeelden zijn transcriptie (audio &rarr; tekst) en geautomatiseerde vertaling of samenvatting.
+Een voorbeeld waarbij zowel de in- als de uitvoer van een NN de vorm van een sequentie heeft (eng: _sequence-to-sequence_ of _seq2seq_), is bij ge-automatiseerde taalkundige zinsontleding. Hierbij probeert men dus een NN te maken dat voor elke woord de woordsoort (eng: _part-of-speech_ of _POS_) bepaalt (onderwerp, lijdend voorwerp, lidwoord, bijvoeglijk naamwoord, werkwoord, etc&hellip;). Andere seq2seq voorbeelden zijn transcriptie (audio &rarr; tekst) en geautomatiseerde vertaling of samenvatting.
 
-Nu is de vraag: hoe werkt dit? Hoe kan je een NN voeden met een sequentie en een sequentie terugkrijgen. Heel simpel, door telkens subsets van $n$ elementen te nemen, als een buffer. Men spreekt dan van een context venster (eng: _context window_). In het voorbeeld van de zinsontleding spreekt men van $n$-grammen. Het principe is uitgebeeld in Figuur \@ref(fig:neurale-n-grammen).
+Nu is de vraag: hoe werkt dit? Hoe kan je een NN voeden met een sequentie en een sequentie terugkrijgen. Heel simpel, door telkens subsets van $n$ elementen te nemen, als een buffer. Men spreekt dan van een context venster (eng: _context window_). In het voorbeeld van de zinsontleding spreekt men van [$n$-grammen](https://en.wikipedia.org/wiki/N-gram). Het principe is uitgebeeld in Figuur \@ref(fig:neurale-n-grammen).
 
 ```{r neurale-n-grammen, fig.cap="(ref:neurale-n-grammen)", echo = FALSE}
 include_graphics("img/neurale-n-grammen.svg")
@@ -63,7 +63,7 @@ include_graphics("img/rnn-02.svg")
 
 (ref:rnn-02) Architectuur voor een LSTM. De blauwe pijlen geven de overdracht van de _cell state_ weer langsheen de temporele as.
 
-De term gate slaagt op het feit dat deze functies als sigmoid activatiefuncties als, ze converteren continue numerieke waarde naar een 0 of een 1. Geeft bij voorbeeld de forget-gate een 1, dan betekent dit dat de input vergeten mag worden. Voor een meer gedetailleerde beschrijving (valt buiten de scope van deze cursus) verwijs ik graag naar de [blog van Christopher Olah](http://colah.github.io/posts/2015-08-Understanding-LSTMs/), zie @olah. 
+De term gate slaagt op het feit dat deze functies als sigmoid activatiefuncties als, ze converteren continue numerieke waarde naar een 0 of een 1. Geeft bij voorbeeld de forget-gate een 1, dan betekent dit dat de input vergeten mag worden. Voor een meer gedetailleerde beschrijving (valt buiten de scope van deze cursus) verwijs ik graag naar de [blog van Christopher Olah](http://colah.github.io/posts/2015-08-Understanding-LSTMs/), zie @Olah. 
 
 ## Sentiment analyse
 
@@ -89,7 +89,7 @@ rm(sent)
 invisible(gc())
 ```
 
-Tijdens het uitlezen van de data geven we mee dat de data een factor is. Dat is in principe niet zo heel erg belangrijk voor deze specifieke toepassing, maar over het algemeen is het wel belangrijk dat elke variabele op de juiste wijze wordt geïnterpreteerd. Vooral in R zijn de meeste methoden er immers op voorzien op dit type uit te lezen. Omdat we echter de data toch naar Python zullen doorsturen, zijn we verplicht om {`negative`, `positive`} te hercoderen naar {0, 1}. De `rm` functie op de laatste lijn zorgt ervoor dat de oorspronkelijke variabele wordt verwijderd om plaats te maken in het geheugen. `gc` staat dan weer voor _garbage collection_, iets wat elke ontwikkelaar mee vertrouwd zou moeten zijn.
+Tijdens het uitlezen van de data geven we mee dat het sentiment een factor is. Dat is in principe niet zo heel erg belangrijk voor deze specifieke toepassing, maar over het algemeen is het wel belangrijk dat elke variabele op de juiste wijze wordt geïnterpreteerd. Vooral in R zijn de meeste methoden er immers op voorzien op dit type uit te lezen. Omdat we echter de data toch naar Python zullen doorsturen, zijn we verplicht om {`negative`, `positive`} te hercoderen naar {0, 1}. De `rm` functie op de laatste lijn zorgt ervoor dat de oorspronkelijke variabele wordt verwijderd om plaats te maken in het geheugen. `gc` staat dan weer voor _garbage collection_, iets wat elke ontwikkelaar mee vertrouwd zou moeten zijn.
 
 Misschien toch kort een overzicht van de twee variabelen. Voor wat betreft de emotie, zien we dat er net evenveel positieve als negatieve film-reviews in de dataset set, we zeggen dat de dataset voor deze variabele gebalanceerd is:
 
@@ -97,7 +97,7 @@ Misschien toch kort een overzicht van de twee variabelen. Voor wat betreft de em
 y %>% table %>% barplot(col = 1, ylab = "#", main = "Distribution outcome")
 ```
 
-We kunnen ook eens kijken naar de verdeling van de lengte van de reviews, uitgedrukt zowel als aantal karakters as in aantal woorden:
+We kunnen ook eens kijken naar de verdeling van de lengte van de reviews, uitgedrukt zowel als aantal karakters als in aantal woorden:
 
 ```{r sent-review-length, fig.width=5, fig.height=6}
 library(stringr)
@@ -173,7 +173,7 @@ De eerste laag is een _embedding_ laag. De term kwamen we eerder al tegen bij he
 Een _embedding_ is als een functie die een discrete numerieke variabele (i.e. {308, 6, 3, &hellip;}), die al-dan-niet dienst doet als voorstelling van een categorische variabele (i.e. {"high", "is", "a", &hellip;}), omzet naar vectoren (een beetje als de componenten van PCA) zoals voorgesteld door een reeks continue numerieke variabelen Binnen de context van NN zijn embeddings meestal laag-dimensionaal (i.e. beperkt aantal noden in de laag) en dienen ze om de dimensionaliteit te reduceren.
 ```
 
-In de [documentatie](https://keras.io/api/layers/core_layers/embedding/) staat duidelijk beschreven dat een embedding laag als eerste laag moet gebruikt worden binnen het netwerk. Ook lees je daar de omschrijving van de verwachte parameters, waarvan de belangrijkste de dimensies zijn van de invoer en uitvoer (zie Figuur hieronder).
+In de [documentatie van Keras](https://keras.io/api/layers/core_layers/embedding/) staat duidelijk beschreven dat een embedding laag als eerste laag moet gebruikt worden binnen het netwerk. Ook lees je daar de omschrijving van de verwachte parameters, waarvan de belangrijkste de dimensies zijn van de invoer en uitvoer (zie Figuur hieronder).
 
 ```{r embedding, fig.cap="(ref:embedding)", echo=FALSE}
 include_graphics("img/embedding.svg")
@@ -215,7 +215,7 @@ model.compile(
   metrics = ["accuracy"])
 ```
 
-Rest ons nu om het model uit te voeren. We vertrekken vanaf de `padded_sequence` zodat de input een vast formaat heeft. We geven mee dat 20% van de data gebruikt mag worden voor de validatie dataset. We houden 5000 reviews en overeenkomstige emoties opzij als test dataset. Dit kan omdat we eerder de set van reviews ge-shuffled hebben.
+Rest ons nu om het model uit te voeren. We vertrekken vanaf de `padded_sequence` zodat de input een vast formaat heeft. We geven mee dat 20% van de data gebruikt mag worden voor de validatie dataset. We houden 5000 reviews en overeenkomstige emoties opzij als test dataset. Dit kan door gewoon de eerste 20000 te selecteren omdat we eerder de set van reviews ge-shuffled hebben.
 
 ```{python sent-fit-1, eval=FALSE}
 from keras.callbacks import TensorBoard
@@ -236,11 +236,11 @@ accuracy = model.fit(
   callbacks = [TensorBoard(log_dir = "tf"), checkpoint])
 ```
 
-Hier is de evolutie van de accuraatheid op de training set (oranje) en de validatie set (blauw):
+Hier is de evolutie van de accuraatheid op de training set (oranje) en de validatie set (blauw) zoals TensorBoard het aangeeft:
 
 ![](img/sent-graph.png)
 
-In R kunnen we dezelfde grafieke reproduceren
+In R kunnen we dezelfde grafieken reproduceren:
 
 ```{r sent-accuracy-val, eval=FALSE}
 py$accuracy$history %>%

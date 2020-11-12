@@ -5,6 +5,17 @@
   font-size: .8em;
 }
 
+.message{
+  padding-top: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-bottom: 7px;
+  margin: 10px 10px;
+  border: 1px solid orange;
+  color: orange;
+  background-color: yellow;
+}
+
 table, .dataTables_wrapper{
   overflow-x: scroll !important;
 }
@@ -43,9 +54,11 @@ img {
   margin: 0 0 30px 0;
 }
 
+/*
 img:hover {
   transform: scale(1.5);
 }
+*/
 
 div.sourceCode + pre {
   background: #D2EAEF !important;
