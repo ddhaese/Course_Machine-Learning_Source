@@ -15,4 +15,9 @@ palette(dyad[c(16, 59)])
 
 # Ethisch ML
 
-(Komt nog.)
+
+:::{.message}
+
+Hier wordt nog aan gewerkt...
+
+:::

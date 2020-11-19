@@ -627,19 +627,19 @@ Het probleem met onbegeleid ML is dat je nooit zeker weet dat je echt iets gelee
 
 ## Conditionering
 
-Er is nog een derde soort ML, namelijk de conditionering (eng: _reinforcement learning_). In plaats van een afhankelijke variabele, wordt de uitkomst aangeleverd als een functie die, gegeven een bepaalde input, de uitkomst zal teruggeven. Het grootste verschil met de twee eerder besproken vormen van ML is dat er voor conditionering geen nood is aan historische data.
+Er is nog een derde soort ML, namelijk de conditionering (eng: _reinforcement learning_). In plaats van een afhankelijke variabele, wordt de uitkomst aangeleverd als een functie die, gegeven een bepaalde input zal teruggeven of de nieuwe situatie een verbetering is of niet. Het grootste verschil met de twee eerder besproken vormen van ML is dat er voor conditionering geen nood is aan historische data. In plaats daarvan is er een soort online- data generatie systeem voorhanden. Het is dus in zeker zin supervised, maar toch weer een beetje anders.
 
 ```{definition reinforcement-learning}
 Voor conditionering (reinforcement learning) heb je geen historische data nodig. Enkel een _tolk_ die in staat is een actie van een _agent_ te beoordelen.
 ```
 
-Conditionering kent toepassingen in erg veel verschillende disciplines waaronder de statistiek, maar ook de speltheorie, [meet- en regeltechniek](https://nl.wikipedia.org/wiki/Meet-_en_regeltechniek), [operationeel onderzoek](https://nl.wikipedia.org/wiki/Operationeel_onderzoek), de [informatietheorie](https://nl.wikipedia.org/wiki/Informatietheorie), enzovoort&hellip;. Het werkt zo. Een _software-agent_ (eng: _agent_) krijgt de keuze uit een aantal _acties_ (eng: _actions_) die het kan uitvoeren op een _omgeving_ (eng: _environment_). Het (voorlopig immatuur) model (een _tolk_; eng: _interpreter_) vertaalt de gekozen actie naar enerzijds een toestand-wijziging (eng: _state change_) en anderzijds een beloning (eng: _reward_).
+Conditionering kent toepassingen in erg veel verschillende disciplines waaronder de statistiek, maar ook de speltheorie, [meet- en regeltechniek](https://nl.wikipedia.org/wiki/Meet-_en_regeltechniek), [operationeel onderzoek](https://nl.wikipedia.org/wiki/Operationeel_onderzoek), de [informatietheorie](https://nl.wikipedia.org/wiki/Informatietheorie), enzovoort&hellip;. Het werkt zo. Een _software-agent_ (eng: _agent_) krijgt de keuze uit een aantal _acties_ (eng: _actions_) die het kan uitvoeren op een _omgeving_ (eng: _environment_). De omgeving vertaalt de gekozen actie naar enerzijds een toestand-wijziging (eng: _state change_) en anderzijds een beloning (eng: _reward_).
 
 ```{r conditionering, fig.cap="(ref:conditionering)", echo=FALSE}
 include_graphics("img/conditionering.svg")
 ```
 
-(ref:conditionering) Overzicht proces voor conditionering. Een toestand ruimte wordt gedefinieerd of er wordt een functie voorzien die kan meegeven of een toestand mogelijk is of niet. Daarnaast moet er een beloning systeem worden meegegeven zodat de tolk voor elke mogelijke handeling een beloning kan bepalen (of bestraffing door middel van een negatieve beloning).
+(ref:conditionering) Overzicht proces voor conditionering.
 
 We komen later meer uitgebreid terug op conditionering, maar nu houden we het bij een minimalistische implementatie van een soort conditionering, genaamd _Q-learning_, dit maal in Python. Het voorbeeld is afkomstig van de blog ["The Beginner Programmer" van Mic](http://firsttimeprogrammer.blogspot.com/2016/09/getting-ai-smarter-with-q-learning.html) en hetgeen op zijn beurt gebaseerd is op een Q-learning handleiding op de [Mnemosyne_Studio blog](http://mnemstudio.org/path-finding-q-learning-tutorial.htm) van John McCullock.
 
@@ -648,7 +648,7 @@ Gegeven onderstaande plattegrond van een huis met vijf kamers, vind het korst mo
 ```
 
 ```{r escape-room, fig.cap="(ref:escape-room)", echo=FALSE}
-include_graphics("http://mnemstudio.org/ai/path/images/modeling_environment_clip_image002a.gif")
+include_graphics("img/modeling_environment_clip_image002a.gif")
 ```
 
 (ref:escape-room) De plattegrond. ([bron](http://mnemstudio.org/path-finding-q-learning-tutorial.htm))
@@ -656,7 +656,7 @@ include_graphics("http://mnemstudio.org/ai/path/images/modeling_environment_clip
 De belonging kan voorgesteld worden als een matrix:
 
 ```{r escape-room-matrix, fig.cap="(ref:escape-room-matrix)", echo=FALSE}
-include_graphics("http://mnemstudio.org/ai/path/images/r_matrix1.gif")
+include_graphics("img/r_matrix1.gif")
 ```
 
 (ref:escape-room-matrix) De beloning-matrix ( [bron](http://mnemstudio.org/path-finding-q-learning-tutorial.htm))

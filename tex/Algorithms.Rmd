@@ -1,0 +1,49 @@
+---
+title: "Algorithms for Machine Learning Course"
+author: "David D'Haese"
+output:
+  pdf_document:
+    includes:
+      in_header: "preamble.tex"
+---
+
+# Algoritmen bij Machine Learning  Cursus
+
+
+\begin{algorithm}
+  \caption{Markov beslissingsproces}\label{MDP}
+  \begin{algorithmic}[1]
+    \State Selecteer initiële toestand volgens een gegeven distributie
+    \While{Episode niet beëindigd}
+      \State \textbf{Agent} selecteert actie $a_t$
+      \State \textbf{Omgeving} zet huidige toestand $s_t$ en actie $a_t$ om naar beloning $r-t$ en nieuwe toestand $s_{t+1}$
+      \State \textbf{Agent} ontvangt belonging en past beleid $\pi$ aan
+    \EndWhile
+  \end{algorithmic}
+\end{algorithm}
+
+
+\begin{algorithm}
+  \caption{Q Learning algoritme for Breakout}\label{Q-Learning}
+  \begin{algorithmic}[1]
+    \State Initialiseer geheugen $\mathscr{D}$
+    \State Initialiseer parameters $\theta$
+    \For{Spel 1 tot M}
+      \State Initialiseer spel
+      \For{Frame binnen spel}
+        \If{Random waarde < klein getal}
+          \State Selecteer willekeurige actie $a_t$
+        \Else
+          \State Bereken actie $a_t$
+        \EndIf
+        \State Voer actie $a_t$ uit in emulator
+        \State Ontvang Score $r_t$
+        \State Ontvang nieuw scherm  $s_{t+1}$
+        \State Bewaar transitie in  $\mathscr{D}$
+        \State Selecteer een willekeurige minibatch van transities uit  $\mathscr{D}$
+        \State Bereken gradiënt afdaling
+        \State Pas parameters $\theta$ aan
+      \EndFor
+    \EndFor
+  \end{algorithmic}
+\end{algorithm}

@@ -49,7 +49,7 @@ Het _backpropagation_ algoritme moet nu worden aangepast omdat de gewichten van 
 
 De manier hoe het _backpropagation_ algoritme werkt veroorzaakt een onaangenaam neveneffect, namelijk dat naarmate men teruggaat naar eerdere lagen, hoe kleiner de afgeleiden (zie [Backpropagation](#backpropagation)) worden. Dit effect noemt men _vanishing gradiënts_ (nl: _verdwijnen gradiënten_). Bij FF-ANN bepaalt de diepte van het NN de mate van verdwijning, terwijl bij RNN we dit effect in 'de breedte' (van $t-n \rightarrow t$) kan worden waargenomen.
 
-## Long short-term momory (LSTM) 
+## Long short-term memory (LSTM) 
 
 LSTM is uitgevonden om het probleem van verdwijnende gradiënten op te vangen bij recurrente netwerken. Er zijn andere gelijkaardige oplossingen, maar LSTM is de meest populaire. Naast de huidige invoer en input van het geheugen, wordt er ook een _cell state_ ^[Komt overeen met wat we in tal van programmeertalen met de term _context_ zouden aangeven] onderhouden en doorgegeven waarin belangrijke lange-termijn informatie bewaard kan worden. Om de cell state te onderhouden, worden er drie nieuwe componenten toegevoegd:
 
