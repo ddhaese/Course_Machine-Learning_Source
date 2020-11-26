@@ -99,7 +99,7 @@ print(f"X_trn: {y_trn.shape}")
 print(f"X_tst: {y_tst.shape}")
 ```
 
-Het argument `random_state` in Python en de `set.seed` functie in R dienen om dit proces, dat inherent willekeurig is, toch reproduceerbaar te maken (zie &sect; rond [reproduceerbaarheid](#reproduceerbaarheid)). Zie dit [Wikipedia artikel](https://en.wikipedia.org/wiki/Random_seed) om hier meer over te leren.
+Het argument `random_state` in Python en de `set.seed` functie in R dienen om dit proces, dat inherent willekeurig is, toch reproduceerbaar te maken (zie &sect; rond [reproduceerbaarheid](#reproduceerbare-willekeur)). Zie dit [Wikipedia artikel](https://en.wikipedia.org/wiki/Random_seed) om hier meer over te leren.
 
 ```{definition}
 Regels rond de test set:

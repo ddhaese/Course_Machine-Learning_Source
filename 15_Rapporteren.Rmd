@@ -23,9 +23,82 @@ Hier wordt nog aan gewerkt...
 Rapporteert op correcte wijze de resultaten van een ML analyse ([_EA_LD763_](#leerdoelen)).
 ```
 
-## Reproduceerbaarheid
+Rapporteren is een cruciaal onderdeel van een AI project. Daarom gaan we hier even bij blijven stilstaan. Rapporteren kan zowel mondeling als schriftelijk. Als het rapport enig gewicht heeft op latere beslissingen binnen de organisatie, zal het vermoedelijk schriftelijk gebeuren, al is de kans groot dat je het rapport mondeling zult moeten toelichten. vaak is een rapportering verplicht. Maar, een rapport kan natuurlijk ook een uithangbord zijn! Laten we het proces van rapportering stap-voor-stap volgen.
 
-Als wetenschapper moet je ervoor zorgen dat je analyses reproduceerbaar zijn. Dit houdt in dat elke andere datawetenschapper in staat moet zijn om vertrekkende van de zelfde data, juist hetzelfde resultaat te bekomen. Ten eerste betekent dit dat de brongegevens beschikbaar moet kunnen worden gemaakt. Op zijn minst moet de datawetenschapper meegeven _hoe_ je aan de gegevens kunt geraken. Ten tweede moet het duidelijk zijn op welke subset van de data er gewerkt is. Bij uitbreiding moet de volledige _data-flow_ uit de doeken worden gedaan. Zijn er processen die een willekeurig element hebben, zoals het randomiseren in een training- en test-set of het gebruik van leeralgoritmen die een random element hebben zoals [random forests](https://en.wikipedia.org/wiki/Random_forest#:~:text=Random%20forests%20or%20random%20decision,prediction%20(regression)%20of%20the%20individual).
+## De vraagstelling
+
+Het is goed om een AI te beginnen met een vraag, dit kan een onderzoeksvraag zijn of een business-vraag. Een vraag naar een AI oplossing komt gewoonlijk van een overste of van elders binnen de organisatie. Je kan natuurlijk ook zelf een vraag bedenken. Het allerbelangrijkste is om __de vraagstelling expliciet bekend te maken en te laten goedkeuren door alle belanghebbenden__. Inderdaad, de meest voorkomende fout binnen AI: iets onderzoeken dat achteraf (gedeeltelijk) irrelevant blijkt te zijn.
+
+Hier is een voorbeeld van een onderzoeksvraag:
+
+<q>Wat zijn de factoren die de impact van de coronamaatregelen het meeste beïnvloeden?</q>
+
+```{definition vraagstelling, name="Een goede vraagstelling"}
+Een goede vraagstelling bevat de volgende elementen:
+  
+- Een vraag en dus altijd met een vraagteken op het einde
+- Een (impliciete) doelstelling die functioneel maar niet technisch van aard is
+- De veronderstelling van ongelimiteerde hulpbronnen (tijd, geld, mensen, data, &hellip;)
+```
+
+Het laatste puntje van Stelling \@ref(def:vraagstelling) komt er dus op neer dat je nooit kan voldoen aan de vraag (een beetje zoals de doelfunctie $f$). Het doel is natuurlijk om _zo goed als mogelijk_ aan de vraag te beantwoorden (een beetje als $\hat{f}$).
+
+## De probleemstelling
+
+De vraagstelling zelf is natuurlijk niet voldoende. Je moet ook door en door begrijpen waarom je iets wil onderzoeken. Dit 'waarom' kan je schrijven als een __probleemstelling__ en komt in de _inleiding_ van je rapport. Je denkt misschien dat de lezer van je rapport goed weet waarom het onderzoek wordt uitgevoerd, en dat is inderdaad meestal zo. Alleen hebben vaak verschillende belanghebbenden daar toch een andere mening over. De motivatie voor het onderzoek kan een belangrijke impact hebben op de werkwijze van een AI project, dus is het goed dat er een _consensus_ bestaat over de probleemstelling alvorens het eigenlijke werk wordt aangevat.
+
+## Uitvoering AI project
+
+De rest van het rapport Nadat de vraagstelling duidelijk is geworden kan men beginnen met het project uit te voeren. De vorige hoofdstukken in deze cursus handelden voornamelijk over hoe je neurale netwerken kunt gebruiken om een antwoord te bieden op de oorspronkelijke vraag. De output van het AI project ziet er altijd  als volgt uit:
+
+- Een gepubliceerd __model__ dat in staat is om voorspellingen te doen
+- De __performantie__ van het gepubliceerd model
+- __Informatie over de trainingsfase__ van het model
+
+Het is deze output die als invoer dient voor het rapport.
+
+## Reproduceerbare Willekeur
+
+Tijdens je onderzoeksfase moet je zorgen voor het gebruik van _seeds_ telkens wanneer er (pseudo-)willekeurige getallen worden gegenereerd. Een seed is meestal een natuurlijk getal dat door de onderzoek zelf gekozen wordt en dat aangeeft waar in de lijst van pseudo-willekeurige getallen de afnamen ervan begint. Een bepaalde seed zorgt er steeds voor dat dezelfde reeks van willekeurige getallen wordt gegenereerd, Dit is belangrijk voor het verzekeren van de reproduceerbaarheid van het onderzoek (later in dit hoofdstuk meer hierover). In R doe je dit zo:
+
+```{r seed-r}
+set.seed(42)
+
+runif(10)
+```
+
+In Python gebeurt dit zo:
+
+```{python seed-python}
+import random
+import numpy as np
+
+np.random.seed(42)
+np.random.rand(10)
+```
+
+Beide talen gebruiken standaard het zogenaamde _Mersenne Twister_ algoritme. Toch valt het op dat de getallen verschillend zijn. Als dat een probleem is, kan je vanuit Python dezelfde c code aanroepen waar R van gebruik maakt, of nog gemakkelijker, laat R de getallen generen en importeer ze in Python. Nog een alternatief om in meerdere talen dezelfde getallen te genereren is het gebruiken van externe websites zoals https://www.random.org/integers/ waar je door middel van een eenvoudige oproep de getallen kunt bekomen:
+
+```{r generate-external-random-ints}
+scan(paste0(
+  "http://www.random.org/decimal-fractions/?",
+  "num=10&dec=7&col=1",
+  "&format=plain&rnd=id.xyz"))
+```
+
+```{corollary rng, name="Diggin' deeper"}
+In RStudio kan je de c-code van interne functies achterhalen. Laten we de functie `set.seed` als voorbeeld nemen. Geef de naam van deze functie, zonder haakjes, in in de console. Je ziet dan de inhoud van de functie. Sommige functies zijn verborgen en dan moet je de namespace opgeven (`base::set.seed` of zelfs `base:::set.seed`). Op de laatste lijn code zie dat een interne C functie wordt aangeroepen:
+
+    .Internal(set.seed(seed, i.knd, normal.kind, sample.kind))
+
+Je kan uitzoeken waar de oorspronkelijke C code zich bevindt door de opdracht:
+
+    pryr::show_c_source(.Internal(set.seed(seed, i.knd, normal.kind, sample.kind)))
+
+in te voeren. In de `src/main` subfolder van de broncode van R, vind je dan het bestand `RNG.c` waarbinnen de methode `do_setseed (SEXP call, SEXP op, SEXP args, SEXP env)` staat.
+```
+
+In R, zoals dat vaker gaat, heb je veel meer mogelijkheden dan in Python. Geef `?set.seed` op voor meer info.
 
 ## Beduidende cijfers
 
@@ -33,20 +106,86 @@ Als wetenschapper moet je ervoor zorgen dat je analyses reproduceerbaar zijn. Di
 include_graphics("img/Eiffeltoren.png")
 ```
 
-Significante of beduidende cijfers (eng. _significant figures_) zijn die cijfers van een _getal_ die informatie overdragen. bijvoorbeeld, bij het _getal_ `12.345` veronderstel je (zonder verdere context) dat het 5 beduidende _cijfers_ (eng: _digits_) heeft. Vertelt iemand je dat de Eiffeltoren 324.00248975&nbsp;m hoog is, dan weet je natuurlijk dat niet elk cijfer hiervan significant kan zijn, alleen al omdat door de thermale expansie de hoogte van de Eiffeltoren in de winter en de zomer meer dan 10 centimeter kan verschillen. Het is natuurlijk misleidend om niet-beduidende cijfers te rapporteren. De Eiffeltoren is dus 324&nbsp;m hoog, zonder meer. Het exacte aantal beduidende cijfers kan je statistisch bepalen als je een over een toepasselijke steekproef van de meting beschikt en de tussenstappen van de berekeningen kent (cfr. _foutenpropagatie_), maar zou ons hier te ver leiden en een echte vuistregel is er niet. Het is een kwestie om het onderscheidend vermogen in te schatten van de grootheid in kwestie en daar rekening mee te houden. Bijvoorbeeld, een model geeft de voorspelling van een gemiddelde reistijd van 56.25&nbsp;minuten. Wat moet je rapporteren? Wel, op een halve minuut steekt het niet, dus 56.2&nbsp;minuten is zeker voldoende.
+Tijdens het onderzoek kom je allerhande getallen tegen en het is toch niet slecht om even te blijven stilstaan bij de _cijfers_ (eng: _digits_) die deze _getallen_ (eng: _numbers_) opmaken. Significante of beduidende cijfers (eng. _significant figures_) zijn die cijfers van een getal die informatie overdragen. bijvoorbeeld, bij het getal `12.345` veronderstel je (zonder verdere context) dat het 5 beduidende _cijfers_  heeft. Vertelt iemand je dat de Eiffeltoren 324.00248975&nbsp;m hoog is, dan weet je natuurlijk dat niet elk cijfer hiervan significant kan zijn, alleen al omdat door de thermale expansie de hoogte van de Eiffeltoren in de winter en de zomer meer dan 10 centimeter kan verschillen. Het is natuurlijk misleidend om niet-beduidende cijfers te rapporteren. De Eiffeltoren is dus 324&nbsp;m hoog, zonder meer. Het exacte aantal beduidende cijfers kan je statistisch bepalen als je een over een toepasselijke steekproef van de meting beschikt en de tussenstappen van de berekeningen kent (cfr. _foutenpropagatie_), maar zou ons hier te ver leiden en een echte vuistregel is er niet. Het is een kwestie om het onderscheidend vermogen in te schatten van de grootheid in kwestie en daar rekening mee te houden. Bijvoorbeeld, een model geeft de voorspelling van een gemiddelde reistijd van 56.25&nbsp;minuten. Wat moet je rapporteren? Wel, op een halve minuut steekt het niet, dus 56.2&nbsp;minuten is zeker voldoende.
 
 ```{corollary afronding, echo=TRUE}
 Wacht eens? Moet je dit getal niet _afronden_ naar 56.3 in plaats van afkappen tot 56.2? Het antwoord is ja en neen. Ja, je moet hier afronden, niet afkappen. Neen, `round(56.25, 1)` = 56.2, niet 56.3! Lees hier meer over door `?round` in te geven.
 ```
 
-## Representativiteit en randvoorwaarden
+## Inleiding
 
-Heel kort: de datawetenschapper moet erover waken dat de representativiteit bekend is voor de opdrachtgever. Dit omdat deze zich vaak niet bewust is van het feit dat de data niet 100 % representatief zijn voor de werkelijkheid. Dit doe je gewoon door tijdens gesprekken of in rapporten hier duidelijk over te communiceren. Er zijn vaak ook andere randvoorwaarden die vermeld dienen te worden tijdens het bekijken van de resultaten van een leeralgoritme. Hieronder zijn een aantal voorbeelden om dit duidelijk te maken, de vermelding van de voorwaarde staat telkens vetgedrukt:
+Nadat de probleemstelling en de vraagstelling aan bod zijn gekomen en nadat het project is uitgevoerd, kan je aan de inleiding schrijven.
 
-<q>We kunnen met 75% zekerheid voorspellen of een student zal slagen voor het vak __indien het gaat om vakken waarvan het cursusmateriaal van Digitap beschikbaar wordt gemaakt__</q>
+```{definition inleiding, name="Inhoud inleiding"}
+Een goede inleiding bevat de volgende elementen:
+  
+- Probleemstelling
+- Vraagstelling
+- Bondige omschrijving van de methodiek
+```
 
-<q>__Indien we ervan uitgaan dat de ontbrekende data random verdeeld is over de dataset__ kan ik met 75% zekerheid voorspellen dat &hellip;</q>
+De probleemstelling en de vraagstelling moeten _ongewijzigd_ worden overgenomen zoals ze werden gedefinieerd vóór dat het onderzoek begon. Het enige wat je nu kunt toevoegen is de methodiek. Het gaat hier over een _bondige_ samenvatting waarin je vermeldt welke technologie je hebt gebruikt. Dus, net als bij een software architectuur, _benoem_ je enkel de technieken zonder in technische details te vervallen.
 
-<q>__Als we er vanuit gaan dat het respons-gedrag op Facebook de komende maanden niet veranderd__ kunnen we voorspellen dat er vóór het eind van de maand nog een staking uitbreekt.</q>
+Laten we een een voorbeeld nemen, in dit geval een wetenschappelijk artikel in _Nature_^[[_Nature_](https://www.nature.com) is een collectie van tijdschriften die het hoogst staan aangeschreven binnen de wetenschappelijk wereld. Zie de [SJR](https://www.scimagojr.com/journalrank.php) voor de _Journal impact factors_] over het gebruik van een CNN om COVID-19 infectie in röntgenopnames te detecteren (@wang2020covid). Opgelet, het gaat hier om een _wetenschappelijk artikel_ en dat is niet helemaal hetzelfde als een technisch rapport, maar in principe hebben beide ongeveer dezelfde opbouw.
 
-Soms kunnen er door middel van statistische tests nagegaan worden of er inderdaad aan een aantal randvoorwaarden wordt voldaan. Daarom staat het wel professioneel als je deze ten alle tijde mee vermeldt.
+```{r rapport-titel, fig.cap="(ref:rapport-titel)", echo=FALSE}
+include_graphics("img/rapport-titel.png")
+```
+
+(ref:rapport-titel) Overzicht van de onderdelen van een titel van @wang2020covid zoals uitgebracht door [_Nature_](https://www.nature.com).
+
+
+```{r rapport-inleiding, fig.cap="(ref:rapport-inleiding)", echo=FALSE}
+include_graphics("img/rapport-inleiding.png")
+```
+
+(ref:rapport-inleiding) Uitlichten van de structuur van een inleiding van @wang2020covid.
+
+## Methodiek
+
+In een wetenschappelijk artikel spreekt men in het algemeen van _Materialen en methoden_ (eng: _Materials and methods_). De bedoeling is om binnen dit onderdeel een nauwkeurige beschrijving te geven van alle hardware en software componenten die gebruikt werden alsook de _modus operandi_ van het onderzoek.
+
+Een belangrijke doelstelling van _Materialen en methoden_ is om ervoor te zorgen dat jouw analyses reproduceerbaar zijn. Dit houdt in dat elke andere datawetenschapper in staat moet zijn om, vertrekkende van de zelfde data, tot hetzelfde resultaat te komen.
+
+```{definition reproduceerbaarheid, name="Voorwaarden voor reproduceerbaarheid"}
+Om het onderzoek reproduceerbaar te maken, moet er aan de volgende criteria voldaan worden:
+
+- (tijdens onderzoek) Gebruik van een random seed (zie boven)
+- Het moet duidelijk zijn welke hardware er gebruikt is tijdens de verschillende fasen van het onderzoek (pre-processing, trainen, testen, &hellip;)
+- De data moet beschikbaar zijn of op zijn minst beschikbaar kunnen worden gemaakt
+- Je geeft mee op welke subset van de data er gewerkt is
+- Je geeft een volledig beeld van de _data-flow_, geschreven en/of met behulp van illustraties
+```
+
+Ben je niet zeker of je werk reproduceerbaar is? Kijk dan deze checklist na:
+
+- Is de data beschikbaar?
+- Staat jouw rapport onder versie-controle en heb je de link naar de repository gedeeld?
+- Ben je geen software vergeten vermelden waar je onderzoek van afhangt? Een tekstverwerker of IDE zoals VSCode moet je in principe niet vermelden, maar de versie van R, Python, TensorFlow, &hellip; bijvoorbeeld wél.
+- Staan er in de code nog verwijzingen naar folders/API's of andere hulpbronnen die zouden kunnen 'breken'?
+- Is er voor elke externe hulpbron een volledige beschrijving + referentie beschikbaar zodat de gebruikers deze kunnen opzoeken mocht er toch een link kunnen breken?
+- Heeft de gemiddelde datawetenschapper voldoende aan jouw beschrijving om te begrepen wat je hebt gedaan en ook waarom je het hebt gedaan?
+- Kan elke data-element of variabele gevolgd worden _van bron tot model_?
+
+Ben je nog steeds niet zeker? Test het dan gewoon uit. Geef het rapport (zonder tussen resultaat) met de data aan een persoon _skilled in the art_ (nl: _deskundige persoon_) en vraag deze persoon om het geheel van scratch opnieuw uit te voeren. in de praktijk betekent dit dus typisch een archiefbestand met daarin de data en een rapport (`*.Rmd`-bestand) zonder enige tussen resultaten zoals bijvoorbeeld de resultaten van eerdere trainingen.
+
+## Data Beschikbaar maken
+
+Als je data verspreidt, probeer dan ervoor te zorgen dat je een formaat kiest dat robuust is en door iedereen geopend kan wordt ongeacht de achtergrond van de datawetenschapper en ongeacht het besturingssysteem. Bijvoorbeeld, gebruik een `*.tsv`-bestand (_tab-separated values_). Dit is vele male handiger dan de spijtig genoeg meer populaire `*.cvs`-bestanden (_comma-separated vales_) omdat hierbij met escapes gewerkt dient te worden indien de data zelf een komma bevat (escapes voor de komma is de dubbele quote, die op zijn beurt ook ge-escaped moet kunnen worden). Komma's komen namelijk standaard voor in allerhande teksten zoals adressen, tweets, &hellip; terwijl het tabulatie-teken dit probleem niet heeft.
+
+## Beschikbaar maken van databanken
+
+Gaat het om een volledige databank, dan kan uiteraard best de link meegegeven worden of een dump-bestand worden aangemaakt (bijvoorbeeld SQL `*.bak`-bestand). Zorg altijd dat het duidelijk is voor de ontvanger hoe er connectie met de databank gemaakt kan worden en om welk type databank het gaat (Oracle, MySQL, MSSQL, PostgreSQL, MongoDB, SAS, &hellip;) en vermeld de versie waar relevant. Probeer ervoor te zorgen dat de oorspronkelijke en/of huidige auteurs van de databank een eervolle vermelding krijgen. Probeer ook ervoor te zorgen dat de betekenis van elke variabele duidelijk is. Geef de gebruiker de kans om zelf data te kunnen exploreren.
+
+## Data-flow
+
+Naast het aspect van reproduceerbaarheid moet de beschrijving van de methodiek er ook voor zorgen dat er bij het doelpubliek een goed begrip ontstaat van van de motivatie bij de verscheidene stappen binnen de analyse. Met andere woorden, probeer duidelijk te maken waarom je hebt gedaan wat je hebt gedaan. Eén aspect hiervan is het duidelijk maken waar elke variabele voor gediend heeft in een soort data-flow. Dat kan héél eenvoudig zijn voor kleine projecten:
+
+![DFD diagram zoals gedemonstreerd door Visual Paradigm](https://cdn-images.visual-paradigm.com/lz/tutorials/dfd_screenshots/20150824/34-completed-dfd.png)
+
+maar kunnen in grotere projecten complexer worden:
+
+![Voorbeeld van een DFD binnen de wereld van BI](img/dataflow.svg)
+
+
+

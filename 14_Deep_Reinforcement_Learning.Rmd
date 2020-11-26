@@ -13,8 +13,6 @@ dyad <- readRDS("r/Palette_5YR_5B_Dyad.RDS")
 palette(dyad[c(16, 59)])
 ```
 
-
-
 # Deep Reinforcement Learning
 
 ## Inleiding

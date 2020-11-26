@@ -21,3 +21,16 @@ palette(dyad[c(16, 59)])
 Hier wordt nog aan gewerkt...
 
 :::
+
+
+## Representativiteit en randvoorwaarden
+
+Heel kort: de datawetenschapper moet erover waken dat de representativiteit bekend is voor de opdrachtgever. Dit omdat deze zich vaak niet bewust is van het feit dat de data niet 100 % representatief zijn voor de werkelijkheid. Dit doe je gewoon door tijdens gesprekken of in rapporten hier duidelijk over te communiceren. Er zijn vaak ook andere randvoorwaarden die vermeld dienen te worden tijdens het bekijken van de resultaten van een leeralgoritme. Hieronder zijn een aantal voorbeelden om dit duidelijk te maken, de vermelding van de voorwaarde staat telkens vetgedrukt:
+
+<q>We kunnen met 75% zekerheid voorspellen of een student zal slagen voor het vak __indien het gaat om vakken waarvan het cursusmateriaal van Digitap beschikbaar wordt gemaakt__</q>
+
+<q>__Indien we ervan uitgaan dat de ontbrekende data random verdeeld is over de dataset__ kan ik met 75% zekerheid voorspellen dat &hellip;</q>
+
+<q>__Als we er vanuit gaan dat het respons-gedrag op Facebook de komende maanden niet veranderd__ kunnen we voorspellen dat er vóór het eind van de maand nog een staking uitbreekt.</q>
+
+Soms kunnen er door middel van statistische tests nagegaan worden of er inderdaad aan een aantal randvoorwaarden wordt voldaan. Daarom staat het wel professioneel als je deze ten alle tijde mee vermeldt.

@@ -87,7 +87,7 @@ Het adresseren van een NTM geheugen kan op twee manieren plaatsvinden.
 
 ## Inhoud-gebaseerde adressering
 
-De controller van een NTM kan aanleren om een geheugenplaats (een rij binnen de geheugen matrix) terug te vinden dat zo goed mogelijk overeenstemt met een vooropgestelde sleutelvector $\mathbf{k_t}$ (eng: _key vector_). Hiervoor wordt de aandachtsvector als volgt berekend:
+De controller van een NTM kan leren om een geheugenplaats (een rij binnen de geheugen matrix) terug te vinden dat zo goed mogelijk overeenstemt met een vooropgestelde sleutelvector $\mathbf{k_t}$ (eng: _key vector_). Hiervoor wordt de aandachtsvector als volgt berekend:
 
 $$
 w_t^c=\frac{\exp\left(\beta_t\mathscr{D}\left(M_t,\mathbf{k_t}\right)\right)}{\sum_{i=0}^{N}\exp\left(\beta_t\mathscr{D}\left(M_t,\mathbf{k_t}\right)\right)}
@@ -97,14 +97,14 @@ $$
 
 ## Locatie-gebaseerde adressering
 
-Deze adressering moet toelaten dat de controller aanleert om bepaalde geheugenplaatsen op te roepen en om te navigeren naar een naburige geheugenplaats. Dit gebeurt door op de aandachtsvector een rottionele convolutie uit te voeren (i.e. filter operatie) met een zogenaamde _shift weighting_ $\mathbf{s_t}$:
+Deze adressering moet toelaten dat de controller aanleert om bepaalde geheugenplaatsen op te roepen en om te navigeren naar een naburige geheugenplaats. Dit gebeurt door op de aandachtsvector een rotationele convolutie uit te voeren (i.e. filter operatie) met een zogenaamde _shift weighting_ $\mathbf{s_t}$:
 
 
 ```{r ntm-conv-shift, fig.cap="(ref:ntm-conv-shift)", echo=FALSE}
 include_graphics("img/ntm_conv_shift.svg")
 ```
 
-(ref:ntm-conv-shift) Voorbeeld van een convolutionele shift-operatie om de focus één plaats naar onder te verschuiven. Merk op dat dit een cyclisch gebeuren is in de zin dat de cel van de aandachtsvector $w_t$ die a.h.w. van de vector valt bovenaan wordt gerecycleerd (i.e. $\widetilde{w}_{t,1} = w_{t, 6}$).
+(ref:ntm-conv-shift) Voorbeeld van een convolutionele shift-operatie om de focus één plaats naar onder te verschuiven. Merk op dat dit een cyclisch gebeuren (vandaar _rotationele_ convolutie) is in de zin dat de cel van de aandachtsvector $w_t$ die a.h.w. van de vector valt bovenaan wordt gerecycleerd (i.e. $\widetilde{w}_{t,1} = w_{t, 6}$).
 
 ## Adresseringsmechanisme
 
@@ -149,7 +149,11 @@ Deze beperkingen werden door dezelfde auteurs onderzocht waarop ze met een verbe
 
 We gaan ons hier niet verder verdiepen in de architectuur van een DNC, maar ik geef toch even mee wat de verschillen zijn t.o.v. een NTM:
 
-```{definition dnc-def, name="DNC versus NTM"}
+```{definition dnc-def}
+
+
+__DNC versus NTM__:
+
 - De DNC heeft meerdere leeskoppen
 - De DNC werkt met een _interface vector_ waarin a.h.w. de query vervat zit om de lees- en schrijf-opdrachten uit te voeren
 - De DNC maakt gebruik van een _link matrix_, een _voorrangsvector_ (eng: _precendence vector_) en een gebruiksvector (eng: _usage vector_).
