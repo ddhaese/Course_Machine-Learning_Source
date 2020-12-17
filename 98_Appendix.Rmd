@@ -596,7 +596,7 @@ browseURL("https://cran.r-project.org/web/views/Hydrology.html")
 
 Voor Python en andere talen verwijs ik naar [Stack Overflow](https://stackoverflow.com/). Zie ook volgende paragraaf voor wat meer info over rond Python.
 
-## Waar vind ik leeralgoritmen terugvinden
+## Waar kan ik leeralgoritmen terugvinden
 
 Laten we beginnen met waar je de verscheidene leeralgoritmen kunt terugvinden. In sommige gevallen, zoals voor een enkelvoudig _perceptron_, kan je het zelf gewoon coderen maar meestal worden de algoritmen gelukkig ter beschikking gesteld. Omdat wiskundigen eerder R gebruiken zullen de nieuwere leeralgoritmen gewoonlijk eerst in R verschijnen en pas later in Python. Bij het publiceren van nieuwe methoden wordt er immers vaak van de auteurs verwacht dat ze het algoritme als een peer-reviewed R pakket (eng: _package_) registreren en publiek ter beschikking stellen. Het Comprehensive R Archive Network ([CRAN](https://cran.r-project.org/)), dat de R pakketten beheert en erop toeziet dat de pakketten zowel wiskundig als programmatorisch aan bepaalde standaarden voldoet, stelt zogenaamde _task views_ op met telkens een overzicht van de pakketten die kunnen helpen bij een welbepaalde taak. Zoeken we naar "machine learning", komen we op honderden pakketten uit van `ahaz` tot `xgboost` [^1] en vele van deze pakketten geven toegang tot tientallen verschillende typen leeralgoritmen. Maar dat is niet alles. Op de webpagina met het [overzicht van alle task views](https://cran.r-project.org/web/views/), vinden we bijvoorbeeld het onderwerp natuurlijke taalverwerking (eng: _natural language processing_; NLP) met nog eens tientallen pakketten specifiek rond dit thema.
 

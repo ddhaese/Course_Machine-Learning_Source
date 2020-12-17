@@ -28,9 +28,9 @@ Hieronder volgt een korte samenvatting van een aantal vaak gebruikte transformat
 
 ## Kort overzicht van de manipulaties
 
-### Filteren en versnijden (eng: _subsetting_, _slicing_)
+### Filteren en versnijden
 
-Het versnijden is hier te interpreteren in de betekenis van _aan stukken van een bepaalde vorm snijden_ en niet bijvoorbeeld in de betekenis van _aanmengen met iets van mindere kwaliteit_. Het komt er op neer dat er een selectie van variabelen en instanties gemaakt wordt.
+Het versnijden (eng: _slicing_) is hier te interpreteren in de betekenis van _aan stukken van een bepaalde vorm snijden_ en niet bijvoorbeeld in de betekenis van _aanmengen met iets van mindere kwaliteit_. Het komt er op neer dat er een selectie van variabelen en instanties gemaakt wordt.
 
 ```{r versnijden, fig.cap="(ref:versnijden)", echo=FALSE}
 include_graphics("img/subsetting.svg")
@@ -44,7 +44,7 @@ Denk eraan dat het selecteren van van variabelen een courante activiteit is, ter
 Het achterhouden of selecteren van variabelen, maar voornamelijke van instanties, kan vertrekkende gevolgen hebben. De datawetenschapper moet in het algemeen alle manipulaties maar filter-operaties in het bijzonder zoals het versnijden volledig en transparant rapporteren.
 ```
 
-Dus voorzichtig heid geboden. Maar in sommige gevallen is het verantwoord om ook instanties uit de dataset te filteren:
+Dus voorzichtig heid geboden. Maar in sommige gevallen is het verantwoord om ook instanties uit de dataset te filteren (eng: _subsetting_):
 
 - De data bevat uitlopers die verantwoord kunnen worden of die zonder twijfel veroorzaakt worden door een foutieve invoer
 - De combinatie van sommige variabelen voor een bepaalde instantie is heel waarschijnlijk foutief en is niet het gevolg van structurele maar eerder van eenmalig fouten in de dataset of het invoer-proces

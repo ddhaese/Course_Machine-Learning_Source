@@ -15,7 +15,7 @@ palette(dyad[c(16, 59)])
 
 # Neurale Netwerken met Extern Geheugen
 
-## Inleiding
+## Inleiding NN met extern geheugen
 
 Als uitbreiding op de seq-2-seq-type neurale netweken, RNNs en LSTMs is men een aantal jaren geleden beginnen experimenteren met het toevoegen van een soort extern geheugen aan ANNs. Bij de eerder besproken LSTMs netwerken was er reeds sprake van een soort _werkgeheugen_, maar de bedoeling is hier om het computationeel gedeelde van het ANN beter te scheiden van het geheugen gedeelte. Het gevolg is dat we bijvoorbeeld de grootte van het geheugen kunnen aanpassen zonder de grootte en complexiteit van het netwerk te wijzigen.
 

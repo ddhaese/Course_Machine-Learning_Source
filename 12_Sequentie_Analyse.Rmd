@@ -15,7 +15,7 @@ palette(dyad[c(16, 59)])
 
 # Sequentie Analyse
 
-## Inleiding
+## Inleiding tot sequentie analyse
 
 Neurale netwerken stellen ons in staat om in plaats van statische gegevens ook sequenties en data-stromen te verwerken. Voorbeelden van sequenties zijn muziek, een tekst, een presentatie, de beurs-cijfers, etc&hellip;. Dit is vooral nuttig wanneer er tussen de elementen van de sequentie een zekere autocorrelatie heerst, i.e. wanneer de sequentie ook een reeks vormt.
 

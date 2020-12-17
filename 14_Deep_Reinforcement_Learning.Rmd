@@ -15,7 +15,7 @@ palette(dyad[c(16, 59)])
 
 # Deep Reinforcement Learning
 
-## Inleiding
+## Inleiding Deep RL
 
 Je kan _Deep Reinforcement Learning_ bekijken als Reinforcement learning (nl: conditionering) gecombineerd met neurale netwerken. Conditionering kwamen we eerder al tegen in de [gelijknamige paragraaf van het eerste hoofdstuk](#conditionering). Uit deze paragraaf kwam deze figuur:
 
@@ -83,7 +83,7 @@ Hieronder staan een aantal voorbeelden van DLR. Behalve voor het eerste filmpje 
 
 ## Markov beslissingsproces
 
-Een _Markov beslissingsproces_ (eng: _Markov Decision Proces_ of kortweg _MDP_) is een oude statische constructie die aan de grondslag ligt van conditionering en die de nodige wiskundige beschrijving voor DRL aanlevert. In een Markov proces heb je toestanden en kansen van de ene naar de andere toestand te migreren. Men spreekt van de _transitie_ (eng: _transition_) van de ene toestand naar de andere met een zekere probabiliteit. Men kan zulk een Markov proces omschrijven door het tupel:
+Een _Markov beslissingsproces_ (eng: _Markov Decision Proces_ of kortweg _MDP_) is een oude statistische constructie die aan de grondslag ligt van conditionering en die de nodige wiskundige beschrijving voor DRL aanlevert. In een Markov proces heb je toestanden en kansen van de ene naar de andere toestand te migreren. Men spreekt van de _transitie_ (eng: _transition_) van de ene toestand naar de andere met een zekere probabiliteit. Men kan zulk een Markov proces omschrijven door het tupel:
 
 $$\left(\mathscr{S}.\mathscr{A}, \mathscr{R}, \mathscr{P}, \gamma\right)$$
 
@@ -92,7 +92,7 @@ $$\left(\mathscr{S}.\mathscr{A}, \mathscr{R}, \mathscr{P}, \gamma\right)$$
 - $\mathscr{S}$ de toestand ruimte is (i.e. de set van alle toestand waarin een agent zich kan bevinden)
 - $\mathscr{A}$ de actieruimte is
 - $\mathscr{R}$ de verdeling van de beloning voor een gegeven (toestand, actie)-paar
-- $\mathscr{P}$ de transitie waarschijnlijkheid is van de ene naar een andere toestand en
+- $\mathscr{P}$ de transitie waarschijnlijkheid is van de ene naar een andere toestand
 
 Het algoritme ziet er zo uit:
 
@@ -114,7 +114,7 @@ $$
 \pi^* = \operatorname*{arg\,max}_\pi \mathbb{E}\left[\sum_{t\geq 0}r_t|\pi\right]
 $$
 
-, waarbij $\mathbb{E}$ de [verwachting](https://nl.wikipedia.org/wiki/Verwachting_(wiskunde)) voorstelt. Soms heeft een bepaalde actie een kortetermijneffect, soms heeft het een langetermijneffect. Het kortetermijneffect kan dan bijvoorbeeld negatief zijn terwijl het langetermijneffect gunstig is, en dit maakt de situatie wel veel complexer.
+, waarbij $\mathbb{E}$ de [verwachting](https://nl.wikipedia.org/wiki/Verwachting_(wiskunde)) (eng: _expectation_) voorstelt. Soms heeft een bepaalde actie een kortetermijneffect, soms heeft het een langetermijneffect. Het kortetermijneffect kan dan bijvoorbeeld negatief zijn terwijl het langetermijneffect gunstig is, en dit maakt de situatie wel veel complexer.
 
 Vandaar dus dat we een agent willen optimaliseren naar toekomstige geaccumuleerde beloning. Net zoals bij een spel schaken betekent dit dat de computer moet inschatten wat het effect is van zijn toekomstige zetten, nog vóór hij de zetten effectief plaatst. Als voorbeeld uit het breakdown spel: Het is nuttig om specifiek een tunnel links of rechts van de bakstenen muur te creëren zodat de bakstenen langs achter worden vernietigd:
 
@@ -138,7 +138,7 @@ $$
 
 In traditionele conditionering, is het deze functie, samen met de zogenaamde _Bellman vergelijking_ die voor de recursieve update zorgt, dat we het optimale beleid kunnen bekomen. Het probleem is dat deze methode veronderstelt dat Q berekend moet worden voor elke $s, a$ combinatie en dat maakt dat het niet erg schaalbaar is. Vanaf dat de toestandsruimte realistische proporties begint aan te nemen (denk bijvoorbeeld aan de video-invoer in bovenstaande voorbeelden), is het niet langer haalbaar om deze berekening uit te voeren.
 
-## Deep Reinformcement Learning
+## Deep Reinforcement Learning
 
 Het is doel is nu om de Q-waarde functie te proberen benaderen door middel van een neuraal netwerk. Men spreekt van dit ogenblik van _Deep-Q learning_.
 
