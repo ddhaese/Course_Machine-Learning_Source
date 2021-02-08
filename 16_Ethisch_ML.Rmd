@@ -122,7 +122,7 @@ Een AI triage systeem ontwikkeld door een onderzoeksteam aan de Universiteit van
 
 ## De oorzaken van onethisch AI-producten
 
-Veel van de bovenstaande voorbeelden hebben eerder iets met ontwerp te maken dan met AI of ML, maar het principe is hetzelfde. Een AI-product wordt _ontworpen_ net als elk ander software- of hardware-product ontworpen wordt. Bij AI denk men misschien dat men 'de data laat spreken' en dus per definitie de waarheid vertelt. Dat is dus niet zo. We spraken eerder al over het GIGO principe en dat geldt ook voor ethisch-verantwoordelijkheid.
+Veel van de bovenstaande voorbeelden hebben eerder iets met ontwerp te maken dan met AI of ML, maar het principe is hetzelfde. Een AI-product wordt _ontworpen_ net als elk ander software- of hardware-product ontworpen wordt. Bij AI denk men misschien dat men 'de data laten spreken' en dus per definitie de waarheid vertelt. Dat is dus niet zo. We spraken eerder al over het GIGO principe en dat geldt ook voor ethisch-verantwoordelijkheid.
 
 ```{definition gigo-ethiek}
 Als de invoerdata vertekend zijn, zal het model dat ook zijn.
@@ -132,10 +132,10 @@ Inderdaad, net zoals je een mens kunt wijsmaken dat gelukskoekjes een chinese ui
 
 ## Representativiteit
 
-Laten we eerst een beetje dieper graven naar de oorzaken van onethische AI. Wat betekent het als de data vertekend is?
+Laten we eerst een beetje dieper graven naar de oorzaken van onethische AI. Wat betekent het als de data vertekend zijn?
 
 ```{definition representativeness}
-Vertekende training- of validatie- of test-data zijn data die niet representatief is voor de toekomstige invoer tijdens de inferentie van een ML model.
+Vertekende training-, validatie- of test-data zijn data die niet representatief zijn voor de toekomstige invoer tijdens de inferentie van een ML model.
 ```
 
 Het probleem is dat de data nooit 100% representatief zijn voor de toekomstige invoer. En heel belangrijk:
@@ -150,7 +150,7 @@ Representativiteit van de invoer-data is een belangrijke randvoorwaarden onder d
 
 <q>We kunnen met 75% zekerheid voorspellen of een student zal slagen voor het vak __indien het gaat om vakken waarvan het cursusmateriaal van Digitap beschikbaar wordt gemaakt__</q>
 
-<q>__Indien we ervan uitgaan dat de ontbrekende data random verdeeld is over de dataset__ kan ik met 75% zekerheid voorspellen dat &hellip;</q>
+<q>__Indien we ervan uitgaan dat de ontbrekende data random verdeeld zijn over de dataset__ kan ik met 75% zekerheid voorspellen dat &hellip;</q>
 
 <q>__Als we er vanuit gaan dat het respons-gedrag op Facebook de komende maanden niet veranderd__ kunnen we voorspellen dat er vóór het eind van de maand nog een staking uitbreekt.</q>
 
@@ -166,8 +166,8 @@ Maar wetgeving en ethiek zijn twee verschillende zaken. De wetgeving probeert na
 
 Europa is dus het eerste grootmacht op aarde dat zo een uitgesproken wet of de privacy van persoonlijke gegevens goedkeurt (@gdpr). De principes van deze verordening kunnen als volgt samengevat worden:
 
-```{definition gdpr-1, name="Transparanti-1"}
-__Persoonsgegevens__ zijn die onlosmakelijk aan een persson gekoppeld kunnen worden. Enerzijds gaat het om gegevens waarmee de persoon in kwestie rechtressk of onrechtreeks geïdentificeerd kan worden zoals vingerafdruk, adres, rijksregisternummer, telefoonnumer, IP-adres, MAC-adres, enz&hellip;. Als een AP student geïdentificeerd kan worden a.d.h.v. geboorteplaats (omdat er maar één student daar geboren is), dan wordt dat ook een persoonsgegeven! Als een combinatie van geslacht en geboortedatum een student (bijna) kan identificeren, dan zijn dat ook persoonsgegevens. Daarnaast zijn ook andere gegevens zoals doctorsattesten en allerhande soorten medische gegevens sowieso persoonsgegevens en moeten deze maximaal beschermd worden
+```{definition gdpr-1, name="Transparantie-1"}
+__Persoonsgegevens__ zijn die onlosmakelijk aan een persson gekoppeld kunnen worden. Enerzijds gaat het om gegevens waarmee de persoon in kwestie rechtressk of onrechtreeks geïdentificeerd kan worden zoals vingerafdruk, adres, rijksregisternummer, telefoonnumer, IP-adres, MAC-adres, enz&hellip;. Als een AP student geïdentificeerd kan worden a.d.h.v. geboorteplaats (omdat er maar één student daar geboren is), dan wordt dat ook een persoonsgegeven! Als een combinatie van geslacht en geboortedatum een student (bijna) kan identificeren, dan zijn dat ook persoonsgegevens. Daarnaast zijn ook andere gegevens zoals doctorsattesten en allerhande soorten medische gegevens sowieso persoonsgegevens en moeten deze maximaal beschermd worden.
 ```
 
 ```{definition gdpr-2, name="Transparantie-2"}
@@ -217,7 +217,7 @@ Vele online platformen hanteren het principe van _public-by-default_ (@gabriels2
 Isaac Asimov bedacht in 1942 de wetten van de robotica en bracht zo meteen een ethische kijk op het gebruik van artificiële intelligentie:
 
 <q><br>Nulde wet &mdash; Een robot mag geen schade toebrengen aan de mensheid, of toelaten dat de mensheid schade toegebracht wordt door zijn nalatigheid.<br>
-Eerste Wet &mdash; Een robot mag een mens geen letsel toebrengen of door niet te handelen toestaan dat een mens letsel oploopt behalve als dit de Nulde Wet zou schenden.<br>
+Eerste Wet &mdash; Een robot mag een mens geen letsel toebrengen of door niet te handelen toestaan dat een mens een letsel oploopt behalve als dit de Nulde Wet zou schenden.<br>
 Tweede Wet &mdash; Een robot moet de bevelen uitvoeren die hem door mensen gegeven worden, behalve als die opdrachten in strijd zijn met de Nulde Wet of de Eerste Wet.<br>
 Derde Wet &mdash; Een robot moet zijn eigen bestaan beschermen, voor zover die bescherming niet in strijd is met de Nulde, de Eerste of de Tweede Wet.</q>
 
@@ -283,7 +283,7 @@ Werk in nauwe samenwerking binnen een goed-gebalanceerd multidisciplinair team.
 ```
 
 ```{definition ai-rule-3}
-Werk uitsluitend met representatieve data
+Werk uitsluitend met representatieve data.
 ```
 
 ```{definition ai-rule-4}
@@ -291,7 +291,7 @@ Werk het liefst met méér dan 1 onafhankelijke databron.
 ```
 
 ```{definition ai-rule-5}
-Weet alles wat er te weten is over de bron-data, wie heeft het verzameld, hoe werd het verzameld, is de onafhankelijkheid van alle tussenpersonen gegarandeerd, was er voldoende controle tijdens het verzamelen van de data, kan je de controle documenten inkijken, kan je de oorspronkelijke data-collectoren spreken (indien relevant), enzovoort&hellip;. Zie bijvoorbeeld ook het online [_Data Collection Bias Assessment_](https://data-en-maatschappij.ai/uploads/publications/DANDA-form.pdf) formulier of de [_Aequitas source bias audit toolkit_](http://www.datasciencepublicpolicy.org/projects/aequitas/).
+Weet alles wat er te weten is over de bron-data: wie heeft het verzameld, hoe werd het verzameld, is de onafhankelijkheid van alle tussenpersonen gegarandeerd, was er voldoende controle tijdens het verzamelen van de data, kan je de controle documenten inkijken, kan je de oorspronkelijke data-collectoren spreken (indien relevant), enzovoort&hellip;. Zie bijvoorbeeld ook het online [_Data Collection Bias Assessment_](https://data-en-maatschappij.ai/uploads/publications/DANDA-form.pdf) formulier of de [_Aequitas source bias audit toolkit_](http://www.datasciencepublicpolicy.org/projects/aequitas/).
 ```
 
 ```{definition ai-rule-9}

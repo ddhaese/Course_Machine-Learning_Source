@@ -340,7 +340,7 @@ Een zeer bekende oefen-dataset is de [iris dataset](https://en.wikipedia.org/wik
 ![](img/iris.png)
 <small>Bron: @iris-setosa, @iris-versicolor, @iris-virginica.</small>
 
-Stel dat het doel is om de drie sterk gelijkende bloemensoorten te onderscheiden op basis van slechts 2 variabelen, namelijk de lengte van het kroonblad $x_p$ en de lengte van het kelkblad $x_s$. Veronderstel verder dat het model reeds getraind werd. Het model zou bijvoorbeeld kunnen afhangen van slechts 3 parameters die op $x_s$ en $x_p$ inwerken, bijvoorbeeld: $\theta_1 = 2.5$, $\theta_2 = 1.2$ en $\theta_3=0.3$. De _logica_ van het model zou er dan bijvoorbeeld als volgt kunnen uitkzien:
+Stel dat het doel is om de drie sterk gelijkende bloemensoorten te onderscheiden op basis van slechts 2 variabelen, namelijk de lengte van het kroonblad $x_p$ en de lengte van het kelkblad $x_s$. Veronderstel verder dat het model reeds getraind werd. Het model zou bijvoorbeeld kunnen afhangen van slechts 3 parameters die op $x_s$ en $x_p$ inwerken, bijvoorbeeld: $\theta_1 = 2.5$, $\theta_2 = 1.2$ en $\theta_3=0.3$. De _logica_ van het model zou er dan bijvoorbeeld als volgt kunnen uitzien:
 
 $$species=\begin{cases}\text{setosa als }x_p<\theta_1\\\text{versicolor als }x_s>\theta_2p+\theta_3\\\text{virginica anders}\end{cases}$$
 ```
